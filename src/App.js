@@ -6,6 +6,7 @@ import Reports from "./components/UI/Reports/Reports";
 import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointment";
 import Auth from "./containers/Auth/Auth";
 import UserProvider from "./contexts/UserProvider";
+import Register from "./components/UI/Register/Register";
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
             <Route path="/" exact />
             <Route path="/auth" exact component={Auth} />
             <Route path="/student/add" component={AddAppointment} />
+            <Route path="/register" component={Register} />
             <Route path="/student" component={Reports} />
           </Switch>
         </Layout>

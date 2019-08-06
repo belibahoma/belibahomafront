@@ -9,7 +9,8 @@ export default class Auth extends Component {
     username: "",
     password: "",
     token: "",
-    loginModalShow: false
+    loginModalShow: false,
+    user: null
   };
 
   handleSubmit = event => {
@@ -21,13 +22,22 @@ export default class Auth extends Component {
       })
       .then(res => {
         console.log(res.data);
-        this.setState({ token: res.data });
+        this.setState({ token: res.data.token });
+        this.setState({ user: res.data.user });
+        localStorage.setItem("beliba-homa-auth-token", this.state.token);
+        localStorage.setItem(
+          "beliba-homa-user",
+          JSON.stringify({
+            fname: this.state.user.fname,
+            lname: this.state.user.lname,
+            _id: this.state.user._id,
+            userType: this.state.user.userType
+          })
+        );
+        this.props.onAuthenticated({
+          user: this.state.user
+        });
       });
-    this.props.handleAuth({
-      username: this.state.username,
-      password: this.state.password,
-      token: this.state.token
-    });
   };
   handleError = obj => {
     console.log(obj);

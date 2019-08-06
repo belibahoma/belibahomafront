@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { NavDropdown, Nav } from "react-bootstrap";
 
 export default class AdminToolbar extends Component {
   render() {
     return (
-      <Nav className="ml-auto">
+      <Nav className="text-right m-auto">
         <NavDropdown alignRight title="ניהול התראות" id="basic-nav-dropdown">
           <NavDropdown.Item href="#action/3.1" className="text-right">
             לוח התראות

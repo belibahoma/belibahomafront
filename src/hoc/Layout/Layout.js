@@ -3,10 +3,6 @@ import React, { Component } from "react";
 import Toolbar from "../../components/Navigation/Toolbar/Toolbar";
 
 class Layout extends Component {
-  state = {
-    currentUser: { name: "matanya", position: "user" }
-  };
-
   render() {
     return (
       <React.Fragment>
@@ -31,7 +27,7 @@ class Layout extends Component {
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossOrigin="anonymous"
         />
-        <Toolbar user={this.state.currentUser} />
+        <Toolbar />
         <main>{this.props.children}</main>
       </React.Fragment>
     );
