@@ -82,7 +82,15 @@ class Toolbar extends Component {
   };
 
   handleLoggingCanceled = () => {
-    this.setState({ isLoggingIn: !this.state.isLoggingIn });
+    localStorage.removeItem("beliba-homa-auth-token");
+    localStorage.removeItem("beliba-homa-user");
+    this.setState({
+      isLoggedIn: false,
+      isLoggingIn: false,
+      fname: "",
+      lname: "",
+      userType: null
+    });
   };
 
   handleLoggingOut = () => {
@@ -162,7 +170,7 @@ class Toolbar extends Component {
         <Auth
           onAuthenticated={this.handleAuthenticated}
           loginModalShow={this.state.isLoggingIn}
-          onModalClosed={this.handleLoggingCanceled}
+          onModalCanceled={this.handleLoggingCanceled}
         />
       </React.Fragment>
     );

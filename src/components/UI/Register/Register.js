@@ -4,18 +4,32 @@ import { Form, Button, Container } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import TutorRegisterForm from "./TutorRegisterForm/TutorRegisterForm";
+import TraineeRegisterForm from "./TraineeRegisterForm/TraineeRegisterForm";
 
 export default class Register extends Component {
   state = {
     date: this.props.date,
-    location: "",
-    studyTime: 0,
-    chavrutaTime: 0,
-    casingTime: 0
+    registerType: 2
   };
 
   handleUserTypeChange = val => {
     console.log(val);
+    this.setState({ registerType: val });
+  };
+
+  chooseRegisterType = () => {
+    return this.state.registerType == 1 ? (
+      <TutorRegisterForm
+        onSubmit={this.handleTutorSubmit}
+        onCanceled={this.handleTutorCanceled}
+      />
+    ) : (
+      <TraineeRegisterForm
+        onSubmit={this.handleTraineeSubmit}
+        onCanceled={this.handleTraineeCanceled}
+      />
+    );
   };
 
   render() {
@@ -32,9 +46,10 @@ export default class Register extends Component {
             defaultValue={1}
             onChange={this.handleUserTypeChange}
           >
-            <ToggleButton value={1}>אני חונך</ToggleButton>
-            <ToggleButton value={2}>אני חניך</ToggleButton>
+            <ToggleButton value={1}>אני מתגבר</ToggleButton>
+            <ToggleButton value={2}>אני סטודנט חרדי</ToggleButton>
           </ToggleButtonGroup>
+          {this.chooseRegisterType()}
         </Container>
       </React.Fragment>
     );

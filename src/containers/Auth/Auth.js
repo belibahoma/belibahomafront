@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Button, Jumbotron, Modal } from "react-bootstrap";
+import { Form, Button, Jumbotron, Modal, Spinner } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
 import TextValidator from "../../components/Validators/TextValidator/TextValidator";
 
@@ -10,11 +10,11 @@ export default class Auth extends Component {
     password: "",
     token: "",
     loginModalShow: false,
-    user: null
+    user: null,
+    isLoading: false
   };
 
   handleSubmit = event => {
-    this.props.onModalClosed();
     axios
       .post("http://localhost:8080/api/auth", {
         username: this.state.username,
@@ -37,7 +37,13 @@ export default class Auth extends Component {
         this.props.onAuthenticated({
           user: this.state.user
         });
+        this.setState({ isLoading: false });
+      })
+      .catch(err => {
+        alert(err.message);
+        this.handleModalCanceled();
       });
+    this.setState({ isLoading: true });
   };
   handleError = obj => {
     console.log(obj);
@@ -51,11 +57,39 @@ export default class Auth extends Component {
     this.setState({ username: event.target.value });
   };
 
+  handleModalCanceled = () => {
+    this.setState({ isLoading: false });
+    this.props.onModalCanceled();
+  };
+
+  toggleLoginButton = () => {
+    if (this.state.isLoading) {
+      return (
+        <Button variant="primary" disabled>
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          Loading...
+        </Button>
+      );
+    } else {
+      return (
+        <Button variant="primary" type="submit">
+          כניסה
+        </Button>
+      );
+    }
+  };
+
   render() {
     if (this.state.loginModalShow !== this.props.loginModalShow)
       this.setState({ loginModalShow: this.props.loginModalShow });
     return (
-      <Modal show={this.props.loginModalShow} onHide={this.props.onModalClosed}>
+      <Modal show={this.props.loginModalShow} onHide={this.handleModalCanceled}>
         <Modal.Dialog>
           <Modal.Title className="text-center">התחבר</Modal.Title>
           <Modal.Body>
@@ -79,6 +113,7 @@ export default class Auth extends Component {
                   as={TextValidator}
                   name="username"
                   className="text-right"
+                  disabled={this.state.isLoading ? "disabled" : null}
                 />
               </Form.Group>
               <Form.Group controlId="formBasicPassword">
@@ -93,6 +128,7 @@ export default class Auth extends Component {
                   value={this.state.password}
                   onChange={this.handlePasswordChanged}
                   className="text-right"
+                  disabled={this.state.isLoading ? "disabled" : null}
                 />
               </Form.Group>
               <Form.Group className="text-left">
@@ -100,13 +136,11 @@ export default class Auth extends Component {
                   variant="primary"
                   className="btn btn-danger mr-2"
                   type="button"
-                  onClick={this.props.onModalClosed}
+                  onClick={this.handleModalCanceled}
                 >
                   ביטול
                 </Button>
-                <Button variant="primary" type="submit">
-                  כניסה
-                </Button>
+                {this.toggleLoginButton()}
               </Form.Group>
             </Form>
             {/* </Jumbotron> */}
