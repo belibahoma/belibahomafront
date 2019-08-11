@@ -6,21 +6,24 @@ import {
   Spinner,
   Col,
   Row,
-  Jumbotron
+  Jumbotron,
+  Modal
 } from "react-bootstrap";
 import TextValidator from "../../../Validators/TextValidator/TextValidator";
 import { ValidatorForm } from "react-form-validator-core";
 import TimePicker from "react-time-picker";
 import DatePicker from "react-date-picker";
-import "react-datepicker/dist/react-datepicker.css";
 import DynamicSelectBox from "./../../../../containers/DynamicSelectBox/DynamicSelectBox";
 import config from "react-global-configuration";
 import _ from "lodash";
-import FormCheckInput from "react-bootstrap/FormCheckInput";
+import axios from "axios";
+import { withRouter } from "react-router-dom";
 
-export default class TraineeRegisterForm extends Component {
+class TraineeRegisterForm extends Component {
   state = {
     isAdditionalStudyPath: false,
+    isLoading: false,
+    spinnerColor: "primary",
     id: "",
     fname: "",
     lname: "",
@@ -29,14 +32,14 @@ export default class TraineeRegisterForm extends Component {
     phoneA: "",
     phoneB: "",
     birthDate: Date.now(),
-    gender: "",
-    maritalStatus: "",
-    activityArea: "",
-    institute: "",
-    mainStudy: "",
+    gender: "זכר",
+    maritalStatus: "נשוי",
+    activityArea: "N/A",
+    institute: "N/A",
+    mainStudy: "N/A",
     secondaryStudy: "",
     academicPlan: "מכינה/בגרויות",
-    studyYear: "",
+    studyYear: "1",
     bankAccount: {
       bankName: "",
       branchNumber: "",
@@ -52,7 +55,7 @@ export default class TraineeRegisterForm extends Component {
       city: "",
       neighborhood: ""
     },
-    religiousStatus: "",
+    religiousStatus: "חילוני",
     religiousText: "",
     unavailableTimes: [
       { day: 1, Time: { start: Date.now(), end: Date.now() } }
@@ -60,7 +63,7 @@ export default class TraineeRegisterForm extends Component {
     notes: "",
     stuffNotes: "",
     isNeedAdditionalRelation: false,
-    activeStatus: "",
+    activeStatus: "active",
     isFinnishPreparatory: false,
     isGraduated: false,
     isFoundJob: false,
@@ -70,7 +73,7 @@ export default class TraineeRegisterForm extends Component {
     isLiveInSelectedCities: false,
     isRegisteredToKivun: false,
     needsHelpIn: "",
-    workStatus: "",
+    workStatus: "לא עובד ולא מחפש עבודה",
     workTitle: "",
     isLearnedInYeshiva: false,
     yeshivaTimes: "",
@@ -90,13 +93,104 @@ export default class TraineeRegisterForm extends Component {
       shortTermPreparatory: false
     },
     isServed: false,
-    mathLevel: 0,
-    englishLevel: 0,
-    physicsLevel: 0,
+    mathLevel: "0",
+    englishLevel: "0",
+    physicsLevel: "0",
     additionalTopics: "",
     isActive: false,
     leavingReason: "",
     isDropped: false
+  };
+
+  componentDidMount() {
+    let colors = [
+      "primary",
+      "secondary",
+      "success",
+      "danger",
+      "warning",
+      "info",
+      "dark"
+    ];
+    let i = 1;
+    setInterval(() => {
+      this.setState({ spinnerColor: colors[i++ % 7] });
+    }, 1000);
+  }
+
+  check = () => {
+    // console.log(JSON.stringify(_.omit({ ...this.state }, ["isLoading"])));
+  };
+
+  handleSubmit = val => {
+    if (
+      ["activityArea", "institute", "mainStudy"].filter(val => {
+        return (
+          this.state[val] === "N/A" ||
+          this.state[val] === "loading" ||
+          this.state[val] === "error"
+        );
+      }).length >= 1
+    ) {
+      alert("נא למלא את כל השדות");
+    } else {
+      this.showLoadingModal();
+      let dataToPost = _.omit({ ...this.state }, [
+        "isAdditionalStudyPath",
+        "isLoading",
+        "spinnerColor"
+      ]);
+      //   dataToPost = JSON.stringify(dataToPost);
+      console.log(dataToPost);
+      axios
+        .post(`${config.get("serverAddress")}/api/trainees`, dataToPost)
+        .then(res => {
+          clearInterval();
+          console.log(res.data);
+          localStorage.setItem(
+            "beliba-homa-auth-token",
+            res.headers["x-auth-token"]
+          );
+          localStorage.setItem(
+            "beliba-homa-user",
+            JSON.stringify({
+              fname: res.data.fname,
+              lname: res.data.lname,
+              _id: res.data._id,
+              userType: res.data.userType
+            })
+          );
+          this.setState({ isLoading: false });
+          this.props.history.push("/");
+        })
+        .catch(err => {
+          alert(err.message);
+          this.setState({ isLoading: false });
+        });
+    }
+  };
+
+  showLoadingModal = () => {
+    this.setState({ isLoading: true });
+  };
+
+  getModal = () => {
+    return (
+      <Modal onHide={() => {}} show={this.state.isLoading}>
+        <Modal.Body className="text-center">
+          <h4 dir="rtl">טוען...</h4>
+          <Spinner
+            animation="border"
+            size="lg"
+            variant={this.state.spinnerColor}
+          />
+        </Modal.Body>
+      </Modal>
+    );
+  };
+
+  handleError = obj => {
+    console.log(obj);
   };
 
   handleIdChanged = event => {
@@ -148,8 +242,10 @@ export default class TraineeRegisterForm extends Component {
   handleStudyYearChanged = event => {
     this.setState({ studyYear: event.target.value });
   };
-  handleBankAccountChanged = event => {
-    this.setState({ bankAccount: event.target.value });
+  handleBankAccountChanged = (event, str) => {
+    let tmpAccount = _.cloneDeep(this.state.bankAccount);
+    tmpAccount[str] = event.target.value;
+    this.setState({ bankAccount: tmpAccount });
   };
   handleBankNameChanged = event => {
     this.setState({ bankName: event.target.value });
@@ -201,29 +297,28 @@ export default class TraineeRegisterForm extends Component {
           day: newVal.target.value,
           Time: valueToChange.Time
         };
-        console.log("day ", valueToChange, newVal.target.value);
         tmpUnavailableTimes[index] = valueToChange;
         break;
       case "start":
         valueToChange = {
-          Time: { start: newVal, end: valueToChange.Time.end },
+          Time: { start: new Date(newVal), end: valueToChange.Time.end },
           day: valueToChange.day
         };
-        console.log("start ", valueToChange, newVal);
         tmpUnavailableTimes[index] = valueToChange;
         break;
       case "end":
         valueToChange = {
-          Time: { start: valueToChange.Time.start, end: newVal },
+          Time: { start: valueToChange.Time.start, end: new Date(newVal) },
           day: valueToChange.day
         };
-        console.log("end ", valueToChange, newVal);
         tmpUnavailableTimes[index] = valueToChange;
         break;
       case "remove":
         tmpUnavailableTimes = tmpUnavailableTimes.filter((val, i) => {
           return i !== index;
         });
+        break;
+      default:
         break;
     }
     this.setState({ unavailableTimes: tmpUnavailableTimes });
@@ -298,6 +393,19 @@ export default class TraineeRegisterForm extends Component {
     tmpWantDetail[str] = !tmpWantDetail[str];
     this.setState({ WantDetailsAbout: tmpWantDetail });
   };
+
+  handleRealAddressChanged = (event, str) => {
+    let tmpAddress = _.cloneDeep(this.state.realAddress);
+    tmpAddress[str] = event.target.value;
+    this.setState({ realAddress: tmpAddress });
+  };
+
+  handleCurrentAddressChanged = (event, str) => {
+    let tmpAddress = _.cloneDeep(this.state.currentAddress);
+    tmpAddress[str] = event.target.value;
+    this.setState({ currentAddress: tmpAddress });
+  };
+
   handlePersonalTrainingChanged = event => {
     this.setState({ personalTraining: event.target.value });
   };
@@ -350,13 +458,6 @@ export default class TraineeRegisterForm extends Component {
     this.setState({ isDropped: event.target.value });
   };
 
-  handleSubmit = val => {
-    console.log("Submitted", val);
-  };
-  handleError = obj => {
-    console.log(obj);
-  };
-
   unavailableTimesForm = () => {
     return this.state.unavailableTimes.map((obj, index) => {
       return (
@@ -387,12 +488,12 @@ export default class TraineeRegisterForm extends Component {
               <br />
               <TimePicker
                 className="mt-1"
+                name={`start${index}`}
                 selected={this.state.unavailableTimes[index].Time.start}
                 onChange={event => {
                   this.handleUnavailableTimesChanged(event, index, "start");
                 }}
                 disableClock={true}
-                required
               />
               <br />
             </Form.Group>
@@ -400,13 +501,13 @@ export default class TraineeRegisterForm extends Component {
               <Form.Label>אנא בחר שעת סיום</Form.Label>
               <br />
               <TimePicker
+                name={`end${index}`}
                 className="mt-1"
                 selected={this.state.unavailableTimes[index].Time.end}
                 onChange={event => {
                   this.handleUnavailableTimesChanged(event, index, "end");
                 }}
                 disableClock={true}
-                required
               />
               <br />
             </Form.Group>
@@ -429,6 +530,7 @@ export default class TraineeRegisterForm extends Component {
   render() {
     return (
       <React.Fragment>
+        {this.state.isLoading ? this.getModal() : null}
         <Container className="text-right m-2">
           <Form
             as={ValidatorForm}
@@ -447,8 +549,18 @@ export default class TraineeRegisterForm extends Component {
               onChange={this.handleIdChanged}
               name="id"
               value={this.state.id}
-              validators={["required", "matchRegexp:[d]{9}"]}
-              errorMessages={["שדה זה הינו חובה", " חייב להכיל 9 מספרים"]}
+              validators={[
+                "required",
+                "isNumber",
+                "minStringLength:9",
+                "maxStringLength:9"
+              ]}
+              errorMessages={[
+                "שדה זה הינו חובה",
+                "מכיל מספרים בלבד",
+                "צריך להכיל לפחות 9 ספרות",
+                "צריך להכיל לכל היותר 9 ספרות"
+              ]}
             />
             <Form.Label>שם פרטי</Form.Label>
             <Form.Control
@@ -495,8 +607,18 @@ export default class TraineeRegisterForm extends Component {
               onChange={this.handlePhoneAChanged}
               name="phoneA"
               value={this.state.phoneA}
-              validators={["required", "matchRegexp:[0-9]{9}"]}
-              errorMessages={["שדה זה הינו חובה", "נא להכניס ספרות בלבד"]}
+              validators={[
+                "required",
+                "isNumber",
+                "minStringLength:9",
+                "maxStringLength:10"
+              ]}
+              errorMessages={[
+                "שדה זה הינו חובה",
+                "נא להכניס ספרות בלבד",
+                "צריך להכיל לפחות 9 ספרות",
+                "צריך להכיל מקסימום 10 ספרות"
+              ]}
             />
             <Form.Label>מספר טלפון משני</Form.Label>
             <Form.Control
@@ -560,6 +682,7 @@ export default class TraineeRegisterForm extends Component {
               as={DynamicSelectBox}
               className="mb-2"
               dir="rtl"
+              value={this.state.activityArea}
               onChange={this.handleActivityAreaChanged}
               name="activityArea"
               fetchLink={`${config.get("serverAddress")}/api/areas`}
@@ -569,6 +692,7 @@ export default class TraineeRegisterForm extends Component {
               as={DynamicSelectBox}
               className="mb-2"
               dir="rtl"
+              value={this.state.institute}
               onChange={this.handleInstituteChanged}
               name="institute"
               fetchLink={`${config.get("serverAddress")}/api/institutes`}
@@ -577,6 +701,7 @@ export default class TraineeRegisterForm extends Component {
             <Form.Control
               as={DynamicSelectBox}
               className="mb-2"
+              value={this.state.mainStudy}
               dir="rtl"
               onChange={this.handleMainStudyChanged}
               name="mainStudy"
@@ -599,6 +724,7 @@ export default class TraineeRegisterForm extends Component {
                   as={DynamicSelectBox}
                   className="mb-2"
                   dir="rtl"
+                  value={this.state.secondaryStudy}
                   onChange={this.handleSecondaryStudyChanged}
                   name="secondaryStudy"
                   fetchLink={`${config.get(
@@ -653,9 +779,11 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleBankNameChanged}
+                  onChange={event => {
+                    this.handleBankAccountChanged(event, "bankName");
+                  }}
                   name="bankName"
-                  value={this.state.bankName}
+                  value={this.state.bankAccount.bankName}
                   validators={["required"]}
                   errorMessages={["שדה זה הינו חובה"]}
                 />
@@ -666,10 +794,12 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleBranchNumberChanged}
+                  onChange={event => {
+                    this.handleBankAccountChanged(event, "branchNumber");
+                  }}
                   name="branchNumber"
-                  value={this.state.branchNumber}
-                  validators={["required", "matchRegexp:[0-9]"]}
+                  value={this.state.bankAccount.branchNumber}
+                  validators={["required", "isNumber"]}
                   errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
@@ -679,10 +809,12 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleAccountNumberChanged}
+                  onChange={event => {
+                    this.handleBankAccountChanged(event, "accountNumber");
+                  }}
                   name="accountNumber"
-                  value={this.state.accountNumber}
-                  validators={["required", "matchRegexp:[0-9]"]}
+                  value={this.state.bankAccount.accountNumber}
+                  validators={["required", "isNumber"]}
                   errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
@@ -698,7 +830,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleRealStreetChanged}
+                  onChange={event => {
+                    this.handleRealAddressChanged(event, "street");
+                  }}
                   name="realAddress.street"
                   value={this.state.realAddress.street}
                   validators={["required"]}
@@ -711,7 +845,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleRealCityChanged}
+                  onChange={event => {
+                    this.handleRealAddressChanged(event, "city");
+                  }}
                   name="realAddress.city"
                   value={this.state.realAddress.city}
                   validators={["required"]}
@@ -724,7 +860,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleRealNeighborhoodChanged}
+                  onChange={event => {
+                    this.handleRealAddressChanged(event, "neighborhood");
+                  }}
                   name="realAddress.neighborhood"
                   value={this.state.realAddress.neighborhood}
                   validators={["required"]}
@@ -743,7 +881,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleCurrentStreetChanged}
+                  onChange={event => {
+                    this.handleCurrentAddressChanged(event, "street");
+                  }}
                   name="currentAddress.street"
                   value={this.state.currentAddress.street}
                   validators={["required"]}
@@ -756,7 +896,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleCurrentCityChanged}
+                  onChange={event => {
+                    this.handleCurrentAddressChanged(event, "city");
+                  }}
                   name="currentAddress.city"
                   value={this.state.currentAddress.city}
                   validators={["required"]}
@@ -769,7 +911,9 @@ export default class TraineeRegisterForm extends Component {
                   type="text"
                   as={TextValidator}
                   className="mb-2"
-                  onChange={this.handleCurrentNeighborhoodChanged}
+                  onChange={event => {
+                    this.handleCurrentAddressChanged(event, "neighborhood");
+                  }}
                   name="currentAddress.neighborhood"
                   value={this.state.currentAddress.neighborhood}
                   validators={["required"]}
@@ -839,7 +983,7 @@ export default class TraineeRegisterForm extends Component {
             />
             <Form.Row dir="rtl">
               <Form.Group as={Col}>
-                <Form.Label>הגדרה דתית</Form.Label>
+                <Form.Label>מצב תעסוקתי</Form.Label>
                 <Form.Control
                   as="select"
                   className="mb-2"
@@ -1120,10 +1264,18 @@ export default class TraineeRegisterForm extends Component {
                 value={this.state.isServed}
               />
             </Form.Group>
-            <Button className="m-2 btn btn-danger" type="button">
+            <Button
+              className="m-2 btn btn-danger"
+              type="button"
+              disabled={this.state.isLoading ? "disabled" : null}
+            >
               ביטול
             </Button>
-            <Button className="m-2 " type="submit">
+            <Button
+              className="m-2 "
+              type="submit"
+              disabled={this.state.isLoading ? "disabled" : null}
+            >
               הרשם
             </Button>
           </Form>
@@ -1132,3 +1284,5 @@ export default class TraineeRegisterForm extends Component {
     );
   }
 }
+
+export default withRouter(TraineeRegisterForm);

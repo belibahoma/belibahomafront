@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Button, Jumbotron, Modal, Spinner } from "react-bootstrap";
+import { Form, Button, Modal, Spinner } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
 import TextValidator from "../../components/Validators/TextValidator/TextValidator";
 
@@ -85,9 +85,12 @@ export default class Auth extends Component {
     }
   };
 
-  render() {
+  componentWillUpdate() {
     if (this.state.loginModalShow !== this.props.loginModalShow)
       this.setState({ loginModalShow: this.props.loginModalShow });
+  }
+
+  render() {
     return (
       <Modal show={this.props.loginModalShow} onHide={this.handleModalCanceled}>
         <Modal.Dialog>

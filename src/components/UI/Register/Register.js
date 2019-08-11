@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Modal, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { Form, Button, Container } from "react-bootstrap";
-import { ValidatorForm } from "react-form-validator-core";
-import DatePicker from "react-datepicker";
+import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 import TutorRegisterForm from "./TutorRegisterForm/TutorRegisterForm";
 import TraineeRegisterForm from "./TraineeRegisterForm/TraineeRegisterForm";
@@ -19,7 +17,7 @@ export default class Register extends Component {
   };
 
   chooseRegisterType = () => {
-    return this.state.registerType == 1 ? (
+    return this.state.registerType === 1 ? (
       <TutorRegisterForm
         onSubmit={this.handleTutorSubmit}
         onCanceled={this.handleTutorCanceled}
@@ -43,7 +41,7 @@ export default class Register extends Component {
           <ToggleButtonGroup
             type="radio"
             name="options"
-            defaultValue={1}
+            defaultValue={2}
             onChange={this.handleUserTypeChange}
           >
             <ToggleButton value={1}>אני מתגבר</ToggleButton>

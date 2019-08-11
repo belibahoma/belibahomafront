@@ -7,7 +7,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-config.set({ serverAddress: "http://localhost:8080" });
+config.set({ serverAddress: "http://192.168.40.23:8080" });
 
 const app = (
   <BrowserRouter>

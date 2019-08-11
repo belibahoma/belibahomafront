@@ -16,23 +16,34 @@ export default class DynamicSelectBox extends Component {
         this.setState({ isLoaded: false });
       })
       .catch(err => {
-        this.setState({ valuesList: ["error", err] });
+        this.setState({ valuesList: [{ error: err.message }] });
       });
+    this.props.onChange({ target: { value: "error" } });
   }
 
   selectList = () => {
     if (this.state.valuesList.length === 0) {
       return <option value="loading">טוען...</option>;
-    } else if (this.state.valuesList[0] === "error") {
-      return <option value="loading">{this.state.valuesList[1]}</option>;
+    } else if (this.state.valuesList[0].error) {
+      return (
+        <option key="error" value="error">
+          {this.state.valuesList[0].error}
+        </option>
+      );
     } else {
-      return this.state.valuesList.map(val => {
-        return (
+      let valuesArr = [
+        <option key="N/A" value="N/A">
+          N/A
+        </option>
+      ];
+      this.state.valuesList.map(val => {
+        return valuesArr.push(
           <option key={val._id} value={val._id}>
             {val.name}
           </option>
         );
       });
+      return valuesArr;
     }
   };
 
@@ -44,6 +55,10 @@ export default class DynamicSelectBox extends Component {
         onChange={event => {
           this.props.onChange(event);
         }}
+        onFocus={event => {
+          this.props.onChange(event);
+        }}
+        required
       >
         {this.selectList()}
       </select>

@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo.jpg";
 
-import { Navbar, NavItem, Nav, Dropdown, Button } from "react-bootstrap";
-import UserContext from "../../../contexts/UserContext";
-import UserProvider from "./../../../contexts/UserProvider";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import Auth from "../../../containers/Auth/Auth";
 import AdminToolbar from "./AdminToolbar";
@@ -24,7 +22,6 @@ class Toolbar extends Component {
     let userData = localStorage.getItem("beliba-homa-user");
     if (userToken && userData && !this.state.isLoggedIn) {
       userData = JSON.parse(userData);
-      console.log("setting the state");
       this.setState({
         user: userData,
         isLoggedIn: true,
@@ -40,7 +37,6 @@ class Toolbar extends Component {
     let userData = localStorage.getItem("beliba-homa-user");
     if (userToken && userData && !this.state.isLoggedIn) {
       userData = JSON.parse(userData);
-      console.log("updating the state");
       this.setState({
         user: userData,
         isLoggedIn: true,
