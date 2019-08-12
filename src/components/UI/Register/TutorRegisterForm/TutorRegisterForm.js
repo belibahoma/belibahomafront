@@ -5,7 +5,6 @@ import {
   Container,
   Spinner,
   Col,
-  Row,
   Jumbotron,
   Modal
 } from "react-bootstrap";
@@ -32,13 +31,13 @@ class TutorRegisterForm extends Component {
     phoneA: "",
     phoneB: "",
     birthDate: Date.now(),
-    gender: "זכר",
-    maritalStatus: "נשוי",
+    gender: "N/A",
+    maritalStatus: "N/A",
     activityArea: "N/A",
     institute: "N/A",
     mainStudy: "N/A",
     secondaryStudy: "",
-    academicPlan: "מכינה/בגרויות",
+    academicPlan: "N/A",
     studyYear: "1",
     bankAccount: {
       bankName: "",
@@ -55,7 +54,7 @@ class TutorRegisterForm extends Component {
       city: "",
       neighborhood: ""
     },
-    religiousStatus: "חילוני",
+    religiousStatus: "N/A",
     religiousText: "",
     unavailableTimes: [
       { day: 1, Time: { start: Date.now(), end: Date.now() } }
@@ -69,15 +68,15 @@ class TutorRegisterForm extends Component {
     isFoundJob: false,
     isJobInStudyFelid: false,
     // until here is the common part
-    isImpact: "",
-    isShachak: "",
-    isForAcademicPoints: "",
-    isCityScholarship: "",
-    mathLevel: "",
-    englishLevel: "",
-    physicsLevel: "",
+    isImpact: false,
+    isShachak: false,
+    isForAcademicPoints: false,
+    isCityScholarship: false,
+    mathLevel: "N/A",
+    englishLevel: "N/A",
+    physicsLevel: "N/A",
     additionalTopics: "",
-    isActive: ""
+    isActive: false
   };
 
   componentDidMount() {
@@ -102,7 +101,19 @@ class TutorRegisterForm extends Component {
 
   handleSubmit = val => {
     if (
-      ["activityArea", "institute", "mainStudy"].filter(val => {
+      [
+        "activityArea",
+        "institute",
+        "mainStudy",
+        "gender",
+        "maritalStatus",
+        "academicPlan",
+        "religiousStatus",
+        "workStatus",
+        "mathLevel",
+        "physicsLevel",
+        "englishLevel"
+      ].filter(val => {
         return (
           this.state[val] === "N/A" ||
           this.state[val] === "loading" ||
@@ -121,28 +132,15 @@ class TutorRegisterForm extends Component {
       //   dataToPost = JSON.stringify(dataToPost);
       console.log(dataToPost);
       axios
-        .post(`${config.get("serverAddress")}/api/trainees`, dataToPost)
+        .post(`${config.get("serverAddress")}/api/tutors`, dataToPost)
         .then(res => {
           clearInterval();
-          console.log(res.data);
-          localStorage.setItem(
-            "beliba-homa-auth-token",
-            res.headers["x-auth-token"]
-          );
-          localStorage.setItem(
-            "beliba-homa-user",
-            JSON.stringify({
-              fname: res.data.fname,
-              lname: res.data.lname,
-              _id: res.data._id,
-              userType: res.data.userType
-            })
-          );
+          alert("המידע נשלח בהצלחה, אנא המתן לאישור מנהל. תודה");
           this.setState({ isLoading: false });
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(err.message);
+          alert(`${err.message} +"  "+ ${err.response.data}`);
           this.setState({ isLoading: false });
         });
     }
@@ -234,23 +232,16 @@ class TutorRegisterForm extends Component {
   handleAccountNumberChanged = event => {
     this.setState({ accountNumber: event.target.value });
   };
-  handleRealStreetChanged = event => {
-    this.setState({ street: event.target.value });
+  handleRealAddressChanged = (event, str) => {
+    let tmpAddress = _.cloneDeep(this.state.realAddress);
+    tmpAddress[str] = event.target.value;
+    this.setState({ realAddress: tmpAddress });
   };
-  handleRealCityChanged = event => {
-    this.setState({ city: event.target.value });
-  };
-  handleRealNeighborhoodChanged = event => {
-    this.setState({ neighborhood: event.target.value });
-  };
-  handleCurrentStreetChanged = event => {
-    this.setState({ street: event.target.value });
-  };
-  handleCurrentCityChanged = event => {
-    this.setState({ city: event.target.value });
-  };
-  handleCurrentNeighborhoodChanged = event => {
-    this.setState({ neighborhood: event.target.value });
+
+  handleCurrentAddressChanged = (event, str) => {
+    let tmpAddress = _.cloneDeep(this.state.currentAddress);
+    tmpAddress[str] = event.target.value;
+    this.setState({ currentAddress: tmpAddress });
   };
   handleReligiousStatusChanged = event => {
     this.setState({ religiousStatus: event.target.value });
@@ -279,14 +270,20 @@ class TutorRegisterForm extends Component {
         break;
       case "start":
         valueToChange = {
-          Time: { start: new Date(newVal), end: valueToChange.Time.end },
+          Time: {
+            start: new Date("01/01/2007 " + newVal),
+            end: valueToChange.Time.end
+          },
           day: valueToChange.day
         };
         tmpUnavailableTimes[index] = valueToChange;
         break;
       case "end":
         valueToChange = {
-          Time: { start: valueToChange.Time.start, end: new Date(newVal) },
+          Time: {
+            start: valueToChange.Time.start,
+            end: new Date("01/01/2007 " + newVal)
+          },
           day: valueToChange.day
         };
         tmpUnavailableTimes[index] = valueToChange;
@@ -326,22 +323,22 @@ class TutorRegisterForm extends Component {
     this.setState({ isJobInStudyFelid: event.target.value });
   };
   handleIsImpactChanged = event => {
-    this.setState({ isImpact: event.target.value });
+    this.setState({ isImpact: !this.state.isImpact });
   };
   handleIsShachakChanged = event => {
-    this.setState({ isShachak: event.target.value });
+    this.setState({ isShachak: !this.state.isShachak });
   };
   handleIsForAcademicPointsChanged = event => {
-    this.setState({ isForAcademicPoints: event.target.value });
+    this.setState({ isForAcademicPoints: !this.state.isForAcademicPoints });
   };
   handleIsCityScholarshipChanged = event => {
-    this.setState({ isCityScholarship: event.target.value });
+    this.setState({ isCityScholarship: !this.state.isCityScholarship });
   };
   handleAdditionalTopicsChanged = event => {
     this.setState({ additionalTopics: event.target.value });
   };
   handleIsActiveChanged = event => {
-    this.setState({ isActive: event.target.value });
+    this.setState({ isActive: !this.state.isActive });
   };
   handleMathLevelChanged = event => {
     this.setState({ mathLevel: event.target.value });
@@ -554,6 +551,7 @@ class TutorRegisterForm extends Component {
               name="gender"
               value={this.state.gender}
             >
+              <option value="N/A">N/A</option>
               <option value="זכר">זכר</option>
               <option value="נקבה">נקבה</option>
             </Form.Control>
@@ -566,6 +564,7 @@ class TutorRegisterForm extends Component {
               name="maritalStatus"
               value={this.state.maritalStatus}
             >
+              <option value="N/A">N/A</option>
               <option value="נשוי">נשוי</option>
               <option value="רווק">רווק</option>
               <option value="גרוש">גרוש</option>
@@ -637,6 +636,7 @@ class TutorRegisterForm extends Component {
               name="academicPlan"
               value={this.state.academicPlan}
             >
+              <option value="N/A">N/A</option>
               <option value="מכינה/בגרויות">מכינה/בגרויות</option>
               <option value="תואר ראשון">תואר ראשון</option>
               <option value="תואר מתקדם">תואר מתקדם</option>
@@ -825,6 +825,7 @@ class TutorRegisterForm extends Component {
               name="religiousStatus"
               value={this.state.religiousStatus}
             >
+              <option value="N/A">N/A</option>
               <option value="חילוני">חילוני</option>
               <option value="מסורתי">מסורתי</option>
               <option value="דתי">דתי</option>
@@ -911,6 +912,7 @@ class TutorRegisterForm extends Component {
                       name="mathLevel"
                       value={this.state.mathLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>
@@ -927,6 +929,7 @@ class TutorRegisterForm extends Component {
                       name="englishLevel"
                       value={this.state.englishLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>
@@ -943,6 +946,7 @@ class TutorRegisterForm extends Component {
                       name="physicsLevel"
                       value={this.state.physicsLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>

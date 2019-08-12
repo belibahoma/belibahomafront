@@ -40,7 +40,7 @@ export default class Auth extends Component {
         this.setState({ isLoading: false });
       })
       .catch(err => {
-        alert(err.message);
+        alert(`${err.message}: ${err.response.data}`);
         this.handleModalCanceled();
       });
     this.setState({ isLoading: true });

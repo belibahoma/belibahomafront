@@ -32,13 +32,13 @@ class TraineeRegisterForm extends Component {
     phoneA: "",
     phoneB: "",
     birthDate: Date.now(),
-    gender: "זכר",
-    maritalStatus: "נשוי",
+    gender: "N/A",
+    maritalStatus: "N/A",
     activityArea: "N/A",
     institute: "N/A",
     mainStudy: "N/A",
     secondaryStudy: "",
-    academicPlan: "מכינה/בגרויות",
+    academicPlan: "N/A",
     studyYear: "1",
     bankAccount: {
       bankName: "",
@@ -55,7 +55,7 @@ class TraineeRegisterForm extends Component {
       city: "",
       neighborhood: ""
     },
-    religiousStatus: "חילוני",
+    religiousStatus: "N/A",
     religiousText: "",
     unavailableTimes: [
       { day: 1, Time: { start: Date.now(), end: Date.now() } }
@@ -73,7 +73,7 @@ class TraineeRegisterForm extends Component {
     isLiveInSelectedCities: false,
     isRegisteredToKivun: false,
     needsHelpIn: "",
-    workStatus: "לא עובד ולא מחפש עבודה",
+    workStatus: "N/A",
     workTitle: "",
     isLearnedInYeshiva: false,
     yeshivaTimes: "",
@@ -93,9 +93,9 @@ class TraineeRegisterForm extends Component {
       shortTermPreparatory: false
     },
     isServed: false,
-    mathLevel: "0",
-    englishLevel: "0",
-    physicsLevel: "0",
+    mathLevel: "N/A",
+    englishLevel: "N/A",
+    physicsLevel: "N/A",
     additionalTopics: "",
     isActive: false,
     leavingReason: "",
@@ -124,7 +124,16 @@ class TraineeRegisterForm extends Component {
 
   handleSubmit = val => {
     if (
-      ["activityArea", "institute", "mainStudy"].filter(val => {
+      [
+        "activityArea",
+        "institute",
+        "mainStudy",
+        "gender",
+        "maritalStatus",
+        "academicPlan",
+        "religiousStatus",
+        "workStatus"
+      ].filter(val => {
         return (
           this.state[val] === "N/A" ||
           this.state[val] === "loading" ||
@@ -146,25 +155,12 @@ class TraineeRegisterForm extends Component {
         .post(`${config.get("serverAddress")}/api/trainees`, dataToPost)
         .then(res => {
           clearInterval();
-          console.log(res.data);
-          localStorage.setItem(
-            "beliba-homa-auth-token",
-            res.headers["x-auth-token"]
-          );
-          localStorage.setItem(
-            "beliba-homa-user",
-            JSON.stringify({
-              fname: res.data.fname,
-              lname: res.data.lname,
-              _id: res.data._id,
-              userType: res.data.userType
-            })
-          );
+          alert("המידע נשלח בהצלחה, אנא המתן לאישור מנהל. תודה");
           this.setState({ isLoading: false });
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(err.message);
+          alert(`${err.message} +"  "+ ${err.response.data}`);
           this.setState({ isLoading: false });
         });
     }
@@ -301,14 +297,20 @@ class TraineeRegisterForm extends Component {
         break;
       case "start":
         valueToChange = {
-          Time: { start: new Date(newVal), end: valueToChange.Time.end },
+          Time: {
+            start: new Date("01/01/2007 " + newVal),
+            end: valueToChange.Time.end
+          },
           day: valueToChange.day
         };
         tmpUnavailableTimes[index] = valueToChange;
         break;
       case "end":
         valueToChange = {
-          Time: { start: valueToChange.Time.start, end: new Date(newVal) },
+          Time: {
+            start: valueToChange.Time.start,
+            end: new Date("01/01/2007 " + newVal)
+          },
           day: valueToChange.day
         };
         tmpUnavailableTimes[index] = valueToChange;
@@ -659,6 +661,7 @@ class TraineeRegisterForm extends Component {
               name="gender"
               value={this.state.gender}
             >
+              <option value="N/A">N/A</option>
               <option value="זכר">זכר</option>
               <option value="נקבה">נקבה</option>
             </Form.Control>
@@ -671,6 +674,7 @@ class TraineeRegisterForm extends Component {
               name="maritalStatus"
               value={this.state.maritalStatus}
             >
+              <option value="N/A">N/A</option>
               <option value="נשוי">נשוי</option>
               <option value="רווק">רווק</option>
               <option value="גרוש">גרוש</option>
@@ -742,6 +746,7 @@ class TraineeRegisterForm extends Component {
               name="academicPlan"
               value={this.state.academicPlan}
             >
+              <option value="N/A">N/A</option>
               <option value="מכינה/בגרויות">מכינה/בגרויות</option>
               <option value="תואר ראשון">תואר ראשון</option>
               <option value="תואר מתקדם">תואר מתקדם</option>
@@ -930,6 +935,7 @@ class TraineeRegisterForm extends Component {
               name="religiousStatus"
               value={this.state.religiousStatus}
             >
+              <option value="N/A">N/A</option>
               <option value="חילוני">חילוני</option>
               <option value="מסורתי">מסורתי</option>
               <option value="דתי">דתי</option>
@@ -992,6 +998,7 @@ class TraineeRegisterForm extends Component {
                   name="workStatus"
                   value={this.state.workStatus}
                 >
+                  <option value="N/A">N/A</option>
                   <option value="לא עובד ולא מחפש עבודה">
                     לא עובד ולא מחפש עבודה
                   </option>
@@ -1216,6 +1223,7 @@ class TraineeRegisterForm extends Component {
                       name="mathLevel"
                       value={this.state.mathLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>
@@ -1232,6 +1240,7 @@ class TraineeRegisterForm extends Component {
                       name="englishLevel"
                       value={this.state.englishLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>
@@ -1248,6 +1257,7 @@ class TraineeRegisterForm extends Component {
                       name="physicsLevel"
                       value={this.state.physicsLevel}
                     >
+                      <option value="N/A">N/A</option>
                       <option value="0">לא רלוונטי</option>
                       <option value="3">3 יחידות</option>
                       <option value="4">4 יחידות</option>

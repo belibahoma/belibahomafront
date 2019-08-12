@@ -93,6 +93,7 @@ class Toolbar extends Component {
     localStorage.removeItem("beliba-homa-auth-token");
     localStorage.removeItem("beliba-homa-user");
     this.setState({ isLoggedIn: false, fname: "", lname: "", userType: null });
+    this.props.history.push("/");
   };
 
   signInOutBtn = () => {

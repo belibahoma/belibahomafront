@@ -7,6 +7,7 @@ import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointmen
 import Auth from "./containers/Auth/Auth";
 import UserProvider from "./contexts/UserProvider";
 import Register from "./components/UI/Register/Register";
+import Relation from "./components/UI/Relation/Relation";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
             <Route path="/student" component={Reports} />
+            <Route path="/relation" component={Relation} />
           </Switch>
         </Layout>
       </UserProvider>
