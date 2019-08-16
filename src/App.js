@@ -8,6 +8,10 @@ import Auth from "./containers/Auth/Auth";
 import UserProvider from "./contexts/UserProvider";
 import Register from "./components/UI/Register/Register";
 import Relation from "./components/UI/Relation/Relation";
+import AcademicInstitutions from "./components/UI/AuxiliaryEntity/AcademicInstitutions";
+import EducationPrograms from "./components/UI/AuxiliaryEntity/EducationPrograms";
+import ActivityAreas from "./components/UI/AuxiliaryEntity/ActivityAreas";
+
 
 class App extends Component {
   render() {
@@ -21,6 +25,10 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/student" component={Reports} />
             <Route path="/relation" component={Relation} />
+            <Route path="/AcademicInstitutions" component={AcademicInstitutions} />
+            <Route path="/EducationPrograms" component={EducationPrograms} />
+            <Route path="/ActivityAreas" component={ActivityAreas} />
+
           </Switch>
         </Layout>
       </UserProvider>
