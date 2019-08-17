@@ -719,6 +719,9 @@ class TraineeRegisterForm extends Component {
                 this.setState({
                   isAdditionalStudyPath: !this.state.isAdditionalStudyPath
                 });
+                if (this.state.isAdditionalStudyPath) {
+                  this.setState({ secondaryStudy: "" });
+                }
               }}
             />
             {this.state.isAdditionalStudyPath ? (

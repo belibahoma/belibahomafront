@@ -1,41 +1,6 @@
-[
-  "userType",
-  "id",
-  "fname",
-  "lname",
-  "email",
-  "password",
-  "phoneA",
-  "birthDate",
-  "gender",
-  "maritalStatus",
-  "activityArea",
-  "institute",
-  "mainStudy",
-  "academicPlan",
-  "studyYear",
-  "bankAccount",
-  "realAddress",
-  "currentAddress",
-  "activeYears",
-  "religiousStatus",
-  "religiousText",
-  "unavailableTimes",
-  "notes",
-  "stuffNotes",
-  "isNeedAdditionalRelation",
-  "activeStatus",
-  "isFinnishPreparatory",
-  "isGraduated",
-  "isFoundJob",
-  "isJobInStudyFelid",
-  "isImpact",
-  "isShachak",
-  "isForAcademicPoints",
-  "isCityScholarship",
-  "mathLevel",
-  "englishLevel",
-  "physicsLevel",
-  "additionalTopics",
-  "isActive"
-];
+mongoexport --db beliba_homa --collection areas --out areas.json
+mongoexport --db beliba_homa --collection institutes --out institutes.json
+mongoexport --db beliba_homa --collection relations --out relations.json
+mongoexport --db beliba_homa --collection trainees --out trainees.json
+mongoexport --db beliba_homa --collection tutors --out tutors.json
+mongoexport --db beliba_homa --collection academicdetails --out academicdetails.json
