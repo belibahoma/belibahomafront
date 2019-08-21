@@ -12,7 +12,6 @@ import AcademicInstitutions from "./components/UI/AuxiliaryEntity/AcademicInstit
 import EducationPrograms from "./components/UI/AuxiliaryEntity/EducationPrograms";
 import ActivityAreas from "./components/UI/AuxiliaryEntity/ActivityAreas";
 
-
 class App extends Component {
   render() {
     return (
@@ -25,10 +24,12 @@ class App extends Component {
             <Route path="/register" component={Register} />
             <Route path="/student" component={Reports} />
             <Route path="/relation" component={Relation} />
-            <Route path="/AcademicInstitutions" component={AcademicInstitutions} />
+            <Route
+              path="/AcademicInstitutions"
+              component={AcademicInstitutions}
+            />
             <Route path="/EducationPrograms" component={EducationPrograms} />
             <Route path="/ActivityAreas" component={ActivityAreas} />
-
           </Switch>
         </Layout>
       </UserProvider>

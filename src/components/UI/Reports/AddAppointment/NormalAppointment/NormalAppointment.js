@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
-import DatePicker from "react-datepicker";
+import DatePicker from "react-date-picker";
 import TextValidator from "./../../../../Validators/TextValidator/TextValidator";
 import "react-datepicker/dist/react-datepicker.css";
+import _ from "lodash";
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -13,26 +14,51 @@ function addDays(date, days) {
 
 export default class NormalAppointment extends Component {
   state = {
+    isUpdate: this.props.isUpdate,
     date: this.props.date,
     location: "",
     studyTime: 0,
     chavrutaTime: 0,
-    casingTime: 0
+    casingTime: 0,
+    description: "",
+    knowledgeRank: 1,
+    connectionRank: 1,
+    isNeedAdmin: false,
+    isHappened: false
   };
-
+  componentDidMount() {
+    if (this.state.isUpdate) {
+      this.setState({ ...this.props.formValues });
+    }
+  }
+  handleDescriptionChanged = event => {
+    this.setState({ description: event.target.value });
+  };
+  handleKnowledgeRankChanged = event => {
+    this.setState({ knowledgeRank: event.target.value });
+  };
+  handleConnectionRankChanged = event => {
+    this.setState({ connectionRank: event.target.value });
+  };
+  handleIsNeedAdminChanged = event => {
+    this.setState({ isNeedAdmin: !this.state.isNeedAdmin });
+  };
+  handleIsHappenedChanged = event => {
+    this.setState({ isHappened: !this.state.isNeedAdmin });
+  };
   handleTimeChanged = newDate => {
     this.setState({ date: newDate });
   };
-  handleLocationChange = event => {
+  handleLocationChanged = event => {
     this.setState({ location: event.target.value });
   };
-  handleStudyTimeChange = event => {
+  handleStudyTimeChanged = event => {
     this.setState({ studyTime: event.target.value });
   };
-  handleChavrutaTimeChange = event => {
+  handleChavrutaTimeChanged = event => {
     this.setState({ chavrutaTime: event.target.value });
   };
-  handleCasingTimeChange = event => {
+  handleCasingTimeChanged = event => {
     this.setState({ casingTime: event.target.value });
   };
   handleSubmit = val => {
@@ -41,76 +67,145 @@ export default class NormalAppointment extends Component {
   handleError = obj => {
     console.log(obj);
   };
+  handleCancel = () => {
+    this.props.onCancel();
+  };
+
+  addOptions = () => {
+    let options = [];
+    for (let index = 1; index < 11; index++) {
+      options.push(
+        <option key={index} value={index}>
+          {index}
+        </option>
+      );
+    }
+
+    return options;
+  };
 
   render() {
-    console.log(this.state.date);
     return (
       <React.Fragment>
         <Container className="text-right">
           <Form
             as={ValidatorForm}
-            onError={this.handleError}
+            onError={this.props.onError}
             ref="form"
-            onSubmit={this.handleSubmit}
+            onSubmit={() => {
+              this.props.onSubmit(
+                _.pick(this.state, [
+                  "date",
+                  "location",
+                  "studyTime",
+                  "chavrutaTime",
+                  "casingTime",
+                  "description",
+                  "knowledgeRank",
+                  "connectionRank",
+                  "isNeedAdmin",
+                  "isHappened"
+                ])
+              );
+            }}
           >
+            <Form.Label dir="rtl">איך היה בקשר הלמידה?</Form.Label>
+            <Form.Control
+              dir="rtl"
+              type="text"
+              as={TextValidator}
+              onChange={this.handleDescriptionChanged}
+              name="description"
+              value={this.state.description}
+              validators={["required"]}
+              errorMessages={["שדה זה הינו חובה"]}
+            />
+            <Form.Check
+              dir="ltr"
+              className="my-2"
+              type="checkbox"
+              label="?האם המפגש התקיים כסדרו"
+              onChange={this.handleIsHappenedChanged}
+            />
+            <Form.Label dir="rtl">
+              עד כמה אני מרגיש שאני יודע לענות על צרכיו של הסטודנט?
+            </Form.Label>
+            <Form.Control
+              as="select"
+              className="mb-2"
+              dir="rtl"
+              onChange={this.handleKnowledgeRankChanged}
+              name="knowledgeRank"
+              value={this.state.knowledgeRank}
+            >
+              {this.addOptions()}
+            </Form.Control>
+            <Form.Label dir="rtl">כמה טוב הקשר ביני לבין הסטודנט?</Form.Label>
+            <Form.Control
+              as="select"
+              className="mb-2"
+              dir="rtl"
+              onChange={this.handleConnectionRankChanged}
+              name="connectionRank"
+              value={this.state.connectionRank}
+            >
+              {this.addOptions()}
+            </Form.Control>
+            <Form.Check
+              dir="ltr"
+              className="my-2"
+              type="checkbox"
+              label="?צריך התערבות מנהל"
+              onChange={this.handleIsNeedAdminChanged}
+            />
             <Form.Label>תאריך</Form.Label>
             <br />
             <DatePicker
-              selected={this.state.date}
+              value={new Date(this.state.date)}
               onChange={this.handleTimeChanged}
-              maxDate={addDays(this.state.date, 7)}
-              minDate={this.state.date}
-              showDisabledMonthNavigation
-              onClickOutside
+              format="dd/MM/yyyy"
+              required
             />
             <br />
-            <Form.Label>מקום מפגש</Form.Label>
+            <Form.Label dir="rtl">מקום מפגש</Form.Label>
             <Form.Control
+              dir="rtl"
               type="text"
               as={TextValidator}
-              onChange={this.handleLocationChange}
+              onChange={this.handleLocationChanged}
               name="location"
               value={this.state.location}
-              validators={[
-                "required",
-                "matchRegexp:[A-Za-z\u0590-\u05FF 0-9]{4,}"
-              ]}
-              errorMessages={[
-                "שדה זה הינו חובה",
-                "המקום חייב להכיל לפחות 4 תווים"
-              ]}
+              validators={["required"]}
+              errorMessages={["שדה זה הינו חובה"]}
             />
-            <Form.Label>מספר שעות לימוד - כולל חברותא</Form.Label>
+            <Form.Label dir="rtl">מספר שעות לימוד</Form.Label>
             <Form.Control
+              dir="rtl"
               type="text"
               as={TextValidator}
-              onChange={this.handleStudyTimeChange}
+              onChange={this.handleStudyTimeChanged}
               name="studyTime"
               value={this.state.studyTime}
-              validators={["required", "matchRegexp:^([0-3](.[0-9])?|4)$"]}
-              errorMessages={[
-                "שדה זה הינו חובה",
-                "לא ניתן לדווח על יותר מ4 שעות במפגש"
-              ]}
+              validators={["required"]}
+              errorMessages={["שדה זה הינו חובה"]}
             />
-            <Form.Label>מספר שעות חברותא</Form.Label>
+            <Form.Label dir="rtl">מספר שעות חברותא</Form.Label>
             <Form.Control
+              dir="rtl"
               type="text"
               as={TextValidator}
-              onChange={this.handleChavrutaTimeChange}
+              onChange={this.handleChavrutaTimeChanged}
               name="chavrutaTime"
               value={this.state.chavrutaTime}
-              validators={["required", "matchRegexp:^((0.[1-9])?|1)$"]}
-              errorMessages={[
-                "שדה זה הינו חובה",
-                "לא ניתן לדווח על יותר משעת חברותא במפגש"
-              ]}
+              validators={["required"]}
+              errorMessages={["שדה זה הינו חובה"]}
             />
-            <Form.Label>שעות מעטפת</Form.Label>
+            <Form.Label dir="rtl">שעות מעטפת</Form.Label>
             <Form.Control
+              dir="rtl"
               type="text"
               as={TextValidator}
-              onChange={this.handleCasingTimeChange}
+              onChange={this.handleCasingTimeChanged}
               name="casingTime"
               value={this.state.casingTime}
               validators={["isNumber"]}
@@ -118,8 +213,15 @@ export default class NormalAppointment extends Component {
             <Form.Text className="text-muted">
               מילוי שדה זה מותנה באישור רכז
             </Form.Text>
-            <Button className="mt-2" type="submit">
-              submit
+            <Button className="m-2" type="submit">
+              הוסף מפגש
+            </Button>
+            <Button
+              className="m-2 btn btn-danger"
+              onClick={this.handleCancel}
+              type="button"
+            >
+              ביטול
             </Button>
           </Form>
         </Container>

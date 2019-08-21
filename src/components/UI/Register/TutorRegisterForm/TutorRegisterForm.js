@@ -539,6 +539,7 @@ class TutorRegisterForm extends Component {
             <DatePicker
               value={new Date(this.state.birthDate)}
               onChange={this.handleBirthDateChanged}
+              format="dd/MM/yyyy"
               required
             />
             <br />
