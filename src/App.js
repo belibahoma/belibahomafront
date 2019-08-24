@@ -11,6 +11,7 @@ import Relation from "./components/UI/Relation/Relation";
 import AcademicInstitutions from "./components/UI/AuxiliaryEntity/AcademicInstitutions";
 import EducationPrograms from "./components/UI/AuxiliaryEntity/EducationPrograms";
 import ActivityAreas from "./components/UI/AuxiliaryEntity/ActivityAreas";
+import Approve from "./components/UI/Approve/Approve";
 
 class App extends Component {
   render() {
@@ -23,13 +24,15 @@ class App extends Component {
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
             <Route path="/reports" component={Reports} />
-            <Route path="/relation" component={Relation} />
+            <Route path="/addRelation" component={Relation} />
+            {/* <Route path="/relations" component={Relations} /> */}
             <Route
               path="/AcademicInstitutions"
               component={AcademicInstitutions}
             />
             <Route path="/EducationPrograms" component={EducationPrograms} />
             <Route path="/ActivityAreas" component={ActivityAreas} />
+            <Route path="/alerts" component={Approve} />
           </Switch>
         </Layout>
       </UserProvider>

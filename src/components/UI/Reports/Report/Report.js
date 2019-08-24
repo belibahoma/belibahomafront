@@ -16,11 +16,11 @@ const Report = props => {
   return (
     <tr>
       <td colSpan="2">
+        <Button className="text-center m-1 btn-info" onClick={props.details}>
+          פרטים
+        </Button>
         <Button className="text-center m-1" onClick={props.editReport}>
           עריכה
-        </Button>
-        <Button className="text-center m-1" onClick={props.details}>
-          פרטים
         </Button>
       </td>
       <td>{`${new Date(props.date).getDate()}/${new Date(
