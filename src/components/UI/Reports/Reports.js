@@ -13,6 +13,7 @@ import DynamicSelectBox from "../../../containers/DynamicSelectBox/DynamicSelect
 import _ from "lodash";
 import config from "react-global-configuration";
 import axios from "axios";
+import UpdateAppointment from "./UpdateAppointment/UpdateAppointment";
 
 export default class Reports extends Component {
   state = {
@@ -23,9 +24,11 @@ export default class Reports extends Component {
     userToken: "",
     openModal: false,
     sortBy: "type",
-    asc: true
+    asc: true,
+    isView: false,
+    updateValue: null
   };
-  //TODO finnish UI - add edit + details + remove
+
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData = localStorage.getItem("beliba-homa-user");
@@ -75,6 +78,32 @@ export default class Reports extends Component {
 
   addAppointment = null;
 
+  handleSubmit = details => {
+    let tempReportArr = _.cloneDeep(this.state.reportList);
+    const reportIndex = tempReportArr.findIndex(report => {
+      return report._id === details._id;
+    });
+    axios
+      .get(`${config.get("serverAddress")}/api/reports/${details._id}`)
+      .then(res => {
+        if (reportIndex >= 0) {
+          tempReportArr[reportIndex] = res.data;
+        } else {
+          tempReportArr.push(res.data);
+        }
+        const tempTotal = _.sumBy(tempReportArr, report => report.totalTime);
+        this.setState({
+          totalHours: tempTotal,
+          openModal: false,
+          reportList: tempReportArr,
+          updateValue: null
+        });
+      })
+      .catch(err => {
+        console.lod("err", err.message);
+      });
+  };
+
   handleSortBy = val => {
     this.setState({ sortBy: val, asc: !this.state.asc });
   };
@@ -87,10 +116,20 @@ export default class Reports extends Component {
     this.setState({ openModal: true });
   };
   handleEditReport = id => {
-    console.log(id);
+    this.setState({
+      updateValue: this.state.reportList.find(report => {
+        return report._id === id;
+      }),
+      isView: false
+    });
   };
   handleDetails = id => {
-    console.log(id);
+    this.setState({
+      updateValue: this.state.reportList.find(report => {
+        return report._id === id;
+      }),
+      isView: true
+    });
   };
   reportItems = () => {
     const studArr = _.orderBy(this.state.reportList, val => {
@@ -126,9 +165,6 @@ export default class Reports extends Component {
   };
   render() {
     if (this.state.addAppointmentTo) {
-      const appointment = this.state.reportList.find(
-        value => value._id === this.state.addAppointmentTo
-      );
       this.addAppointment = (
         <AddAppointment className="m-2" date={Date.now()} />
       );
@@ -238,6 +274,7 @@ export default class Reports extends Component {
               onCancel={() => {
                 this.setState({ openModal: false });
               }}
+              onSubmit={this.handleSubmit}
               tutor={this.state.user}
               trainee={this.state.currentUser} //TODO change to trainee
               date={Date.now()}
@@ -245,6 +282,19 @@ export default class Reports extends Component {
           ) : (
             ""
           )}
+          {this.state.updateValue ? (
+            <UpdateAppointment
+              className="m-2"
+              onCancel={() => {
+                this.setState({ updateValue: null });
+              }}
+              onSubmit={this.handleSubmit}
+              tutor={this.state.user}
+              trainee={this.state.currentUser} //TODO change to trainee
+              appointment={this.state.updateValue}
+              readOnly={this.state.isView}
+            />
+          ) : null}
         </Container>
       </React.Fragment>
     );

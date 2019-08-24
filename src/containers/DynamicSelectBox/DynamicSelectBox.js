@@ -8,7 +8,6 @@ export default class DynamicSelectBox extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.headers);
     axios
       .get(this.props.fetchLink, { headers: this.props.headers })
       .then(response => {

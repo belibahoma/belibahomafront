@@ -33,8 +33,8 @@ export default class AddAppointment extends Component {
       })
       .then(res => {
         this.setState({ isModalShow: false });
-        this.props.onCancel();
-        console.log(res);
+        this.props.onSubmit(res.data);
+        console.log("other res:", res);
       })
       .catch(err => {
         console.log("err", err.message, err.response.message);
@@ -53,8 +53,8 @@ export default class AddAppointment extends Component {
       })
       .then(res => {
         this.setState({ isModalShow: false });
-        this.props.onCancel();
-        console.log(res);
+        this.props.onSubmit(res.data);
+        console.log("group res:", res);
       })
       .catch(err => {
         console.log("err", err.message, err.response.message);
@@ -74,9 +74,8 @@ export default class AddAppointment extends Component {
       })
       .then(res => {
         this.setState({ isModalShow: false });
-        this.props.onCancel();
-        this.props.onSubmit();
-        console.log(res);
+        this.props.onSubmit(res.data);
+        console.log("normal res:", res);
       })
       .catch(err => {
         console.log("err", err.message, err.response.message);
@@ -114,8 +113,6 @@ export default class AddAppointment extends Component {
 
   ordinaryAppointment = () => {
     if (!this.state.trainee_id || this.state.trainee_id === "error") {
-      console.log(this.state.trainee_id);
-
       alert("אנא בחר סטודנט");
       this.props.onCancel();
     } else {

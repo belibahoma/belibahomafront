@@ -6,12 +6,6 @@ import TextValidator from "./../../../../Validators/TextValidator/TextValidator"
 import "react-datepicker/dist/react-datepicker.css";
 import _ from "lodash";
 
-function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
 export default class OtherAppointment extends Component {
   state = {
     isUpdate: this.props.isUpdate,
@@ -77,13 +71,14 @@ export default class OtherAppointment extends Component {
         <React.Fragment>
           <Form.Group className="align-content-center" dir="ltr">
             <Form.Check
+              disabled={this.props.readOnly}
               label="?מילואים"
               onChange={() => {
                 this.setState({
                   isServe: !this.state.isServe
                 });
               }}
-              value={this.state.isServe}
+              checked={this.state.isServe}
             />
           </Form.Group>
           {this.state.isServe ? (
@@ -91,6 +86,7 @@ export default class OtherAppointment extends Component {
               <Form.Label dir="rtl">תאריך התחלה</Form.Label>
               <br />
               <DatePicker
+                disabled={this.props.readOnly}
                 value={new Date(this.state.serveTime.start)}
                 onChange={this.handleServeStartChanged}
                 format="dd/MM/yyyy"
@@ -100,6 +96,7 @@ export default class OtherAppointment extends Component {
               <Form.Label dir="rtl">תאריך סיום</Form.Label>
               <br />
               <DatePicker
+                disabled={this.props.readOnly}
                 value={new Date(this.state.serveTime.end)}
                 onChange={this.handleServeEndChanged}
                 format="dd/MM/yyyy"
@@ -110,35 +107,38 @@ export default class OtherAppointment extends Component {
           ) : null}
           <Form.Group className="align-content-center" dir="ltr">
             <Form.Check
+              disabled={this.props.readOnly}
               label="?לידת ילד"
               onChange={() => {
                 this.setState({
                   isBirth: !this.state.isBirth
                 });
               }}
-              value={this.state.isBirth}
+              checked={this.state.isBirth}
             />
           </Form.Group>
           <Form.Group className="align-content-center" dir="ltr">
             <Form.Check
+              disabled={this.props.readOnly}
               label="?חתונה"
               onChange={() => {
                 this.setState({
                   isMarriage: !this.state.isMarriage
                 });
               }}
-              value={this.state.isMarriage}
+              checked={this.state.isMarriage}
             />
           </Form.Group>
           <Form.Group className="align-content-center" dir="ltr">
             <Form.Check
+              disabled={this.props.readOnly}
               label="?פטירת קרוב מדרגה ראשונה"
               onChange={() => {
                 this.setState({
                   isDeathOfFirstDegree: !this.state.isDeathOfFirstDegree
                 });
               }}
-              value={this.state.isDeathOfFirstDegree}
+              checked={this.state.isDeathOfFirstDegree}
             />
           </Form.Group>
         </React.Fragment>
@@ -166,6 +166,7 @@ export default class OtherAppointment extends Component {
             <Form.Label>תאריך</Form.Label>
             <br />
             <DatePicker
+              disabled={this.props.readOnly}
               value={new Date(this.state.date)}
               onChange={this.handleTimeChanged}
               format="dd/MM/yyyy"
@@ -181,6 +182,7 @@ export default class OtherAppointment extends Component {
               <React.Fragment>
                 <Form.Group className="align-content-center" dir="ltr">
                   <Form.Check
+                    disabled={this.props.readOnly}
                     label="?משימה מיוחדת מהרכז"
                     onChange={() => {
                       this.setState({
@@ -194,6 +196,7 @@ export default class OtherAppointment extends Component {
                   <React.Fragment>
                     <Form.Label dir="rtl">הסבר</Form.Label>
                     <Form.Control
+                      disabled={this.props.readOnly}
                       dir="rtl"
                       type="text"
                       as={TextValidator}
@@ -207,18 +210,19 @@ export default class OtherAppointment extends Component {
                 ) : null}
                 <Form.Group className="align-content-center" dir="ltr">
                   <Form.Check
+                    disabled={this.props.readOnly}
                     label="?מפגש שלא התקיים"
                     onChange={() => {
                       this.setState({
-                        isNotHappened: !this.state.isNotHappened,
                         isHappened: !this.state.isHappened
                       });
                     }}
-                    value={this.state.isNotHappened}
+                    checked={!this.state.isHappened}
                   />
                 </Form.Group>
                 <Form.Label dir="rtl">מספר שעות</Form.Label>
                 <Form.Control
+                  disabled={this.props.readOnly}
                   dir="rtl"
                   type="text"
                   as={TextValidator}
@@ -231,15 +235,17 @@ export default class OtherAppointment extends Component {
               </React.Fragment>
             ) : null}
             {this.showImpactValues()}
-            <Button className="m-2" type="submit">
-              הוסף מפגש
-            </Button>
+            {!this.props.readOnly ? (
+              <Button className="m-2" type="submit">
+                {!this.props.isUpdate ? "הוסף מפגש" : "עדכן מפגש"}
+              </Button>
+            ) : null}
             <Button
               className="m-2 btn btn-danger"
               onClick={this.handleCancel}
               type="button"
             >
-              ביטול
+              {!this.props.readOnly ? "ביטול" : "סגור"}
             </Button>
           </Form>
         </Container>

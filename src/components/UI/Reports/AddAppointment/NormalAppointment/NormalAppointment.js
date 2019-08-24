@@ -6,12 +6,6 @@ import TextValidator from "./../../../../Validators/TextValidator/TextValidator"
 import "react-datepicker/dist/react-datepicker.css";
 import _ from "lodash";
 
-function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
 export default class NormalAppointment extends Component {
   state = {
     isUpdate: this.props.isUpdate,
@@ -111,6 +105,7 @@ export default class NormalAppointment extends Component {
           >
             <Form.Label dir="rtl">איך היה בקשר הלמידה?</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               dir="rtl"
               type="text"
               as={TextValidator}
@@ -121,16 +116,19 @@ export default class NormalAppointment extends Component {
               errorMessages={["שדה זה הינו חובה"]}
             />
             <Form.Check
+              disabled={this.props.readOnly}
               dir="ltr"
               className="my-2"
               type="checkbox"
               label="?האם המפגש התקיים כסדרו"
               onChange={this.handleIsHappenedChanged}
+              checked={this.state.isHappened}
             />
             <Form.Label dir="rtl">
               עד כמה אני מרגיש שאני יודע לענות על צרכיו של הסטודנט?
             </Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               as="select"
               className="mb-2"
               dir="rtl"
@@ -142,6 +140,7 @@ export default class NormalAppointment extends Component {
             </Form.Control>
             <Form.Label dir="rtl">כמה טוב הקשר ביני לבין הסטודנט?</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               as="select"
               className="mb-2"
               dir="rtl"
@@ -152,15 +151,18 @@ export default class NormalAppointment extends Component {
               {this.addOptions()}
             </Form.Control>
             <Form.Check
+              disabled={this.props.readOnly}
               dir="ltr"
               className="my-2"
               type="checkbox"
               label="?צריך התערבות מנהל"
               onChange={this.handleIsNeedAdminChanged}
+              checked={this.state.isNeedAdmin}
             />
             <Form.Label>תאריך</Form.Label>
             <br />
             <DatePicker
+              disabled={this.props.readOnly}
               value={new Date(this.state.date)}
               onChange={this.handleTimeChanged}
               format="dd/MM/yyyy"
@@ -169,6 +171,7 @@ export default class NormalAppointment extends Component {
             <br />
             <Form.Label dir="rtl">מקום מפגש</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               dir="rtl"
               type="text"
               as={TextValidator}
@@ -180,6 +183,7 @@ export default class NormalAppointment extends Component {
             />
             <Form.Label dir="rtl">מספר שעות לימוד</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               dir="rtl"
               type="text"
               as={TextValidator}
@@ -191,6 +195,7 @@ export default class NormalAppointment extends Component {
             />
             <Form.Label dir="rtl">מספר שעות חברותא</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               dir="rtl"
               type="text"
               as={TextValidator}
@@ -202,6 +207,7 @@ export default class NormalAppointment extends Component {
             />
             <Form.Label dir="rtl">שעות מעטפת</Form.Label>
             <Form.Control
+              disabled={this.props.readOnly}
               dir="rtl"
               type="text"
               as={TextValidator}
@@ -213,15 +219,17 @@ export default class NormalAppointment extends Component {
             <Form.Text className="text-muted">
               מילוי שדה זה מותנה באישור רכז
             </Form.Text>
-            <Button className="m-2" type="submit">
-              הוסף מפגש
-            </Button>
+            {!this.props.readOnly ? (
+              <Button className="m-2" type="submit">
+                {!this.props.isUpdate ? "הוסף מפגש" : "עדכן מפגש"}
+              </Button>
+            ) : null}
             <Button
               className="m-2 btn btn-danger"
               onClick={this.handleCancel}
               type="button"
             >
-              ביטול
+              {!this.props.readOnly ? "ביטול" : "סגור"}
             </Button>
           </Form>
         </Container>

@@ -22,7 +22,7 @@ class App extends Component {
             <Route path="/auth" exact component={Auth} />
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
-            <Route path="/student" component={Reports} />
+            <Route path="/reports" component={Reports} />
             <Route path="/relation" component={Relation} />
             <Route
               path="/AcademicInstitutions"
