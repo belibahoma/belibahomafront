@@ -649,6 +649,7 @@ class TraineeRegisterForm extends Component {
             <DatePicker
               value={new Date(this.state.birthDate)}
               onChange={this.handleBirthDateChanged}
+              format="dd/MM/yyyy"
               required
             />
             <br />
@@ -719,7 +720,11 @@ class TraineeRegisterForm extends Component {
                 this.setState({
                   isAdditionalStudyPath: !this.state.isAdditionalStudyPath
                 });
+                if (this.state.isAdditionalStudyPath) {
+                  this.setState({ secondaryStudy: "" });
+                }
               }}
+              checked={this.state.isAdditionalStudyPath}
             />
             {this.state.isAdditionalStudyPath ? (
               <React.Fragment>
@@ -1040,7 +1045,7 @@ class TraineeRegisterForm extends Component {
                 <Form.Check
                   label="?האם למדת בישיבה/סמינר"
                   onChange={this.handleIsLearnedInYeshivaChanged}
-                  value={this.state.isLearnedInYeshiva}
+                  checked={this.state.isLearnedInYeshiva}
                   className="custom-checkbox"
                 />
               </Form.Group>
@@ -1073,7 +1078,7 @@ class TraineeRegisterForm extends Component {
               <Form.Check
                 label="?האם עברת מסלול של הכשרה מקצועית"
                 onChange={this.handleIsHaveAnotherProfessionalTrainingChanged}
-                value={this.state.isHaveAnotherProfessionalTraining}
+                checked={this.state.isHaveAnotherProfessionalTraining}
               />
             </Form.Group>
             {this.state.isHaveAnotherProfessionalTraining ? (
@@ -1097,7 +1102,7 @@ class TraineeRegisterForm extends Component {
               <Form.Check
                 label="?האם אתה בעל תואר אקדמאי קודם"
                 onChange={this.handleIsHaveAnotherDegreeChanged}
-                value={this.state.isHaveAnotherDegree}
+                checked={this.state.isHaveAnotherDegree}
               />
             </Form.Group>
             {this.state.isHaveAnotherDegree ? (
@@ -1134,7 +1139,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("personalTraining");
                   }}
-                  value={this.state.WantDetailsAbout.personalTraining}
+                  checked={this.state.WantDetailsAbout.personalTraining}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1143,7 +1148,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("jobSeeking");
                   }}
-                  value={this.state.WantDetailsAbout.jobSeeking}
+                  checked={this.state.WantDetailsAbout.jobSeeking}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1152,7 +1157,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("professionalTraining");
                   }}
-                  value={this.state.WantDetailsAbout.professionalTraining}
+                  checked={this.state.WantDetailsAbout.professionalTraining}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1161,7 +1166,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("englishCourse");
                   }}
-                  value={this.state.WantDetailsAbout.englishCourse}
+                  checked={this.state.WantDetailsAbout.englishCourse}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1170,7 +1175,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("computerCourse");
                   }}
-                  value={this.state.WantDetailsAbout.computerCourse}
+                  checked={this.state.WantDetailsAbout.computerCourse}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1179,7 +1184,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("studyDiagnostics");
                   }}
-                  value={this.state.WantDetailsAbout.studyDiagnostics}
+                  checked={this.state.WantDetailsAbout.studyDiagnostics}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1188,7 +1193,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("selfAdvanceProgram");
                   }}
-                  value={this.state.WantDetailsAbout.selfAdvanceProgram}
+                  checked={this.state.WantDetailsAbout.selfAdvanceProgram}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1197,7 +1202,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("entrepreneurship");
                   }}
-                  value={this.state.WantDetailsAbout.entrepreneurship}
+                  checked={this.state.WantDetailsAbout.entrepreneurship}
                 />
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
@@ -1206,7 +1211,7 @@ class TraineeRegisterForm extends Component {
                   onChange={() => {
                     this.handleWantDetailsAboutChanged("shortTermPreparatory");
                   }}
-                  value={this.state.WantDetailsAbout.shortTermPreparatory}
+                  checked={this.state.WantDetailsAbout.shortTermPreparatory}
                 />
               </Form.Group>
             </Jumbotron>
@@ -1271,7 +1276,7 @@ class TraineeRegisterForm extends Component {
               <Form.Check
                 label="?בוגר צבא/שירות לאומי"
                 onChange={this.handleIsServedChanged}
-                value={this.state.isServed}
+                checked={this.state.isServed}
               />
             </Form.Group>
             <Button

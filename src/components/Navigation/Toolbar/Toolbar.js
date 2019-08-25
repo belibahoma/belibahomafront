@@ -6,6 +6,7 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import Auth from "../../../containers/Auth/Auth";
 import AdminToolbar from "./AdminToolbar";
+import TutorToolbar from "./TutorToolbar";
 
 class Toolbar extends Component {
   state = {
@@ -51,13 +52,22 @@ class Toolbar extends Component {
   }
 
   menuItems = () => {
-    if (this.state.userType && this.state.userType === "admin") {
+    if (!this.state.userType) return null;
+    if (this.state.userType === "admin") {
       return (
         <Nav className="text-left ml-auto">
           <AdminToolbar />
         </Nav>
       );
-    } else return null;
+    } else if (this.state.userType === "tutor") {
+      return (
+        <Nav className="text-left ml-auto">
+          <TutorToolbar />
+        </Nav>
+      );
+    }
+
+    return null;
   };
 
   handleRegisterClicked = () => {

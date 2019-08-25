@@ -9,9 +9,15 @@ export default class DynamicSelectBox extends Component {
 
   componentDidMount() {
     axios
-      .get(this.props.fetchLink, { Headers: this.props.headers })
+      .get(this.props.fetchLink, { headers: this.props.headers })
       .then(response => {
-        const data = response.data;
+        let data;
+        if (this.props.filterMethod) {
+          data = this.props.filterMethod(response.data);
+        } else {
+          data = response.data;
+        }
+
         this.setState({ valuesList: data });
         this.setState({ isLoaded: false });
       })

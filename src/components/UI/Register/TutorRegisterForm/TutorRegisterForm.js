@@ -539,6 +539,7 @@ class TutorRegisterForm extends Component {
             <DatePicker
               value={new Date(this.state.birthDate)}
               onChange={this.handleBirthDateChanged}
+              format="dd/MM/yyyy"
               required
             />
             <br />
@@ -609,7 +610,11 @@ class TutorRegisterForm extends Component {
                 this.setState({
                   isAdditionalStudyPath: !this.state.isAdditionalStudyPath
                 });
+                if (this.state.isAdditionalStudyPath) {
+                  this.setState({ secondaryStudy: "" });
+                }
               }}
+              checked={this.state.isAdditionalStudyPath}
             />
             {this.state.isAdditionalStudyPath ? (
               <React.Fragment>
@@ -870,14 +875,14 @@ class TutorRegisterForm extends Component {
               <Form.Check
                 label="?האם אתה סטודנט באימפקט"
                 onChange={this.handleIsImpactChanged}
-                value={this.state.isImpact}
+                checked={this.state.isImpact}
               />
             </Form.Group>
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם אתה סטודנט בשחק"
                 onChange={this.handleIsShachakChanged}
-                value={this.state.isShachak}
+                checked={this.state.isShachak}
               />
             </Form.Group>
 
@@ -885,14 +890,14 @@ class TutorRegisterForm extends Component {
               <Form.Check
                 label="?האם אתה מקבל נקודות זכות על הפעילות"
                 onChange={this.handleForAcademicPointsChanged}
-                value={this.state.isForAcademicPoints}
+                checked={this.state.isForAcademicPoints}
               />
             </Form.Group>
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם הפעילות היא חלק ממלגה עירונית"
                 onChange={this.handleForAcademicPointsChanged}
-                value={this.state.isForAcademicPoints}
+                checked={this.state.isForAcademicPoints}
               />
             </Form.Group>
             {/**************************************************************************/}
