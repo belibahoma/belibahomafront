@@ -40,6 +40,7 @@ class Relation extends Component {
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData = localStorage.getItem("beliba-homa-user");
+    console.log(userData);
     if (userToken && userData) {
       userData = JSON.parse(userData);
       if (userData.userType === "admin" || userData.userType === "coordinator")

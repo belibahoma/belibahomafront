@@ -25,13 +25,13 @@ export default class MultyTableGeneric extends Component {
                     onClick={() => this.props.hadleDelete(row)}
                     className="btn btn-link btn-sm">
                     מחק
-            </button>
+                </button>
                 <h>|</h>
                 <button
                     onClick={() => this.props.hadleEdit(row)}
                     className="btn btn-link btn-sm">
                     ערוך
-            </button>
+                </button>
             </div>
         );
     }
@@ -56,7 +56,7 @@ export default class MultyTableGeneric extends Component {
 
 
         const customTotal = (from, to, size) => (
-            <span className="react-bootstrap-table-pagination-total" > / {size} 
+            <span className="react-bootstrap-table-pagination-total" > / {size}
             </span>
         );
 
