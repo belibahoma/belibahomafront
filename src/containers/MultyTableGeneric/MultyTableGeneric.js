@@ -1,11 +1,14 @@
-import React, { Component } from 'react';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory, { PaginationProvider, PaginationListStandalone } from 'react-bootstrap-table2-paginator';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import React, { Component } from "react";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory, {
+  PaginationProvider,
+  PaginationListStandalone
+} from "react-bootstrap-table2-paginator";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+import ToolkitProvider, { Search } from "react-bootstrap-table2-toolkit";
 import { Button } from "react-bootstrap";
-import './MultyTableGeneric.css'
+import "./MultyTableGeneric.css";
 
 const { SearchBar, ClearSearchButton } = Search;
 
@@ -87,27 +90,24 @@ export default class MultyTableGeneric extends Component {
 
                                     {/* <ClearSearchButton {...props.searchProps}
                                     /> */}
-                                    <SearchBar {...props.searchProps}
-                                        style={{ textAlign: 'right', paddingLeft: '5px' }}
-                                        placeholder="...חפש"
-                                    />
-                                    <hr />
-                                    <BootstrapTable
-                                        {...props.baseProps}
-                                        filter={filterFactory()}
-                                        noDataIndication="אין מידע להציג, הוסף בעזרת כפתור ההוספה"
-                                        pagination={paginationFactory(pagingOptions)}
-                                        bordered={false}
-                                    />
-
-                                </div>
-                            )
-                        }
-                    </ToolkitProvider>
-                </div>
-            </div>
-        )
-    }
-
-
+                <SearchBar
+                  {...props.searchProps}
+                  style={{ textAlign: "right", paddingLeft: "5px" }}
+                  placeholder="...חפש"
+                />
+                <hr />
+                <BootstrapTable
+                  {...props.baseProps}
+                  filter={filterFactory()}
+                  noDataIndication="אין מידע להציג, הוסף בעזרת כפתור ההוספה"
+                  pagination={paginationFactory(pagingOptions)}
+                  bordered={false}
+                />
+              </div>
+            )}
+          </ToolkitProvider>
+        </div>
+      </div>
+    );
+  }
 }

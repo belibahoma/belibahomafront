@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { NavDropdown, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default class AdminToolbar extends Component {
   render() {
     return (
-      <Nav className="text-right ">
-        <NavDropdown alignRight title="ניהול התראות" id="basic-nav-dropdown" className="mr-3">
-          <NavDropdown.Item href="#action/3.1" className="text-right">
+      <Nav className="text-right m-auto">
+        <NavDropdown alignRight title="ניהול התראות" id="basic-nav-dropdown">
+          <NavDropdown.Item as={Link} to="/alerts" className="text-right">
             לוח התראות
           </NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2" className="text-right">
@@ -19,17 +20,11 @@ export default class AdminToolbar extends Component {
           id="basic-nav-dropdown"
           className="mr-3"
         >
-          <NavDropdown.Item href="#action/3.1" className="text-right">
+          <NavDropdown.Item as={Link} to="/relations" className="text-right">
             רשימת קשרי חונכות
           </NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2" className="text-right">
+          <NavDropdown.Item as={Link} to="/addRelation" className="text-right">
             ציוות ידני
-          </NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2" className="text-right">
-            ציוות אוטומטי
-          </NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2" className="text-right">
-            המלצת המערכת לקשרי חונכות
           </NavDropdown.Item>
         </NavDropdown>
         <NavDropdown
@@ -38,13 +33,25 @@ export default class AdminToolbar extends Component {
           id="basic-nav-dropdown"
           className="mr-3"
         >
-          <NavDropdown.Item href="ActivityAreas" className="text-right">
+          <NavDropdown.Item
+            as={Link}
+            to="/ActivityAreas"
+            className="text-right"
+          >
             איזורי פעילות
           </NavDropdown.Item>
-          <NavDropdown.Item href="AcademicInstitutions" className="text-right">
+          <NavDropdown.Item
+            as={Link}
+            to="/AcademicInstitutions"
+            className="text-right"
+          >
             מוסדות אקדמאים
           </NavDropdown.Item>
-          <NavDropdown.Item href="EducationPrograms" className="text-right">
+          <NavDropdown.Item
+            as={Link}
+            to="/EducationPrograms"
+            className="text-right"
+          >
             מסלולי לימוד
           </NavDropdown.Item>
         </NavDropdown>

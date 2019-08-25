@@ -43,7 +43,10 @@ class Relation extends Component {
     console.log(userData);
     if (userToken && userData) {
       userData = JSON.parse(userData);
-      if (userData.userType === "admin" || userData.userType === "coordinator")
+      if (
+        userData.userType === "admin" ||
+        userData.userType === "coordinator"
+      ) {
         axios
           .get(`${config.get("serverAddress")}/api/tutors`, {
             headers: { "x-auth-token": userToken }
@@ -64,28 +67,32 @@ class Relation extends Component {
               `${err.message}${err.response ? ": " + err.response.data : ""}`
             );
           });
-      axios
-        .get(`${config.get("serverAddress")}/api/relations`, {
-          headers: { "x-auth-token": userToken }
-        })
-        .then(res => this.setState({ relationsList: res.data }))
-        .catch(err => {
-          alert(
-            `${err.message} ${err.response ? ": " + err.response.data : ""}`
-          );
-        });
-      axios
-        .get(`${config.get("serverAddress")}/api/trainees`, {
-          headers: { "x-auth-token": userToken }
-        })
-        .then(res => this.setState({ traineesList: res.data }))
-        .catch(err => {
-          alert(
-            `${err.message} ${err.response ? ": " + err.response.data : ""}`
-          );
-        });
+        axios
+          .get(`${config.get("serverAddress")}/api/relations`, {
+            headers: { "x-auth-token": userToken }
+          })
+          .then(res => this.setState({ relationsList: res.data }))
+          .catch(err => {
+            alert(
+              `${err.message} ${err.response ? ": " + err.response.data : ""}`
+            );
+          });
+        axios
+          .get(`${config.get("serverAddress")}/api/trainees`, {
+            headers: { "x-auth-token": userToken }
+          })
+          .then(res => this.setState({ traineesList: res.data }))
+          .catch(err => {
+            alert(
+              `${err.message} ${err.response ? ": " + err.response.data : ""}`
+            );
+          });
+      } else {
+        alert("אינך מורשה גישה");
+        this.props.history.push("/");
+      }
     } else {
-      alert("Unauthorized access");
+      alert("אנא התחבר");
       this.props.history.push("/");
     }
   }
@@ -142,9 +149,11 @@ class Relation extends Component {
 
   calculateTime = (tutorUnavailableTimes, traineeUnavailableTimes) => {
     return !tutorUnavailableTimes.some(tutorTime => {
-      traineeUnavailableTimes.some(traineeTime => {
-        tutorTime.day === traineeTime.day &&
-          this.isTimeOverlap(tutorTime.Time, traineeTime.Time);
+      return traineeUnavailableTimes.some(traineeTime => {
+        return (
+          tutorTime.day === traineeTime.day &&
+          this.isTimeOverlap(tutorTime.Time, traineeTime.Time)
+        );
       });
     });
   };

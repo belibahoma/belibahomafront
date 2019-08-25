@@ -17,6 +17,7 @@ import AdminsAndCoordinators from "./components/UI/UserManagement/AdminsAndCoord
 import Trainees from "./components/UI/UserManagement/Trainees";
 import Tutors from "./components/UI/UserManagement/Tutors";
 
+import Approve from "./components/UI/Approve/Approve";
 
 class App extends Component {
   render() {
@@ -28,9 +29,13 @@ class App extends Component {
             <Route path="/auth" exact component={Auth} />
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
-            <Route path="/student" component={Reports} />
-            <Route path="/relation" component={Relation} />
-            <Route path="/AcademicInstitutions" component={AcademicInstitutions} />
+            <Route path="/reports" component={Reports} />
+            <Route path="/addRelation" component={Relation} />
+            {/* <Route path="/relations" component={Relations} /> */}
+            <Route
+              path="/AcademicInstitutions"
+              component={AcademicInstitutions}
+            />
             <Route path="/EducationPrograms" component={EducationPrograms} />
             <Route path="/ActivityAreas" component={ActivityAreas} />
             <Route path="/AdminsAndCoordinators" component={AdminsAndCoordinators} />
@@ -38,6 +43,7 @@ class App extends Component {
             <Route path="/Tutors" component={Tutors} />
 
 
+            <Route path="/alerts" component={Approve} />
           </Switch>
         </Layout>
       </UserProvider>
