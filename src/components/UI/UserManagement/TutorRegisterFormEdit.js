@@ -139,7 +139,7 @@ class TutorRegisterForm extends Component {
                     clearInterval();
                     alert("פרטי החונך עודכנו בהצלחה");
                     this.setState({ isLoading: false });
-                    this.props.history.push("/");
+                    this.prop.handleCloseModal();
                 })
                 .catch(err => {
                     alert(`${err.message} +"  "+ ${err.response.data}`);
@@ -987,6 +987,7 @@ class TutorRegisterForm extends Component {
                             className="m-2 btn btn-danger"
                             type="button"
                             disabled={this.state.isLoading ? "disabled" : null}
+                            onClick={this.props.handleCloseModal}
                         >
                             ביטול
                         </Button>
