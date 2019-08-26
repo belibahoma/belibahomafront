@@ -25,20 +25,8 @@ export default class AdminsAndCoordinators extends Component {
                 text: 'איזורי פעילות',
                 sort: true,
                 formatter: (value, row, index) => {
-                    let areaNames = [];
-                    value.forEach(item => {
-                        axios
-                            .get(`${config.get("serverAddress")}/api/areas/` + item)
-                            .then(response => {
-                                areaNames = [...areaNames, response.data.name];
-                            })
-                            .catch(err => {
-                                alert(`${err.message} +"  "+ ${err.response.data}`);
-                                console.log(err)
-                            })
-                    });
-                    return areaNames.toString();
-
+                       if(value !== undefined) return value.map(item =>  item.name);
+                       else return "";
                 },
             }, {
                 dataField: 'phone',
@@ -57,7 +45,7 @@ export default class AdminsAndCoordinators extends Component {
                 text: 'סוג משתמש',
                 sort: true,
                 formatter: (value, row, index) => {
-                    return value === "coordinator" ? "רכז" : value === "Admin"? "אדמין" : "";
+                    return value === "coordinator" ? "רכז" : value === "admin"? "אדמין" : "";
                 }
 
             }, {
@@ -105,21 +93,44 @@ export default class AdminsAndCoordinators extends Component {
         if (userToken && userData) {
             userData = JSON.parse(userData);
             if (userData.userType === "admin" || userData.userType === "coordinator")
+
                 axios
                     .get(`${config.get("serverAddress")}/api/Coordinators`, {
                         headers: { "x-auth-token": userToken }
                     })
                     .then(res => {
                         console.log(res.data);
-                        this.setState({
+                        this.setState(prevState => ({
                             user: userData,
                             isLoggedIn: true,
                             fname: userData.fname,
                             lname: userData.lname,
                             userType: userData.userType,
-                            adminsAndCoordinators: res.data,
+                            adminsAndCoordinators: [...prevState.adminsAndCoordinators, ...res.data],
                             userToken: userToken
-                        });
+                        }));
+                    })
+                    .catch(err => {
+                        alert(
+                            `${err.message}${err.response ? ": " + err.response.data : ""}`
+                        );
+                    });
+
+                    axios
+                    .get(`${config.get("serverAddress")}/api/Admins`, {
+                        headers: { "x-auth-token": userToken }
+                    })
+                    .then(res => {
+                        console.log(res.data);
+                        this.setState(prevState => ({
+                            user: userData,
+                            isLoggedIn: true,
+                            fname: userData.fname,
+                            lname: userData.lname,
+                            userType: userData.userType,
+                            adminsAndCoordinators: [...prevState.adminsAndCoordinators, ...res.data],
+                            userToken: userToken
+                        }));
                     })
                     .catch(err => {
                         alert(
@@ -131,16 +142,7 @@ export default class AdminsAndCoordinators extends Component {
             alert("Unauthorized access");
             this.props.history.push("/");
         }
-        // axios.get(`${config.get("serverAddress")}/api/Coordinators`)
-        //     .then(response => {
-        //         this.setState({
-        //             adminsAndCoordinators: [...response.data],
-        //             user: userData,
-        //         });
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     })
+
 
     }
 
@@ -528,7 +530,7 @@ export default class AdminsAndCoordinators extends Component {
 
                 <Modal show={this.state.editIsShoing} onHide={this.toggleModal_editItem} style={{ textAlign: 'right' }}>
                     <Modal.Header   >
-                        <Modal.Title style={{ margin: '0 auto ' }}>הוספת רכז/אדמין</Modal.Title>
+                        <Modal.Title style={{ margin: '0 auto ' }}>עריכת רכז/אדמין</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form >
@@ -536,7 +538,7 @@ export default class AdminsAndCoordinators extends Component {
                                 <ToggleButtonGroup
                                     type="radio"
                                     name="options"
-                                    value={this.aAcType === "admin"? "1" : "2"}
+                                    value={this.state.aAcType === "admin"? "1" : "2"}
                                 >
                                     <ToggleButton variant="outline-secondary" value="1"> אדמין</ToggleButton>
                                     <ToggleButton variant="outline-secondary" value="2"> רכז</ToggleButton>
@@ -621,7 +623,6 @@ export default class AdminsAndCoordinators extends Component {
                                 onClick={this.handleSubmitEdit}
                                 className="m-2 "
                                 type="submit"
-                                disabled={this.formValidate() ? null : "disabled"}
                             >
                                 שמור
                             </Button>
