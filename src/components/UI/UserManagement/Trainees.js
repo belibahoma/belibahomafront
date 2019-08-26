@@ -55,7 +55,13 @@ export default class Trainee extends Component {
             }, {
                 dataField: 'fname',
                 formatter: (value, row, index) => {
-                    return row.lname + ", " + value;
+                    return (
+                        <Button
+                            as={Link}
+                            to={`trainee/${row._id}`}
+                            variant="link">
+                            {row.lname + ", " + value}
+                        </Button>)
                 },
                 text: 'שם מלא',
                 sort: true,
@@ -131,7 +137,7 @@ export default class Trainee extends Component {
                     englishCourse: "",
                     computerCourse: "",
                     studyDiagnostics: "",
-                    selfAdvanceProgram:"",
+                    selfAdvanceProgram: "",
                     entrepreneurship: "",
                     shortTermPreparatory: ""
                 },
@@ -140,7 +146,7 @@ export default class Trainee extends Component {
                 englishLevel: "",
                 physicsLevel: "",
                 additionalTopics: "",
-                isActive:"",
+                isActive: "",
                 leavingReason: "",
                 isDropped: ""
 
@@ -237,7 +243,7 @@ export default class Trainee extends Component {
                     </Modal.Header>
                     <Modal.Body>
 
-                        <TraineeRegisterFormEdit traineeInfo={this.state.traineeInfo} />
+                        <TraineeRegisterFormEdit traineeInfo={this.state.traineeInfo} handleCloseModal={this.toggleModal_editItem} />
                     </Modal.Body>
 
                 </Modal>
@@ -246,7 +252,12 @@ export default class Trainee extends Component {
                     חניכים
                 </h1>
                 {/* <Button as={Link} to="/register" variant="outline-primary">הוסף חונך</Button> */}
-                <MultyTableGeneric ColumnNames={this.state.TableColumns} data={this.state.traineeList} hadleDelete={this.hadleDelete} hadleEdit={this.hadleEdit} />
+                <MultyTableGeneric
+                    ColumnNames={this.state.TableColumns}
+                    data={this.state.traineeList}
+                    hadleDelete={this.hadleDelete}
+                    hadleEdit={this.hadleEdit}
+                />
             </div>
         );
     };

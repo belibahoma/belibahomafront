@@ -29,7 +29,7 @@ export default class MultyTableGeneric extends Component {
                     className="btn btn-link btn-sm">
                     מחק
                 </button>
-                <h>|</h>
+                |
                 <button
                     onClick={() => this.props.hadleEdit(row)}
                     className="btn btn-link btn-sm">

@@ -149,9 +149,10 @@ class TraineeRegisterFormEdit extends Component {
           clearInterval();
           alert("פרטי החניך עודכנו בהצלחה");
           this.setState({ isLoading: false });
-          this.props.history.push("/");
+          this.props.handleCloseModal();
         })
         .catch(err => {
+          console.log(err);
           alert(`${err.message} +"  "+ ${err.response.data}`);
           this.setState({ isLoading: false });
         });
@@ -1329,6 +1330,7 @@ class TraineeRegisterFormEdit extends Component {
               className="m-2 btn btn-danger"
               type="button"
               disabled={this.state.isLoading ? "disabled" : null}
+              onClick={this.props.handleCloseModal}
             >
               ביטול
             </Button>

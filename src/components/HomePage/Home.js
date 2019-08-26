@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Jumbotron, Container, Button, Modal } from 'react-bootstrap';
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../assets/images/BelibaHoma.jpg";
+import facebooklogo from "../../assets/images/facebook_icon.png";
+import siamneDlogo from "../../assets/images/simaneyDlogo.webp";
 import aboutPdf from "../../assets/pdf/AboutPDF.pdf";
+import AdaptiveHomeMessage from './AdaptiveHomeMessage';
 import './Home.css'
 
 
@@ -36,7 +39,7 @@ export default class Home extends React.Component {
                             <iframe src={aboutPdf}
                                 style={{ width: '770px', height: '500px' }} frameborder="0"></iframe>
                         </div>
-                        
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.toggleModal_pdf}>
@@ -44,16 +47,14 @@ export default class Home extends React.Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                
+
                 <Jumbotron>
                     <div id="main_jumbo"  >
 
                         <div style={{ paddingRight: '30px' }}>
                             <h1>  בליבה חומה - ניהול ודיווח</h1>
-                            <p>
-                                .כדי לגשת אל המידע האישי שלך עלייך להתחבר
-                                <br />אם אינך רשום עלייך להירשם תחילה
-                            </p>
+                            <AdaptiveHomeMessage/>
+
                         </div>
                         <img id="bh_logo" src={logo} height="380" width="380" />
                     </div>
@@ -67,6 +68,9 @@ export default class Home extends React.Component {
                                 <p class="lead">לעדכונים נוספים עברו לעמוד הפייסבוק שלנו</p>
                             </div>
                             <div class="bg-light shadow-sm mx-auto" style={{ width: '80%', height: '300px', borderRadius: '21px 21px 0 0' }}>
+                                <a href="https://www.facebook.com/belibachoma?fref=tss">
+                                    <img className="mt-5" id="fb_logo" src={facebooklogo} height="150" width="150" />
+                                </a>
 
                             </div>
                         </div>
@@ -77,7 +81,7 @@ export default class Home extends React.Component {
                             </div>
                             <div class="bg-dark shadow-sm mx-auto" style={{ width: '80%', height: '300px', borderRadius: '21px 21px 0 0' }}>
                                 <p class="text-right text-white p-3">
-                                    תכנית 'בליבה חומה' פועלת מזה 5 שנים, על מנת לאפשר לצעירים חרדים להשתלב בהצלחה במערכת ההשכלה הגבוהה בישראל בדרכם לרכוש פרנסה בכבוד,  ובנוסף ליצור שינוי חברתי ביחסי המגזרים השונים בישראל.
+                                    תכנית 'בליבה חומה' פועלת מזה 5 שנים, על מנת לאפשר לצעירים חרדים להשתלב בהצלחה במערכת ההשכלה הגבוהה בישראל בדרכם לרכוש פרנסה בכבוד,  ובנוסף ליצור שינוי חברתי ביחסי המגזרים השונים בישראל
                                     <br />
                                     .התכנית הוקמה על ידי צעירים בעקבות שבר גדול בו חזו במהלך מאבק חברתי בין ציבור הסטודנטים לציבור החרדי בשנת 2010
                                     <br />
@@ -90,10 +94,14 @@ export default class Home extends React.Component {
                         </div>
                         <div class="bg-dark w-25 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                             <div class="my-3 py-3">
-                                <h2 class="display-5">בליבה חומה</h2>
-                                <p class="lead">יוצרים גשר בין אוכלוסיות סטודנטים במדינת ישראל!</p>
+                                <h2 class="display-5">עמותת ציוני דרך</h2>
+                                <p class="lead">תנועה חברתית ליצירת חברה פעילה ומעורבת</p>
                             </div>
-                            <div class="bg-light shadow-sm mx-auto" style={{ width: '80%', height: '300px', borderRadius: '21px 21px 0 0' }}></div>
+                            <div class="bg-light shadow-sm mx-auto" style={{ width: '80%', height: '300px', borderRadius: '21px 21px 0 0' }}>
+                                <a href="https://www.tzioneiderech.com/">
+                                    <img className="mt-5" id="fb_logo" src={siamneDlogo} height="150" width="150" />
+                                </a>
+                            </div>
                         </div>
 
 

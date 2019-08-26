@@ -16,6 +16,7 @@ import ActivityAreas from "./components/UI/AuxiliaryEntity/ActivityAreas";
 import AdminsAndCoordinators from "./components/UI/UserManagement/AdminsAndCoordinators";
 import Trainees from "./components/UI/UserManagement/Trainees";
 import Tutors from "./components/UI/UserManagement/Tutors";
+import studentDetail from "./components/UI/UserManagement/studentDetail";
 
 import Approve from "./components/UI/Approve/Approve";
 
@@ -23,7 +24,7 @@ class App extends Component {
   render() {
     return (
       <UserProvider>
-        <Layout>
+        <Layout onConnect={this.handleConnect}>
           <Switch>
             <Route path="/" exact component={Home}/>
             <Route path="/auth" exact component={Auth} />
@@ -41,6 +42,8 @@ class App extends Component {
             <Route path="/AdminsAndCoordinators" component={AdminsAndCoordinators} />
             <Route path="/Trainees" component={Trainees} />
             <Route path="/Tutors" component={Tutors} />
+            <Route path="/trainee/:id" component={studentDetail} />
+
 
 
             <Route path="/alerts" component={Approve} />

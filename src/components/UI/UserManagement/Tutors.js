@@ -215,7 +215,7 @@ export default class Tutors extends Component {
                     </Modal.Header>
                     <Modal.Body>
 
-                        <TutorRegisterForm tutorInfo={this.state.tutorInfo} />
+                        <TutorRegisterForm tutorInfo={this.state.tutorInfo} handleCloseModal={this.toggleModal_editItem} />
                     </Modal.Body>
 
                 </Modal>
