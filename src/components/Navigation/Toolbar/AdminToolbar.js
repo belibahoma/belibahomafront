@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import NavLink from "react-bootstrap/NavLink";
 
 export default class AdminToolbar extends Component {
   render() {
     return (
       <Nav className="text-right m-auto">
+        <NavLink as={Link} to="/chat" className="text-right">
+          שיחוח
+        </NavLink>
         <NavDropdown alignRight title="ניהול התראות" id="basic-nav-dropdown">
           <NavDropdown.Item as={Link} to="/alerts" className="text-right">
             לוח התראות
@@ -55,18 +59,24 @@ export default class AdminToolbar extends Component {
             מסלולי לימוד
           </NavDropdown.Item>
         </NavDropdown>
-        <NavDropdown alignRight title="ניהול משתמשים" id="basic-nav-dropdown" className="mr-3">
-          <NavDropdown.Item href="AdminsAndCoordinators" className="text-right">
+        <NavDropdown
+          alignRight
+          title="ניהול משתמשים"
+          id="basic-nav-dropdown"
+          className="mr-3"
+        >
+          <NavDropdown.Item
+            as={Link}
+            to="/AdminsAndCoordinators"
+            className="text-right"
+          >
             משתמשי אדמין ורכזים
           </NavDropdown.Item>
-          <NavDropdown.Item href="Trainees" className="text-right">
+          <NavDropdown.Item as={Link} to="/Trainees" className="text-right">
             חניכים
           </NavDropdown.Item>
-          <NavDropdown.Item href="Tutors" className="text-right">
+          <NavDropdown.Item as={Link} to="/Tutors" className="text-right">
             חונכים
-          </NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.4" className="text-right">
-            אתחול שנה
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>

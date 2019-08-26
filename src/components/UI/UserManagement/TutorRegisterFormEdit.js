@@ -598,7 +598,7 @@ class TutorRegisterForm extends Component {
                         <Form.Control
                             as={DynamicSelectBox}
                             className="mb-2"
-                            value={this.state.mainStudy.name}
+                            value={this.state.mainStudy}
                             dir="rtl"
                             onChange={this.handleMainStudyChanged}
                             name="mainStudy"

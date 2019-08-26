@@ -19,9 +19,11 @@ const Report = props => {
         <Button className="text-center m-1 btn-info" onClick={props.details}>
           פרטים
         </Button>
-        <Button className="text-center m-1" onClick={props.editReport}>
-          עריכה
-        </Button>
+        {!props.isTrainee ? (
+          <Button className="text-center m-1" onClick={props.editReport}>
+            עריכה
+          </Button>
+        ) : null}
       </td>
       <td>{`${new Date(props.date).getDate()}/${new Date(
         props.date

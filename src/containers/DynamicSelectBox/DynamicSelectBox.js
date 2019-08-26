@@ -24,7 +24,11 @@ export default class DynamicSelectBox extends Component {
       .catch(err => {
         this.setState({ valuesList: [{ error: err.message }] });
       });
-    this.props.onChange({ target: { value: "error" } });
+    if (this.props.value) {
+      this.props.onChange({ target: { value: this.props.value } });
+    } else {
+      this.props.onChange({ target: { value: "error" } });
+    }
   }
 
   selectList = () => {
@@ -44,7 +48,16 @@ export default class DynamicSelectBox extends Component {
       ];
       this.state.valuesList.map(val => {
         return valuesArr.push(
-          <option key={val._id} value={val._id}>
+          <option
+            key={val._id}
+            value={val._id}
+            selected={
+              (this.props.value && this.props.value === val._id) ||
+              this.props.value._id === val._id
+                ? "selected"
+                : null
+            }
+          >
             {val.name}
           </option>
         );
@@ -65,6 +78,8 @@ export default class DynamicSelectBox extends Component {
           this.props.onChange(event);
         }}
         required
+        // defaultValue={this.props.value || "N/A"}
+        // defaultChecked={this.props.value || "N/A"}
       >
         {this.selectList()}
       </select>

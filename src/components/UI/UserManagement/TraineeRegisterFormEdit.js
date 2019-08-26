@@ -26,9 +26,7 @@ class TraineeRegisterFormEdit extends Component {
     console.log("props ->");
     console.log(props);
 
-
     this.state = {
-
       isAdditionalStudyPath: false,
       isLoading: false,
       spinnerColor: "primary",
@@ -73,7 +71,8 @@ class TraineeRegisterFormEdit extends Component {
       workTitle: this.props.traineeInfo.workTitle,
       isLearnedInYeshiva: this.props.traineeInfo.isLearnedInYeshiva,
       yeshivaTimes: this.props.traineeInfo.yeshivaTimes,
-      isHaveAnotherProfessionalTraining: this.props.traineeInfo.isHaveAnotherProfessionalTraining,
+      isHaveAnotherProfessionalTraining: this.props.traineeInfo
+        .isHaveAnotherProfessionalTraining,
       previousProfession: this.props.traineeInfo.previousProfession,
       isHaveAnotherDegree: this.props.traineeInfo.isHaveAnotherDegree,
       previousDegree: this.props.traineeInfo.previousDegree,
@@ -86,10 +85,9 @@ class TraineeRegisterFormEdit extends Component {
       isActive: this.props.traineeInfo.isActive,
       leavingReason: this.props.traineeInfo.leavingReason,
       isDropped: this.props.traineeInfo.isDropped
-    }
-  };
+    };
+  }
   // until here is the common part
-
 
   componentDidMount() {
     let colors = [
@@ -143,9 +141,14 @@ class TraineeRegisterFormEdit extends Component {
       const userToken = localStorage.getItem("beliba-homa-auth-token");
 
       axios
-        .put(`${config.get("serverAddress")}/api/trainees/` + this.state._id, dataToPut, {
-          headers: { "x-auth-token": userToken }
-        }).then(res => {
+        .put(
+          `${config.get("serverAddress")}/api/trainees/` + this.state._id,
+          dataToPut,
+          {
+            headers: { "x-auth-token": userToken }
+          }
+        )
+        .then(res => {
           clearInterval();
           alert("פרטי החניך עודכנו בהצלחה");
           this.setState({ isLoading: false });
@@ -164,7 +167,7 @@ class TraineeRegisterFormEdit extends Component {
 
   getModal = () => {
     return (
-      <Modal onHide={() => { }} show={this.state.isLoading}>
+      <Modal onHide={() => {}} show={this.state.isLoading}>
         <Modal.Body className="text-center">
           <h4 dir="rtl">טוען...</h4>
           <Spinner
@@ -1009,23 +1012,23 @@ class TraineeRegisterFormEdit extends Component {
                 </Form.Control>
               </Form.Group>
               {this.state.workStatus === "עובד במקצוע הלימודים" ||
-                this.state.workStatus === "עובד במקצוע אחר" ? (
-                  <Form.Group as={Col}>
-                    <Form.Label>פרט</Form.Label>
-                    <Form.Control
-                      as={TextValidator}
-                      className="mb-2"
-                      dir="rtl"
-                      onChange={this.handleWorkTitleChanged}
-                      name="workTitle"
-                      value={this.state.workTitle}
-                      validators={["required"]}
-                      errorMessages={["שדה זה הינו חובה"]}
-                    />
-                  </Form.Group>
-                ) : (
-                  <Form.Group as={Col} />
-                )}
+              this.state.workStatus === "עובד במקצוע אחר" ? (
+                <Form.Group as={Col}>
+                  <Form.Label>פרט</Form.Label>
+                  <Form.Control
+                    as={TextValidator}
+                    className="mb-2"
+                    dir="rtl"
+                    onChange={this.handleWorkTitleChanged}
+                    name="workTitle"
+                    value={this.state.workTitle}
+                    validators={["required"]}
+                    errorMessages={["שדה זה הינו חובה"]}
+                  />
+                </Form.Group>
+              ) : (
+                <Form.Group as={Col} />
+              )}
             </Form.Row>
             <Form.Row dir="rtl">
               <Form.Group
@@ -1063,8 +1066,8 @@ class TraineeRegisterFormEdit extends Component {
                   </Form.Group>
                 </Form.Group>
               ) : (
-                  <Form.Group as={Col} />
-                )}
+                <Form.Group as={Col} />
+              )}
             </Form.Row>
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
@@ -1275,7 +1278,7 @@ class TraineeRegisterFormEdit extends Component {
               <Form.Group>
                 <Form.Label dir="rtl" className="h5 font-weight-bold">
                   שדות בעריכת אדמין בלבד:
-                                </Form.Label>
+                </Form.Label>
                 <Form.Row dir="rtl">
                   <Form.Label dir="rtl">הערות צוות</Form.Label>
                   <Form.Control
@@ -1290,40 +1293,40 @@ class TraineeRegisterFormEdit extends Component {
                 </Form.Row>
               </Form.Group>
               <Form.Group className="align-content-center" dir="ltr">
-              <Form.Check
-                label="?צריך שיבוץ נוסף"
-                onChange={this.handleIsNeedAdditionalRelationChanged}
-                checked={this.state.isNeedAdditionalRelation}
-              />
-            </Form.Group>
-            <Form.Group className="align-content-center" dir="ltr">
-              <Form.Check
-                label="?סיים מכינה"
-                onChange={this.handleIsFinnishPreparatoryChanged}
-                checked={this.state.isFinnishPreparatory}
-              />
-            </Form.Group>
-            <Form.Group className="align-content-center" dir="ltr">
-              <Form.Check
-                label="?סיים את התואר"
-                onChange={this.handleIsGraduatedChanged}
-                checked={this.state.isGraduated}
-              />
-            </Form.Group>
-            <Form.Group className="align-content-center" dir="ltr">
-              <Form.Check
-                label="?השתלב בעבודה"
-                onChange={this.handleIsFoundJobChanged}
-                checked={this.state.isFoundJob}
-              />
-            </Form.Group>
-            <Form.Group className="align-content-center" dir="ltr">
-              <Form.Check
-                label="?השתלב בעבודה בתחום"
-                onChange={this.handleIsJobInStudyFelidChanged}
-                checked={this.state.isJobInStudyFelid}
-              />
-            </Form.Group>
+                <Form.Check
+                  label="?צריך שיבוץ נוסף"
+                  onChange={this.handleIsNeedAdditionalRelationChanged}
+                  checked={this.state.isNeedAdditionalRelation}
+                />
+              </Form.Group>
+              <Form.Group className="align-content-center" dir="ltr">
+                <Form.Check
+                  label="?סיים מכינה"
+                  onChange={this.handleIsFinnishPreparatoryChanged}
+                  checked={this.state.isFinnishPreparatory}
+                />
+              </Form.Group>
+              <Form.Group className="align-content-center" dir="ltr">
+                <Form.Check
+                  label="?סיים את התואר"
+                  onChange={this.handleIsGraduatedChanged}
+                  checked={this.state.isGraduated}
+                />
+              </Form.Group>
+              <Form.Group className="align-content-center" dir="ltr">
+                <Form.Check
+                  label="?השתלב בעבודה"
+                  onChange={this.handleIsFoundJobChanged}
+                  checked={this.state.isFoundJob}
+                />
+              </Form.Group>
+              <Form.Group className="align-content-center" dir="ltr">
+                <Form.Check
+                  label="?השתלב בעבודה בתחום"
+                  onChange={this.handleIsJobInStudyFelidChanged}
+                  checked={this.state.isJobInStudyFelid}
+                />
+              </Form.Group>
             </Jumbotron>
             <Button
               className="m-2 btn btn-danger"

@@ -53,13 +53,19 @@ class Toolbar extends Component {
 
   menuItems = () => {
     if (!this.state.userType) return null;
-    if (this.state.userType === "admin") {
+    if (
+      this.state.userType === "admin" ||
+      this.state.userType === "coordinator"
+    ) {
       return (
         <Nav className="text-left ml-auto">
           <AdminToolbar />
         </Nav>
       );
-    } else if (this.state.userType === "tutor") {
+    } else if (
+      this.state.userType === "tutor" ||
+      this.state.userType === "trainee"
+    ) {
       return (
         <Nav className="text-left ml-auto">
           <TutorToolbar />

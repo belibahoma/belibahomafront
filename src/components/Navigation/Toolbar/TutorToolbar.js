@@ -6,6 +6,9 @@ class TutorToolbar extends Component {
   render() {
     return (
       <Nav className="text-right m-auto">
+        <Nav.Link as={Link} to="/chat" className="text-right">
+          שיחוח
+        </Nav.Link>
         <Nav.Link as={Link} to={"/reports"}>
           קשרי חניכה
         </Nav.Link>

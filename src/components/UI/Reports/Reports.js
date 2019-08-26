@@ -150,6 +150,7 @@ export default class Reports extends Component {
             {...item}
             key={item._id}
             id={item._id}
+            isTrainee={this.state.userType === "trainee"}
             tutor={item.tutor_id}
             trainee={item.trainee_id}
             editReport={() => {
@@ -199,9 +200,7 @@ export default class Reports extends Component {
               return list.map(relation => {
                 return {
                   _id: relation.trainee_id._id,
-                  name: `${relation.trainee_id.fname} ${
-                    relation.trainee_id.lname
-                  }`
+                  name: `${relation.trainee_id.fname} ${relation.trainee_id.lname}`
                 };
               });
             }}
@@ -214,6 +213,7 @@ export default class Reports extends Component {
               variant="success"
               className="m-2"
               onClick={this.handleAddAppointment}
+              disabled={this.state.userType === "trainee"}
             >
               הוסף דיווח
             </Button>
