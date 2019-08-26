@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Home from "./components/HomePage/Home"
+import Home from "./components/HomePage/Home";
 import Layout from "./hoc/Layout/Layout";
 import Reports from "./components/UI/Reports/Reports";
 import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointment";
@@ -18,6 +18,7 @@ import Trainees from "./components/UI/UserManagement/Trainees";
 import Tutors from "./components/UI/UserManagement/Tutors";
 
 import Approve from "./components/UI/Approve/Approve";
+import Chat from "./components/UI/Chat/Chat";
 
 class App extends Component {
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
       <UserProvider>
         <Layout>
           <Switch>
-            <Route path="/" exact component={Home}/>
+            <Route path="/" exact component={Home} />
             <Route path="/auth" exact component={Auth} />
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
@@ -38,12 +39,14 @@ class App extends Component {
             />
             <Route path="/EducationPrograms" component={EducationPrograms} />
             <Route path="/ActivityAreas" component={ActivityAreas} />
-            <Route path="/AdminsAndCoordinators" component={AdminsAndCoordinators} />
+            <Route
+              path="/AdminsAndCoordinators"
+              component={AdminsAndCoordinators}
+            />
             <Route path="/Trainees" component={Trainees} />
             <Route path="/Tutors" component={Tutors} />
-
-
             <Route path="/alerts" component={Approve} />
+            <Route path="/chat" component={Chat} />
           </Switch>
         </Layout>
       </UserProvider>
