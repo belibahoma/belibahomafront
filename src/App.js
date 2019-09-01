@@ -1,25 +1,28 @@
-import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from "./components/HomePage/Home";
-import Layout from "./hoc/Layout/Layout";
-import Reports from "./components/UI/Reports/Reports";
-import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointment";
-import Auth from "./containers/Auth/Auth";
-import UserProvider from "./contexts/UserProvider";
-import Register from "./components/UI/Register/Register";
-import Relation from "./components/UI/Relation/Relation";
-import AcademicInstitutions from "./components/UI/AuxiliaryEntity/AcademicInstitutions";
-import EducationPrograms from "./components/UI/AuxiliaryEntity/EducationPrograms";
-import ActivityAreas from "./components/UI/AuxiliaryEntity/ActivityAreas";
+import Home from './components/HomePage/Home';
+import Layout from './hoc/Layout/Layout';
+import Reports from './components/UI/Reports/Reports';
+import AddAppointment from './components/UI/Reports/AddAppointment/AddAppointment';
+import Auth from './containers/Auth/Auth';
+import UserProvider from './contexts/UserProvider';
+import Register from './components/UI/Register/Register';
+import Relation from './components/UI/Relation/Relation';
+import AcademicInstitutions from './components/UI/AuxiliaryEntity/AcademicInstitutions';
+import EducationPrograms from './components/UI/AuxiliaryEntity/EducationPrograms';
+import ActivityAreas from './components/UI/AuxiliaryEntity/ActivityAreas';
 
-import AdminsAndCoordinators from "./components/UI/UserManagement/AdminsAndCoordinators";
-import Trainees from "./components/UI/UserManagement/Trainees";
-import Tutors from "./components/UI/UserManagement/Tutors";
-import studentDetail from "./components/UI/UserManagement/studentDetail";
+import AdminsAndCoordinators from './components/UI/UserManagement/AdminsAndCoordinators';
+import Trainees from './components/UI/UserManagement/Trainees';
+import Tutors from './components/UI/UserManagement/Tutors';
+import studentDetail from './components/UI/UserManagement/studentDetail';
 
-import Approve from "./components/UI/Approve/Approve";
-import Chat from "./components/UI/Chat/Chat";
+import Approve from './components/UI/Approve/Approve';
+import Chat from './components/UI/Chat/Chat';
+
+import { ActiveYearsPage } from './components/UI/Filters/ActiveYears/ActiveYearsPage';
+import { GeneralFiltersPage } from './components/UI/Filters/General/GeneralFiltersPage';
 
 class App extends Component {
   render() {
@@ -48,7 +51,38 @@ class App extends Component {
             <Route path="/Tutors" component={Tutors} />
             <Route path="/trainee/:id" component={studentDetail} />
 
-
+            <Route
+              path="/filters/general/trainees"
+              component={({ history, location }) => (
+                <GeneralFiltersPage history={history} location={location} type='trainees' />
+              )}
+            />
+            <Route
+              path="/filters/general/tutors"
+              component={({ history, location }) => (
+                <GeneralFiltersPage history={history} location={location} type='tutors' />
+              )}
+            />
+            <Route
+              path="/filters/active-years/trainees"
+              component={({ history, location }) => (
+                <ActiveYearsPage
+                  history={history}
+                  location={location}
+                  type="trainees"
+                />
+              )}
+            />
+            <Route
+              path="/filters/active-years/tutors"
+              component={({ history, location }) => (
+                <ActiveYearsPage
+                  history={history}
+                  location={location}
+                  type="tutors"
+                />
+              )}
+            />
 
             <Route path="/alerts" component={Approve} />
             <Route path="/chat" component={Chat} />
