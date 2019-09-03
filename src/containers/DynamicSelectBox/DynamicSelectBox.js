@@ -69,6 +69,7 @@ export default class DynamicSelectBox extends Component {
   render() {
     return (
       <select
+        multiple={this.props.multiple}
         dir="rtl"
         className={this.props.className}
         onChange={event => {

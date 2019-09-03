@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import { NavDropdown, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import NavLink from "react-bootstrap/NavLink";
+// import NavLink from "react-bootstrap/NavLink";
 
 export default class AdminToolbar extends Component {
   render() {
     return (
       <Nav className="text-right m-auto">
-        <NavLink as={Link} to="/chat" className="text-right">
-          שיחוח
-        </NavLink>
         <NavDropdown alignRight title="ניהול התראות" id="basic-nav-dropdown">
           <NavDropdown.Item as={Link} to="/alerts" className="text-right">
             לוח התראות

@@ -37,10 +37,13 @@ class Relation extends Component {
     }
   };
 
+  handleTraineeClicked = (event, trainee) => {
+    this.setState({ selectedTrainee: trainee });
+  };
+
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData = localStorage.getItem("beliba-homa-user");
-    console.log(userData);
     if (userToken && userData) {
       userData = JSON.parse(userData);
       if (
@@ -167,7 +170,6 @@ class Relation extends Component {
   };
 
   showTrainees = () => {
-    console.log(this.state.selectedTutor);
     const trainees =
       this.state.traineesList.length >= 1 && this.state.selectedTutor !== null
         ? this.state.traineesList.filter(trainee => {
@@ -177,7 +179,8 @@ class Relation extends Component {
             );
             return (
               isTimeOk &&
-              trainee.activityArea === this.state.selectedTutor.activityArea &&
+              trainee.activityArea._id ===
+                this.state.selectedTutor.activityArea._id &&
               (this.traineeNeedRelation(trainee._id) ||
                 trainee.isNeedAdditionalRelation)
             );
@@ -209,7 +212,6 @@ class Relation extends Component {
       );
     });
     tutorsRowList = tutorsRowList.map(tutor => {
-      console.log(tutor);
       return (
         <tr dir="rtl" key={tutor._id}>
           <td>
@@ -251,7 +253,7 @@ class Relation extends Component {
   };
 
   handleAreaChanged = event => {
-    this.setState({ area: event.target.value });
+    this.setState({ area: event.target.value, selectedTutor: null });
   };
 
   handleModalOk = () => {

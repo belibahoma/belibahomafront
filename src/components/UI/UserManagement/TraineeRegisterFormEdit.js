@@ -593,8 +593,6 @@ class TraineeRegisterFormEdit extends Component {
               onChange={this.handlePasswordChanged}
               name="password"
               value={this.state.password}
-              validators={["required"]}
-              errorMessages={["שדה זה הינו חובה"]}
             />
             <Form.Label>מספר טלפון ראשי</Form.Label>
             <Form.Control

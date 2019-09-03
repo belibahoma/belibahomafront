@@ -3,6 +3,7 @@ import axios from "axios";
 import { Form, Button, Modal, Spinner } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
 import TextValidator from "../../components/Validators/TextValidator/TextValidator";
+import config from "react-global-configuration";
 
 export default class Auth extends Component {
   state = {
@@ -16,7 +17,7 @@ export default class Auth extends Component {
 
   handleSubmit = event => {
     axios
-      .post("http://localhost:8080/api/auth", {
+      .post(`${config.get("serverAddress")}/api/auth`, {
         username: this.state.username,
         password: this.state.password
       })
@@ -40,7 +41,7 @@ export default class Auth extends Component {
         this.setState({ isLoading: false });
       })
       .catch(err => {
-        alert(`${err.message}: ${err.response.data}`);
+        alert(`${err.message}: ${err.response ? err.response.data : ""}`);
         this.handleModalCanceled();
       });
     this.setState({ isLoading: true });
