@@ -91,7 +91,7 @@ export default class Approve extends Component {
     console.log(_id, type, this.state.userToken);
     axios
       .post(
-        `${config.get("serverAddress")}/api/${
+        `${config.get("serverAddress")}/api/admins/${
           type === "tutor" ? "tutors" : "trainees"
         }/approve/${_id}`,
         null,

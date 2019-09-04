@@ -7,7 +7,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-config.set({ serverAddress: "https://belibahoma.herokuapp.com" });
+config.set({ serverAddress: "https://belibahomanode.herokuapp.com" });
 
 const app = (
   <BrowserRouter>

@@ -70,10 +70,10 @@ export default class AdminToolbar extends Component {
             משתמשי אדמין ורכזים
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/Trainees" className="text-right">
-            חניכים
+            סטודנטים חרדים
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/Tutors" className="text-right">
-            חונכים
+            מתגברים
           </NavDropdown.Item>
         </NavDropdown>
       </Nav>
