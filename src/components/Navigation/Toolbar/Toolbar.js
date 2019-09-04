@@ -155,11 +155,11 @@ class Toolbar extends Component {
       <React.Fragment>
         <Navbar bg="light" expand="lg" className="text-right">
           <Navbar.Toggle aria-controls="basic-navbar-nav align-content-top" />
+          {this.signInOutBtn()}
           <Navbar.Collapse
             id="basic-navbar-navyar"
             className="justify-content-start"
           >
-            {this.signInOutBtn()}
             {this.menuItems()}
             <Nav className="mr-auto" />
           </Navbar.Collapse>
