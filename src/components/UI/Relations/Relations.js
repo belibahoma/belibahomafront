@@ -40,6 +40,12 @@ export default class Relations extends Component {
     }
   }
 
+  handleReport = report => {
+    this.props.history.push(
+      `/reports/singleReport?tutor=${report.tutor_id._id}&trainee=${report.trainee_id._id}`
+    );
+  };
+
   handleDelete = _id => {
     axios
       .delete(`${config.get("serverAddress")}/api/relations/` + _id, null, {
@@ -61,7 +67,16 @@ export default class Relations extends Component {
     return this.state.relationList.map(relation => {
       return (
         <tr key={relation._id}>
-          <td />
+          <td>
+            <Button
+              className="btn btn-primary"
+              onClick={() => {
+                this.handleReport(relation);
+              }}
+            >
+              עבור לדיווחים
+            </Button>
+          </td>
           <td>{relation.tutor_id.fname}</td>
           <td>{relation.tutor_id.lname}</td>
           <td>{relation.trainee_id.fname}</td>

@@ -3,7 +3,8 @@ import { Route, Switch } from "react-router-dom";
 
 import Home from "./components/HomePage/Home";
 import Layout from "./hoc/Layout/Layout";
-import Reports from "./components/UI/Reports/Reports";
+import Reports from "./components/UI/Reports/ReportsId";
+import ReportsId from "./components/UI/Reports/Reports";
 import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointment";
 import Auth from "./containers/Auth/Auth";
 import UserProvider from "./contexts/UserProvider";
@@ -20,6 +21,7 @@ import studentDetail from "./components/UI/UserManagement/studentDetail";
 
 import Approve from "./components/UI/Approve/Approve";
 import Relations from "./components/UI/Relations/Relations";
+import ReportsTrainee from "./components/UI/Reports/ReportsTrainee";
 
 class App extends Component {
   render() {
@@ -31,6 +33,9 @@ class App extends Component {
             <Route path="/auth" exact component={Auth} />
             <Route path="/student/add" component={AddAppointment} />
             <Route path="/register" component={Register} />
+
+            <Route path="/singleReport" component={ReportsId} />
+            <Route path="/ReportTrainee" component={ReportsTrainee} />
             <Route path="/reports" component={Reports} />
             <Route path="/addRelation" component={Relation} />
             {/* <Route path="/relations" component={Relations} /> */}

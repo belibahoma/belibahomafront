@@ -103,6 +103,7 @@ class TraineeRegisterFormEdit extends Component {
     setInterval(() => {
       this.setState({ spinnerColor: colors[i++ % 7] });
     }, 1000);
+    console.log("additional", this.props.traineeInfo.isNeedAdditionalRelation);
   }
 
   check = () => {
@@ -156,7 +157,9 @@ class TraineeRegisterFormEdit extends Component {
         })
         .catch(err => {
           console.log(err);
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           this.setState({ isLoading: false });
         });
     }
@@ -326,9 +329,6 @@ class TraineeRegisterFormEdit extends Component {
   };
   handleStuffNotesChanged = event => {
     this.setState({ stuffNotes: event.target.value });
-  };
-  handleIsNeedAdditionalRelationChanged = event => {
-    this.setState({ isNeedAdditionalRelation: event.target.value });
   };
   handleActiveStatusChanged = event => {
     this.setState({ activeStatus: event.target.value });
@@ -1294,7 +1294,12 @@ class TraineeRegisterFormEdit extends Component {
               <Form.Group className="align-content-center" dir="ltr">
                 <Form.Check
                   label="?צריך שיבוץ נוסף"
-                  onChange={this.handleIsNeedAdditionalRelationChanged}
+                  onChange={() => {
+                    this.setState({
+                      isNeedAdditionalRelation: !this.state
+                        .isNeedAdditionalRelation
+                    });
+                  }}
                   checked={this.state.isNeedAdditionalRelation}
                 />
               </Form.Group>
