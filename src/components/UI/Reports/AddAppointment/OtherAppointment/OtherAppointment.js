@@ -41,7 +41,7 @@ export default class OtherAppointment extends Component {
   };
 
   handleServeEndChanged = value => {
-    console.log(value);
+    // console.log(value);
 
     this.setState({
       serveTime: {
@@ -51,7 +51,7 @@ export default class OtherAppointment extends Component {
     });
   };
   handleServeStartChanged = value => {
-    console.log(value);
+    // console.log(value);
 
     this.setState({
       serveTime: {

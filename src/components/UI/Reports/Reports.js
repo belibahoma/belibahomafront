@@ -100,7 +100,7 @@ export default class Reports extends Component {
         });
       })
       .catch(err => {
-        console.lod("err", err.message);
+        console.lod(`${err.message}${err.response ? ": " + err.response.data : ""}`);
       });
   };
 

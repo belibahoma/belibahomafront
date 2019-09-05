@@ -25,7 +25,6 @@ export default class AdaptiveHomeMessage extends Component {
   }
 
   render() {
-    console.log(this.state.userData);
     // const helloName = <p>  <b>userData.fname</b>שלום </p>;
     // const printType = <p>[ {userData.userType === "admin" ? "אדמין" :
     //     userData.userType === "coordinator" ? "רכז" :

@@ -23,8 +23,8 @@ class TraineeRegisterFormEdit extends Component {
   constructor(props) {
     super(props);
 
-    console.log("props ->");
-    console.log(props);
+    // console.log("props ->");
+    // console.log(props);
 
     this.state = {
       isAdditionalStudyPath: false,
@@ -137,7 +137,7 @@ class TraineeRegisterFormEdit extends Component {
         "spinnerColor"
       ]);
       //   dataToPost = JSON.stringify(dataToPost);
-      console.log(dataToPut);
+      // console.log(dataToPut);
       const userToken = localStorage.getItem("beliba-homa-auth-token");
 
       axios
@@ -156,7 +156,7 @@ class TraineeRegisterFormEdit extends Component {
         })
         .catch(err => {
           console.log(err);
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           this.setState({ isLoading: false });
         });
     }

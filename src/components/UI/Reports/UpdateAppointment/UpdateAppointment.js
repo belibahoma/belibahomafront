@@ -28,7 +28,7 @@ export default class UpdateAppointment extends Component {
   };
 
   handleOtherSubmitted = values => {
-    console.log("other ", values);
+    // console.log("other ", values);
     axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "other",
@@ -38,17 +38,17 @@ export default class UpdateAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log(res);
+        // console.log(res);
       })
       .catch(err => {
-        console.log("err", err.message);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });
   };
 
   handleGroupSubmitted = values => {
-    console.log("group ", values);
+    // console.log("group ", values);
     axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "group",
@@ -58,17 +58,17 @@ export default class UpdateAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log(res);
+        // console.log(res);
       })
       .catch(err => {
-        console.log("err", err.message);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });
   };
 
   handleNormalSubmitted = values => {
-    console.log("normal ", values);
+    // console.log("normal ", values);
     axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "ordinary",
@@ -79,10 +79,10 @@ export default class UpdateAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log(res);
+        // console.log(res);
       })
       .catch(err => {
-        console.log("err", err.message);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });

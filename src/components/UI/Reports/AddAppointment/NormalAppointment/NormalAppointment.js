@@ -56,7 +56,7 @@ export default class NormalAppointment extends Component {
     this.setState({ casingTime: event.target.value });
   };
   handleSubmit = val => {
-    console.log("Submitted", val);
+    // console.log("Submitted", val);
   };
   handleError = obj => {
     console.log(obj);

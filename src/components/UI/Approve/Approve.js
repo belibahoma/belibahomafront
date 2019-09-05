@@ -88,10 +88,9 @@ export default class Approve extends Component {
   };
 
   handleApproveClick = (_id, type) => {
-    console.log(_id, type, this.state.userToken);
     axios
       .post(
-        `${config.get("serverAddress")}/api/admins/${
+        `${config.get("serverAddress")}/api/${
           type === "tutor" ? "tutors" : "trainees"
         }/approve/${_id}`,
         null,

@@ -13,11 +13,11 @@ const { SearchBar } = Search;
 export default class MultyTableGeneric extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
   }
 
   actionsFormatter = (cell, row) => {
-    console.log(row);
+    // console.log(row);
     return (
       <div style={{ textAlign: "left" }}>
         <button

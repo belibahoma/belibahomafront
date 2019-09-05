@@ -12,7 +12,7 @@ import TutorRegisterForm from "./TutorRegisterFormEdit";
 export default class Tutors extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
 
     //this.handleClickAddItem = this.handleClickAddItem.bind(this);
 
@@ -145,7 +145,7 @@ export default class Tutors extends Component {
             headers: { "x-auth-token": userToken }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
               user: userData,
               isLoggedIn: true,
@@ -167,7 +167,7 @@ export default class Tutors extends Component {
   //==========
 
   toggleModal_editItem = () => {
-    console.log("editIsShoing:" + this.state.editIsShoing);
+    // console.log("editIsShoing:" + this.state.editIsShoing);
     this.setState({
       editIsShoing: !this.state.editIsShoing
     });
@@ -187,14 +187,14 @@ export default class Tutors extends Component {
         this.setState({ tutorList: [..._tutorList] });
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         console.log(err);
       });
   };
 
   hadleEdit = params => {
-    console.log("hadleEdit");
-    console.log(params);
+    // console.log("hadleEdit");
+    // console.log(params);
     this.setState({ tutorInfo: params });
 
     this.toggleModal_editItem();

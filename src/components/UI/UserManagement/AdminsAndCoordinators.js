@@ -12,7 +12,7 @@ import MultiSelectReact from "multi-select-react";
 export default class AdminsAndCoordinators extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
 
     this.state = {
       TableColumns: [
@@ -86,7 +86,7 @@ export default class AdminsAndCoordinators extends Component {
 
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData = localStorage.getItem("beliba-homa-user");
-    console.log(userToken);
+    // console.log(userToken);
     if (userToken && userData) {
       userData = JSON.parse(userData);
       if (userData.userType === "admin" || userData.userType === "coordinator")
@@ -95,7 +95,7 @@ export default class AdminsAndCoordinators extends Component {
             headers: { "x-auth-token": userToken }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState(prevState => ({
               user: userData,
               isLoggedIn: true,
@@ -120,7 +120,7 @@ export default class AdminsAndCoordinators extends Component {
           headers: { "x-auth-token": userToken }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.setState(prevState => ({
             user: userData,
             isLoggedIn: true,
@@ -144,7 +144,7 @@ export default class AdminsAndCoordinators extends Component {
           headers: { "x-auth-token": userToken }
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           this.setState({
             areas: res.data,
             activityAreasNames: res.data.map(area => {
@@ -165,14 +165,14 @@ export default class AdminsAndCoordinators extends Component {
   }
 
   toggleModal_addItem = () => {
-    console.log("isShowing:" + this.state.isShowing);
+    // console.log("isShowing:" + this.state.isShowing);
     this.setState({
       isShowing: !this.state.isShowing
     });
   };
 
   toggleModal_editItem = () => {
-    console.log("editIsShoing:" + this.state.editIsShoing);
+    // console.log("editIsShoing:" + this.state.editIsShoing);
     this.setState({
       editIsShoing: !this.state.editIsShoing
     });
@@ -181,17 +181,17 @@ export default class AdminsAndCoordinators extends Component {
   //==========
   handleIdChanged = event => {
     this.setState({ aAcId: event.target.value });
-    console.log("aAcId: " + event.target.value);
+    // console.log("aAcId: " + event.target.value);
   };
 
   handlefNameChanged = event => {
     this.setState({ aAcfName: event.target.value });
-    console.log("aAcfName: " + event.target.value);
+    // console.log("aAcfName: " + event.target.value);
   };
 
   handlelNameChanged = event => {
     this.setState({ aAclName: event.target.value });
-    console.log("aAclName: " + event.target.value);
+    // console.log("aAclName: " + event.target.value);
   };
 
   handlePassChanged = event => {
@@ -199,21 +199,21 @@ export default class AdminsAndCoordinators extends Component {
   };
 
   handleTypeChanged = val => {
-    console.log("aAcType: " + val);
+    // console.log("aAcType: " + val);
 
     if (val === "1") this.setState({ aAcType: "admin" });
     else if (val === "2") this.setState({ aAcType: "coordinator" });
-    console.log("aAcType: " + val);
+    // console.log("aAcType: " + val);
   };
 
   handleEmailChanged = event => {
     this.setState({ aAcEmail: event.target.value });
-    console.log("aAcEmail: " + event.target.value);
+    // console.log("aAcEmail: " + event.target.value);
   };
 
   handleaPhoneChanged = event => {
     this.setState({ aAcPhone: event.target.value });
-    console.log("aAcPhone: " + event.target.value);
+    // console.log("aAcPhone: " + event.target.value);
   };
 
   handleActivityAreaChanged = value => {
@@ -226,7 +226,7 @@ export default class AdminsAndCoordinators extends Component {
       this.state.aAcfName !== "" &&
       this.state.aAcType !== "" &&
       this.state.aAcId !== "";
-    console.log("formValidate:" + valid);
+    // console.log("formValidate:" + valid);
     return valid;
   };
 
@@ -246,7 +246,7 @@ export default class AdminsAndCoordinators extends Component {
 
   hadleDelete = params => {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
-    console.log(params);
+    // console.log(params);
 
     if (params.userType === "admin") {
       axios
@@ -261,7 +261,7 @@ export default class AdminsAndCoordinators extends Component {
           this.setState({ adminsAndCoordinators: [...admins] });
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           console.log(err);
         });
     }
@@ -282,7 +282,7 @@ export default class AdminsAndCoordinators extends Component {
           this.setState({ adminsAndCoordinators: [...coordinators] });
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           console.log(err);
         });
     }
@@ -326,7 +326,7 @@ export default class AdminsAndCoordinators extends Component {
       dataToPut.activityAreas = this.state.areas
         .filter(area => {
           return this.state.activityAreasNames.find(name => {
-            console.log("name", name, "area", area);
+            // console.log("name", name, "area", area);
             return name.id === area._id;
           });
         })
@@ -335,7 +335,7 @@ export default class AdminsAndCoordinators extends Component {
         });
     }
 
-    console.log(dataToPut);
+    // console.log(dataToPut);
 
     if (this.state.aAcType === "admin") {
       axios
@@ -359,7 +359,7 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_editItem();
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           console.log(err);
         });
     }
@@ -387,7 +387,7 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_editItem();
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           console.log(err);
         });
     }
@@ -396,7 +396,7 @@ export default class AdminsAndCoordinators extends Component {
   handleSubmit = val => {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
 
-    console.log(this.state);
+    // console.log(this.state);
     const dataToPost = {
       id: this.state.aAcId,
       _id: this.state.aAc_Id,
@@ -419,9 +419,9 @@ export default class AdminsAndCoordinators extends Component {
         });
     }
 
-    console.log(dataToPost);
+    // console.log(dataToPost);
 
-    console.log("this.state.aAcType: " + this.state.aAcType);
+    // console.log("this.state.aAcType: " + this.state.aAcType);
     if (this.state.aAcType === "coordinator") {
       axios
         .post(`${config.get("serverAddress")}/api/Coordinators`, dataToPost, {
@@ -441,7 +441,7 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_addItem();
         })
         .catch(err => {
-          alert(`${err.message} `);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           this.setState({ isLoading: false });
         });
     }
@@ -462,7 +462,7 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_addItem();
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           this.setState({ isLoading: false });
         });
     }

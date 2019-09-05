@@ -82,7 +82,7 @@ class Toolbar extends Component {
   };
 
   handleAuthenticated = data => {
-    console.log("Authenticated:", data.user);
+    // console.log("Authenticated:", data.user);
     this.setState({
       isLoggedIn: true,
       isLoggingIn: false

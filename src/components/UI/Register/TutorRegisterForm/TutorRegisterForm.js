@@ -130,7 +130,7 @@ class TutorRegisterForm extends Component {
         "spinnerColor"
       ]);
       //   dataToPost = JSON.stringify(dataToPost);
-      console.log(dataToPost);
+      // console.log(dataToPost);
       axios
         .post(`${config.get("serverAddress")}/api/tutors`, dataToPost)
         .then(res => {
@@ -140,7 +140,7 @@ class TutorRegisterForm extends Component {
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           this.setState({ isLoading: false });
         });
     }

@@ -12,7 +12,7 @@ import TraineeRegisterFormEdit from "./TraineeRegisterFormEdit";
 export default class Trainee extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
 
     this.state = {
       TableColumns: [
@@ -169,7 +169,7 @@ export default class Trainee extends Component {
             headers: { "x-auth-token": userToken }
           })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setState({
               user: userData,
               isLoggedIn: true,
@@ -191,7 +191,7 @@ export default class Trainee extends Component {
   //==========
 
   toggleModal_editItem = () => {
-    console.log("editIsShoing:" + this.state.editIsShoing);
+    // console.log("editIsShoing:" + this.state.editIsShoing);
     this.setState({
       editIsShoing: !this.state.editIsShoing
     });
@@ -211,14 +211,14 @@ export default class Trainee extends Component {
         this.setState({ traineeList: [..._traineeList] });
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         console.log(err);
       });
   };
 
   hadleEdit = params => {
-    console.log("hadleEdit");
-    console.log(params);
+    // console.log("hadleEdit");
+    // console.log(params);
     this.setState({ traineeInfo: params });
 
     this.toggleModal_editItem();

@@ -110,7 +110,7 @@ class Relation extends Component {
       );
     }
     const traineesRowList = traineeList.map(trainee => {
-      console.log(trainee);
+      // console.log(trainee);
       return (
         <tr dir="rtl" key={trainee._id}>
           <td>
@@ -179,19 +179,9 @@ class Relation extends Component {
               trainee.unavailableTimes
             );
             return (
-              console.log(
-                "condition",
-                (isTimeOk &&
-                  trainee.activityArea._id ===
-                    this.state.selectedTutor.activityArea._id) ||
-                  (this.state.showAllStudents &&
-                    (this.traineeNeedRelation(trainee._id) ||
-                      trainee.isNeedAdditionalRelation))
-              )(
-                isTimeOk &&
-                  trainee.activityArea._id ===
-                    this.state.selectedTutor.activityArea._id
-              ) ||
+              (isTimeOk &&
+                trainee.activityArea._id ===
+                  this.state.selectedTutor.activityArea._id) ||
               (this.state.showAllStudents &&
                 (this.traineeNeedRelation(trainee._id) ||
                   trainee.isNeedAdditionalRelation))

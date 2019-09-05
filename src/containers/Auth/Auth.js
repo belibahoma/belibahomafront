@@ -22,7 +22,7 @@ export default class Auth extends Component {
         password: this.state.password
       })
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({ token: res.data.token });
         this.setState({ user: res.data.user });
         localStorage.setItem("beliba-homa-auth-token", this.state.token);

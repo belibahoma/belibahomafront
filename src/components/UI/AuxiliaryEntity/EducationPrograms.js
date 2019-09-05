@@ -10,7 +10,7 @@ import config from "react-global-configuration";
 export default class EducationPrograms extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
 
     //this.handleClickAddItem = this.handleClickAddItem.bind(this);
 
@@ -45,19 +45,19 @@ export default class EducationPrograms extends Component {
         this.setState({ programs: response.data });
       })
       .catch(function(error) {
-        console.log(error);
+        // console.log(error);
       });
   }
 
   toggleModal_addItem = () => {
-    console.log("isShowing:" + this.state.isShowing);
+    // console.log("isShowing:" + this.state.isShowing);
     this.setState({
       isShowing: !this.state.isShowing
     });
   };
 
   toggleModal_editItem = () => {
-    console.log("editIsShoing:" + this.state.editIsShoing);
+    // console.log("editIsShoing:" + this.state.editIsShoing);
     this.setState({
       editIsShoing: !this.state.editIsShoing
     });
@@ -66,17 +66,17 @@ export default class EducationPrograms extends Component {
   //==========
   handleActivityAreaChanged = event => {
     this.setState({ activityArea: event.target.value });
-    console.log("ActivityArea: " + event.target.value);
+    // console.log("ActivityArea: " + event.target.value);
   };
 
   handleprogramNameChanged = event => {
     this.setState({ programName: event.target.value });
-    console.log("programName: " + event.target.value);
+    // console.log("programName: " + event.target.value);
   };
 
   handleprogramTypeChanged = event => {
     this.setState({ programType: event.target.value });
-    console.log("programType: " + event.target.value);
+    // console.log("programType: " + event.target.value);
   };
 
   formValidate = params => {
@@ -94,8 +94,8 @@ export default class EducationPrograms extends Component {
         this.setState({ programs: [..._programs] });
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
-        console.log(err);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+        // console.log(err);
       });
   };
 
@@ -132,8 +132,8 @@ export default class EducationPrograms extends Component {
         this.toggleModal_editItem();
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
-        console.log(err);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+        // console.log(err);
       });
   };
 
@@ -157,7 +157,7 @@ export default class EducationPrograms extends Component {
         this.toggleModal_addItem();
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isLoading: false });
       });
   };

@@ -12,7 +12,7 @@ export default class Register extends Component {
   };
 
   handleUserTypeChange = val => {
-    console.log(val);
+    // console.log(val);
     this.setState({ registerType: val });
   };
 

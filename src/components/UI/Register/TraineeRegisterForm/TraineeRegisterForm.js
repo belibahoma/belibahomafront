@@ -150,7 +150,7 @@ class TraineeRegisterForm extends Component {
         "spinnerColor"
       ]);
       //   dataToPost = JSON.stringify(dataToPost);
-      console.log(dataToPost);
+      // console.log(dataToPost);
       axios
         .post(`${config.get("serverAddress")}/api/trainees`, dataToPost)
         .then(res => {
@@ -160,7 +160,7 @@ class TraineeRegisterForm extends Component {
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(`${err.message} +"  "+ ${err.response.data}`);
+          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
           this.setState({ isLoading: false });
         });
     }

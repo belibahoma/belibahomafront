@@ -24,7 +24,7 @@ export default class AddAppointment extends Component {
   };
 
   handleOtherSubmitted = values => {
-    console.log("other ", values);
+    // console.log("other ", values);
     axios
       .post(`${config.get("serverAddress")}/api/reports`, {
         type: "other",
@@ -34,17 +34,17 @@ export default class AddAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log("other res:", res);
+        // console.log("other res:", res);
       })
       .catch(err => {
-        console.log("err", err.message, err.response.message);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });
   };
 
   handleGroupSubmitted = values => {
-    console.log("group ", values);
+    // console.log("group ", values);
     axios
       .post(`${config.get("serverAddress")}/api/reports`, {
         type: "group",
@@ -54,17 +54,17 @@ export default class AddAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log("group res:", res);
+        // console.log("group res:", res);
       })
       .catch(err => {
-        console.log("err", err.message, err.response.message);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });
   };
 
   handleNormalSubmitted = values => {
-    console.log("normal ", values);
+    // console.log("normal ", values);
     axios
       .post(`${config.get("serverAddress")}/api/reports`, {
         type: "ordinary",
@@ -75,10 +75,10 @@ export default class AddAppointment extends Component {
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
-        console.log("normal res:", res);
+        // console.log("normal res:", res);
       })
       .catch(err => {
-        console.log("err", err.message, err.response.message);
+        // console.log("err", err.message, err.response.message);
         this.setState({ isModalShow: false });
         this.props.onCancel();
       });

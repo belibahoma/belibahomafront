@@ -128,7 +128,7 @@ class TutorRegisterForm extends Component {
                 "spinnerColor"
             ]);
             //   dataToPost = JSON.stringify(dataToPost);
-            console.log(dataToPut);
+            // console.log(dataToPut);
             const userToken = localStorage.getItem("beliba-homa-auth-token");
 
             axios

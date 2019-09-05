@@ -18,7 +18,6 @@ export default class Home extends Component {
   }
 
   toggleModal_pdf = () => {
-    console.log("isShowing:" + this.state.isShowing);
     this.setState({
       isShowing: !this.state.isShowing
     });

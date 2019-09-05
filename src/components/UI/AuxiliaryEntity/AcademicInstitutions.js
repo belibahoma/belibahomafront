@@ -10,7 +10,7 @@ import config from "react-global-configuration";
 export default class AcademicInstitutions extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    // console.log(props);
 
     //this.handleClickAddItem = this.handleClickAddItem.bind(this);
 
@@ -50,14 +50,14 @@ export default class AcademicInstitutions extends Component {
   }
 
   toggleModal_addItem = () => {
-    console.log("isShowing:" + this.state.isShowing);
+    // console.log("isShowing:" + this.state.isShowing);
     this.setState({
       isShowing: !this.state.isShowing
     });
   };
 
   toggleModal_editItem = () => {
-    console.log("editIsShoing:" + this.state.editIsShoing);
+    // console.log("editIsShoing:" + this.state.editIsShoing);
     this.setState({
       editIsShoing: !this.state.editIsShoing
     });
@@ -66,23 +66,23 @@ export default class AcademicInstitutions extends Component {
   //==========
   handleActivityAreaChanged = event => {
     this.setState({ activityArea: event.target.value });
-    console.log("ActivityArea: " + event.target.value);
+    // console.log("ActivityArea: " + event.target.value);
   };
 
   handleInstituteNameChanged = event => {
     this.setState({ instituteName: event.target.value });
-    console.log("instituteName: " + event.target.value);
+    // console.log("instituteName: " + event.target.value);
   };
 
   handleInstituteTypeChanged = event => {
     this.setState({ instituteType: event.target.value });
-    console.log("instituteType: " + event.target.value);
+    // console.log("instituteType: " + event.target.value);
   };
 
   formValidate = params => {
     let valid =
       this.state.instituteName !== "" && this.state.instituteType !== "";
-    console.log("formValidate:" + valid);
+    // console.log("formValidate:" + valid);
     return valid;
   };
 
@@ -96,8 +96,8 @@ export default class AcademicInstitutions extends Component {
         this.setState({ institutions: [...institutes] });
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
-        console.log(err);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+        // console.log(err);
       });
   };
 
@@ -134,8 +134,8 @@ export default class AcademicInstitutions extends Component {
         this.toggleModal_editItem();
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
-        console.log(err);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+        // console.log(err);
       });
   };
 
@@ -159,7 +159,7 @@ export default class AcademicInstitutions extends Component {
         this.toggleModal_addItem();
       })
       .catch(err => {
-        alert(`${err.message} +"  "+ ${err.response.data}`);
+        alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
         this.setState({ isLoading: false });
       });
   };
