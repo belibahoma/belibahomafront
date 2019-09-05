@@ -28,7 +28,8 @@ class Relation extends Component {
     selectedTrainee: null,
     showModal: false,
     isLoading: false,
-    userToken: null
+    userToken: null,
+    showAllStudents: false
   };
 
   handleAddRelationClicked = () => {
@@ -178,11 +179,29 @@ class Relation extends Component {
               trainee.unavailableTimes
             );
             return (
-              isTimeOk &&
-              trainee.activityArea._id ===
-                this.state.selectedTutor.activityArea._id &&
-              (this.traineeNeedRelation(trainee._id) ||
-                trainee.isNeedAdditionalRelation)
+              console.log(
+                "condition",
+                (isTimeOk &&
+                  trainee.activityArea._id ===
+                    this.state.selectedTutor.activityArea._id) ||
+                  (this.state.showAllStudents &&
+                    (this.traineeNeedRelation(trainee._id) ||
+                      trainee.isNeedAdditionalRelation))
+              )(
+                isTimeOk &&
+                  trainee.activityArea._id ===
+                    this.state.selectedTutor.activityArea._id
+              ) ||
+              (this.state.showAllStudents &&
+                (this.traineeNeedRelation(trainee._id) ||
+                  trainee.isNeedAdditionalRelation))
+            );
+          })
+        : this.state.showAllStudents
+        ? this.state.traineesList.filter(trainee => {
+            return (
+              this.traineeNeedRelation(trainee._id) ||
+              trainee.isNeedAdditionalRelation
             );
           })
         : [];
@@ -191,13 +210,13 @@ class Relation extends Component {
 
   tutorNeedRelation = id => {
     return !this.state.relationsList.find(relation => {
-      return relation.tutor_id === id;
+      return relation.tutor_id._id === id;
     });
   };
 
   traineeNeedRelation = id => {
     return !this.state.relationsList.find(relation => {
-      return relation.trainee_id === id;
+      return relation.trainee_id._id === id;
     });
   };
 
@@ -348,6 +367,18 @@ class Relation extends Component {
               onChange={this.handleAreaChanged}
               name="institute"
               fetchLink={`${config.get("serverAddress")}/api/areas`}
+            />
+          </Col>
+          <Col sm={1}>
+            <Form.Label dir="rtl">האם להציג את כל הסטודנטים?</Form.Label>
+          </Col>
+          <Col sm={1}>
+            <Form.Check
+              onChange={() => {
+                this.setState({ showAllStudents: !this.state.showAllStudents });
+              }}
+              checked={this.state.showAllStudents}
+              className="custom-checkbox"
             />
           </Col>
         </Form.Group>
