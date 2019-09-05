@@ -81,7 +81,7 @@ export default class ReportsTrainee extends Component {
               );
             }),
             val => {
-              return val.totalTime;
+              return val.timeForTrainee;
             }
           );
           this.setState({
