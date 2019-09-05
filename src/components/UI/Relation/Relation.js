@@ -305,9 +305,9 @@ class Relation extends Component {
                     " " +
                     this.state.selectedTrainee.lname +
                     " לבין " +
-                    this.state.selectedTrainee.fname +
+                    this.state.selectedTutor.fname +
                     " " +
-                    this.state.selectedTrainee.lname +
+                    this.state.selectedTutor.lname +
                     "?"
                   : null}
               </Modal.Title>
