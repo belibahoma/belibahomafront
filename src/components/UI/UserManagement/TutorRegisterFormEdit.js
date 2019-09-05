@@ -142,7 +142,7 @@ class TutorRegisterForm extends Component {
                     this.prop.handleCloseModal();
                 })
                 .catch(err => {
-                    alert(`${err.message} +"  "+ ${err.response.data}`);
+                    alert(`${err.message} +"  "+ ${err.response?err.response.data:""}`);
                     this.setState({ isLoading: false });
                 });
         }
@@ -307,7 +307,7 @@ class TutorRegisterForm extends Component {
         this.setState({ stuffNotes: event.target.value });
     };
     handleIsNeedAdditionalRelationChanged = event => {
-        this.setState({ isNeedAdditionalRelation: event.target.value });
+        this.setState({ isNeedAdditionalRelation: !this.state.isNeedAdditionalRelation });
     };
     handleActiveStatusChanged = event => {
         this.setState({ activeStatus: event.target.value });
@@ -977,6 +977,15 @@ class TutorRegisterForm extends Component {
                                         onChange={this.handleStuffNotesChanged}
                                         name="notes"
                                         value={this.state.stuffNotes}
+                                    />
+                                </Form.Row>
+                                <Form.Row dir="rtl">
+                                    <Form.Label dir="rtl">צריך שיבוץ נוסף?</Form.Label>
+                                    <Form.Check
+                                        className="mb-2"
+                                        onChange={this.handleIsNeedAdditionalRelationChanged}
+                                        name="isNeedAdditionalRelation"
+                                        checked={this.state.isNeedAdditionalRelation}
                                     />
                                 </Form.Row>
                             </Form.Group>

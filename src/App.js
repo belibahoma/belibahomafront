@@ -19,6 +19,7 @@ import Tutors from "./components/UI/UserManagement/Tutors";
 import studentDetail from "./components/UI/UserManagement/studentDetail";
 
 import Approve from "./components/UI/Approve/Approve";
+import Relations from "./components/UI/Relations/Relations";
 
 class App extends Component {
   render() {
@@ -48,6 +49,7 @@ class App extends Component {
             <Route path="/trainee/:id" component={studentDetail} />
 
             <Route path="/alerts" component={Approve} />
+            <Route path="/relations" component={Relations} />
           </Switch>
         </Layout>
       </UserProvider>
