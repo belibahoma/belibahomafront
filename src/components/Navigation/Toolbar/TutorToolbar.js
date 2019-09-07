@@ -3,6 +3,10 @@ import { Nav } from "react-bootstrap";
 import { withRouter, Link } from "react-router-dom";
 
 class TutorToolbar extends Component {
+  state = {
+    user: ""
+  };
+
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData = localStorage.getItem("beliba-homa-user");
