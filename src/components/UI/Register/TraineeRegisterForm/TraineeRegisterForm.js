@@ -7,7 +7,8 @@ import {
   Col,
   Row,
   Jumbotron,
-  Modal
+  Modal,
+  FormCheck
 } from "react-bootstrap";
 import TextValidator from "../../../Validators/TextValidator/TextValidator";
 import { ValidatorForm } from "react-form-validator-core";
@@ -18,6 +19,7 @@ import config from "react-global-configuration";
 import _ from "lodash";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Document, Page } from "react-pdf";
 
 class TraineeRegisterForm extends Component {
   state = {
@@ -99,7 +101,10 @@ class TraineeRegisterForm extends Component {
     additionalTopics: "",
     isActive: false,
     leavingReason: "",
-    isDropped: false
+    isDropped: false,
+    numPages: null,
+    pageNumber: 1,
+    ok: false
   };
 
   componentDidMount() {
@@ -160,7 +165,9 @@ class TraineeRegisterForm extends Component {
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           this.setState({ isLoading: false });
         });
     }
@@ -529,7 +536,12 @@ class TraineeRegisterForm extends Component {
     });
   };
 
+  onDocumentLoadSuccess = ({ numPages }) => {
+    this.setState({ numPages });
+  };
+
   render() {
+    const { pageNumber, numPages } = this.state;
     return (
       <React.Fragment>
         {this.state.isLoading ? this.getModal() : null}
@@ -1279,6 +1291,24 @@ class TraineeRegisterForm extends Component {
                 checked={this.state.isServed}
               />
             </Form.Group>
+            <Form.Group>
+              <div>
+                <iframe
+                  src="https://drive.google.com/file/d/1WbpilNuxTHKaEQxQI0vBSbcGjVyJgXBB/preview"
+                  width="750px"
+                  height="500px"
+                ></iframe>
+              </div>
+              <FormCheck>
+                <Form.Check
+                  label="?אני מאשר שקראתי ואני מסכים לנהלים"
+                  onChange={() => {
+                    this.setState({ ok: !this.state.ok });
+                  }}
+                  checked={this.state.ok}
+                />
+              </FormCheck>
+            </Form.Group>
             <Button
               className="m-2 btn btn-danger"
               type="button"
@@ -1289,7 +1319,9 @@ class TraineeRegisterForm extends Component {
             <Button
               className="m-2 "
               type="submit"
-              disabled={this.state.isLoading ? "disabled" : null}
+              disabled={
+                this.state.isLoading || !this.state.ok ? "disabled" : null
+              }
             >
               הרשם
             </Button>

@@ -20,6 +20,7 @@ import { withRouter } from "react-router-dom";
 
 class TutorRegisterForm extends Component {
   state = {
+    ok: false,
     isAdditionalStudyPath: false,
     isLoading: false,
     spinnerColor: "primary",
@@ -140,7 +141,9 @@ class TutorRegisterForm extends Component {
           this.props.history.push("/");
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           this.setState({ isLoading: false });
         });
     }
@@ -961,6 +964,22 @@ class TutorRegisterForm extends Component {
                 </Form.Row>
               </Form.Group>
             </Jumbotron>
+            <Form.Group>
+              <div>
+                <iframe
+                  src="https://drive.google.com/file/d/160RwurpO9f_St9TyAnRnr2UmKdcyE7sH/preview"
+                  width="750px"
+                  height="500px"
+                ></iframe>
+              </div>
+              <Form.Check
+                label="?אני מאשר שקראתי ואני מסכים לנהלים"
+                onChange={() => {
+                  this.setState({ ok: !this.state.ok });
+                }}
+                checked={this.state.ok}
+              />
+            </Form.Group>
             <Button
               className="m-2 btn btn-danger"
               type="button"
@@ -971,7 +990,9 @@ class TutorRegisterForm extends Component {
             <Button
               className="m-2 "
               type="submit"
-              disabled={this.state.isLoading ? "disabled" : null}
+              disabled={
+                this.state.isLoading || !this.state.ok ? "disabled" : null
+              }
             >
               הרשם
             </Button>

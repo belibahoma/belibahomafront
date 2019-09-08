@@ -8,7 +8,7 @@ import TraineeRegisterForm from "./TraineeRegisterForm/TraineeRegisterForm";
 export default class Register extends Component {
   state = {
     date: this.props.date,
-    registerType: 2
+    registerType: 0
   };
 
   handleUserTypeChange = val => {
@@ -17,17 +17,21 @@ export default class Register extends Component {
   };
 
   chooseRegisterType = () => {
-    return this.state.registerType === 1 ? (
-      <TutorRegisterForm
-        onSubmit={this.handleTutorSubmit}
-        onCanceled={this.handleTutorCanceled}
-      />
-    ) : (
-      <TraineeRegisterForm
-        onSubmit={this.handleTraineeSubmit}
-        onCanceled={this.handleTraineeCanceled}
-      />
-    );
+    if (this.state.registerType === 1) {
+      return (
+        <TutorRegisterForm
+          onSubmit={this.handleTutorSubmit}
+          onCanceled={this.handleTutorCanceled}
+        />
+      );
+    } else if (this.state.registerType === 2) {
+      return (
+        <TraineeRegisterForm
+          onSubmit={this.handleTraineeSubmit}
+          onCanceled={this.handleTraineeCanceled}
+        />
+      );
+    } else return null;
   };
 
   render() {
@@ -41,7 +45,7 @@ export default class Register extends Component {
           <ToggleButtonGroup
             type="radio"
             name="options"
-            defaultValue={2}
+            defaultValue={0}
             onChange={this.handleUserTypeChange}
           >
             <ToggleButton value={1}>אני מתגבר</ToggleButton>
