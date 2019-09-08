@@ -119,7 +119,10 @@ export default class ReportsTrainee extends Component {
         } else {
           tempReportArr.push(res.data);
         }
-        const tempTotal = _.sumBy(tempReportArr, report => report.totalTime);
+        const tempTotal = _.sumBy(
+          tempReportArr,
+          report => report.timeForTrainee
+        );
         this.setState({
           totalHours: tempTotal,
           openModal: false,
@@ -171,7 +174,7 @@ export default class ReportsTrainee extends Component {
         return (
           this.state.currentUser === "error" ||
           this.state.currentUser === "N/A" ||
-          (item.trainee_id && this.state.currentUser === item.trainee_id._id)
+          item.trainee_id
         );
       })
       .map(item => {
@@ -180,7 +183,7 @@ export default class ReportsTrainee extends Component {
             {...item}
             key={item._id}
             id={item._id}
-            isTrainee={this.state.userType === "trainee"}
+            isTrainee={true}
             tutor={item.tutor_id}
             trainee={item.trainee_id}
             editReport={() => {
@@ -209,7 +212,7 @@ export default class ReportsTrainee extends Component {
           style={{ backgroundColor: "pink" }}
         >
           <Card.Header>
-            {this.state.totalHours} :סה"כ שעות התנדבות לשנת הלימודים הנוכחית
+            {this.state.totalHours} :סה"כ שעות חניכה לשנת הלימודים הנוכחית
           </Card.Header>
         </Card>
 
@@ -287,8 +290,8 @@ export default class ReportsTrainee extends Component {
                 this.setState({ updateValue: null });
               }}
               onSubmit={this.handleSubmit}
-              tutor={this.state.user}
-              trainee={this.state.currentUser} //TODO change to trainee
+              tutor={this.state.tutor}
+              trainee={this.state.trainee} //TODO change to trainee
               appointment={this.state.updateValue}
               readOnly={this.state.isView}
             />
