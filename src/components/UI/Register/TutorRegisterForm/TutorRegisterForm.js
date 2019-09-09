@@ -877,14 +877,18 @@ class TutorRegisterForm extends Component {
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם אתה סטודנט באימפקט"
-                onChange={this.handleIsImpactChanged}
+                onChange={() => {
+                  this.setState({ isImpact: !this.state.isImpact });
+                }}
                 checked={this.state.isImpact}
               />
             </Form.Group>
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם אתה סטודנט בשחק"
-                onChange={this.handleIsShachakChanged}
+                onChange={() => {
+                  this.setState({ isShachak: !this.state.isShachak });
+                }}
                 checked={this.state.isShachak}
               />
             </Form.Group>
@@ -892,15 +896,23 @@ class TutorRegisterForm extends Component {
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם אתה מקבל נקודות זכות על הפעילות"
-                onChange={this.handleForAcademicPointsChanged}
+                onChange={() => {
+                  this.setState({
+                    isForAcademicPoints: !this.state.isForAcademicPoints
+                  });
+                }}
                 checked={this.state.isForAcademicPoints}
               />
             </Form.Group>
             <Form.Group className="align-content-center" dir="ltr">
               <Form.Check
                 label="?האם הפעילות היא חלק ממלגה עירונית"
-                onChange={this.handleForAcademicPointsChanged}
-                checked={this.state.isForAcademicPoints}
+                onChange={() => {
+                  this.setState({
+                    isCityScholarship: !this.state.isCityScholarship
+                  });
+                }}
+                checked={this.state.isCityScholarship}
               />
             </Form.Group>
             {/**************************************************************************/}
