@@ -8,6 +8,7 @@ import config from "react-global-configuration";
 // import BootstrapTable from "react-bootstrap-table-next";
 // import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 import { Dropdown } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
 export default class AdminsAndCoordinators extends Component {
   constructor(props) {
