@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import axios from "axios";
 import MultyTableGeneric from "../../../containers/MultyTableGeneric/MultyTableGeneric";
-import { Modal } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 // import DynamicSelectBox from './../../../containers/DynamicSelectBox/DynamicSelectBox';
 import config from "react-global-configuration";
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -72,6 +72,7 @@ export default class Tutors extends Component {
       tutorList: [],
       isShowing: false,
       editIsShoing: false,
+      showAll: false,
 
       tutorInfo: {
         id: "",
@@ -230,12 +231,25 @@ export default class Tutors extends Component {
             padding: "0.5em"
           }}
         >
-          חונכים
+          מתגברים
         </h1>
         {/* <Button as={Link} to="/register" variant="outline-primary">הוסף חונך</Button> */}
+        <Form dir="rtl" className="text-right">
+          <Form.Group className="align-content-center" dir="ltr">
+            <Form.Check
+              label="?להציג מתגברים לא פעילים"
+              onChange={() => {
+                this.setState({ showAll: !this.state.showAll });
+              }}
+              checked={this.state.showAll}
+            />
+          </Form.Group>
+        </Form>
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
-          data={this.state.tutorList}
+          data={this.state.tutorList.filter(tutor => {
+            return tutor.isActive || this.state.showAll;
+          })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}
         />

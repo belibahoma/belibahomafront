@@ -1331,6 +1331,28 @@ class TraineeRegisterFormEdit extends Component {
                   checked={this.state.isJobInStudyFelid}
                 />
               </Form.Group>
+              <Form.Row dir="rtl">
+                <Form.Label dir="rtl">פעיל?</Form.Label>
+                <Form.Check
+                  className="mb-2"
+                  onChange={() => {
+                    this.setState({ isActive: !this.state.isActive });
+                  }}
+                  name="isActive"
+                  checked={this.state.isActive}
+                />
+              </Form.Row>
+              <Form.Row dir="rtl">
+                <Form.Label dir="rtl">נשר?</Form.Label>
+                <Form.Check
+                  className="mb-2"
+                  onChange={() => {
+                    this.setState({ isDropped: !this.state.isDropped });
+                  }}
+                  name="isDropped"
+                  checked={this.state.isDropped}
+                />
+              </Form.Row>
             </Jumbotron>
             <Button
               className="m-2 btn btn-danger"

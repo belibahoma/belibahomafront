@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MultyTableGeneric from "../../../containers/MultyTableGeneric/MultyTableGeneric";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 // import DynamicSelectBox from './../../../containers/DynamicSelectBox/DynamicSelectBox';
 import config from "react-global-configuration";
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -15,6 +15,7 @@ export default class Trainee extends Component {
     // console.log(props);
 
     this.state = {
+      showAll: false,
       TableColumns: [
         {
           dataField: "activeStatus",
@@ -255,12 +256,25 @@ export default class Trainee extends Component {
             padding: "0.5em"
           }}
         >
-          חניכים
+          סטודנטים חרדים
         </h1>
+        <Form dir="rtl" className="text-right">
+          <Form.Group className="align-content-center" dir="ltr">
+            <Form.Check
+              label="?להציג סטודנטים חרדים לא פעילים"
+              onChange={() => {
+                this.setState({ showAll: !this.state.showAll });
+              }}
+              checked={this.state.showAll}
+            />
+          </Form.Group>
+        </Form>
         {/* <Button as={Link} to="/register" variant="outline-primary">הוסף חונך</Button> */}
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
-          data={this.state.traineeList}
+          data={this.state.traineeList.filter(trainee => {
+            return trainee.isActive || this.state.showAll;
+          })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}
         />

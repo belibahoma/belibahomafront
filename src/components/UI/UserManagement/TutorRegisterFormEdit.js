@@ -988,6 +988,15 @@ class TutorRegisterForm extends Component {
                                         checked={this.state.isNeedAdditionalRelation}
                                     />
                                 </Form.Row>
+                                <Form.Row dir="rtl">
+                                    <Form.Label dir="rtl">פעיל?</Form.Label>
+                                    <Form.Check
+                                        className="mb-2"
+                                        onChange={()=>{this.setState({isActive:!this.state.isActive})}}
+                                        name="isActive"
+                                        checked={this.state.isActive}
+                                    />
+                                </Form.Row>
                             </Form.Group>
                         </Jumbotron>
                         <Button

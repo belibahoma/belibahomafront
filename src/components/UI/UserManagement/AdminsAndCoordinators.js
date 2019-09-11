@@ -7,7 +7,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import config from "react-global-configuration";
 // import BootstrapTable from "react-bootstrap-table-next";
 // import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import MultiSelectReact from "multi-select-react";
+import { Dropdown } from "semantic-ui-react";
 
 export default class AdminsAndCoordinators extends Component {
   constructor(props) {
@@ -72,7 +72,8 @@ export default class AdminsAndCoordinators extends Component {
       aAcEmail: "",
       aAcPhone: "",
       aAcActivityAreas: [],
-      activityAreasNames: []
+      activityAreasNames: [],
+      selectedAreas: []
     };
   }
 
@@ -148,7 +149,7 @@ export default class AdminsAndCoordinators extends Component {
           this.setState({
             areas: res.data,
             activityAreasNames: res.data.map(area => {
-              return { label: area.name, id: area._id };
+              return { key: area._id, text: area.name, value: area._id };
             })
             // activityAreasNames:['a','b','c']
           });
@@ -216,8 +217,14 @@ export default class AdminsAndCoordinators extends Component {
     // console.log("aAcPhone: " + event.target.value);
   };
 
-  handleActivityAreaChanged = value => {
+  handleActivityAreaChanged = (event, { value }) => {
     //this.setState(prevState => ({ aAcActivityAreas: [...prevState.aAcActivityAreas ,event.target.value] }));
+    this.setState({ selectedAreas: value });
+  };
+
+  handleActivityAreaClicked = value => {
+    //this.setState(prevState => ({ aAcActivityAreas: [...prevState.aAcActivityAreas ,event.target.value] }));
+    console.log("area-clicked", value);
     this.setState({ activityAreasNames: value });
   };
 
@@ -261,7 +268,9 @@ export default class AdminsAndCoordinators extends Component {
           this.setState({ adminsAndCoordinators: [...admins] });
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           console.log(err);
         });
     }
@@ -282,7 +291,9 @@ export default class AdminsAndCoordinators extends Component {
           this.setState({ adminsAndCoordinators: [...coordinators] });
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           console.log(err);
         });
     }
@@ -291,9 +302,12 @@ export default class AdminsAndCoordinators extends Component {
   hadleEdit = params => {
     const activityArea = params.activityAreas
       ? params.activityAreas.map(area => {
-          return { label: area.name, id: area._id };
+          return area._id;
         })
       : [];
+    const activityAreas = this.state.areas.map(area => {
+      return { key: area._id, text: area.name, value: area._id };
+    });
     this.setState({
       aAcType: params.userType,
       aAcfName: params.fname,
@@ -303,7 +317,8 @@ export default class AdminsAndCoordinators extends Component {
       aAc_Id: params._id,
       aAcEmail: params.email,
       aAcPhone: params.phone,
-      activityAreasNames: activityArea
+      activityAreasNames: activityAreas,
+      selectedAreas: activityArea
     });
 
     this.toggleModal_editItem();
@@ -325,9 +340,9 @@ export default class AdminsAndCoordinators extends Component {
     if (this.state.aAcType === "coordinator") {
       dataToPut.activityAreas = this.state.areas
         .filter(area => {
-          return this.state.activityAreasNames.find(name => {
+          return this.state.selectedAreas.find(id => {
             // console.log("name", name, "area", area);
-            return name.id === area._id;
+            return id === area._id;
           });
         })
         .map(area => {
@@ -357,9 +372,12 @@ export default class AdminsAndCoordinators extends Component {
 
           this.resetState();
           this.toggleModal_editItem();
+          this.forceUpdate();
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           console.log(err);
         });
     }
@@ -387,7 +405,9 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_editItem();
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           console.log(err);
         });
     }
@@ -410,8 +430,8 @@ export default class AdminsAndCoordinators extends Component {
     if (this.state.aAcType === "coordinator") {
       dataToPost.activityAreas = this.state.areas
         .filter(area => {
-          return this.state.activityAreasNames.find(name => {
-            return name.id === area._id;
+          return this.state.selectedAreas.find(id => {
+            return id === area._id;
           });
         })
         .map(area => {
@@ -441,7 +461,9 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_addItem();
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           this.setState({ isLoading: false });
         });
     }
@@ -462,7 +484,9 @@ export default class AdminsAndCoordinators extends Component {
           this.toggleModal_addItem();
         })
         .catch(err => {
-          alert(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+          alert(
+            `${err.message}${err.response ? ": " + err.response.data : ""}`
+          );
           this.setState({ isLoading: false });
         });
     }
@@ -566,14 +590,14 @@ export default class AdminsAndCoordinators extends Component {
                 <Form.Group controlId="formGroupaAcType">
                   <Form.Label>איזור פעילות</Form.Label>
                   <Form.Control
-                    as={MultiSelectReact}
+                    as={Dropdown}
                     options={this.state.activityAreasNames}
-                    optionClicked={this.handleActivityAreaChanged.bind(this)}
-                    selectedBadgeClicked={this.handleActivityAreaChanged.bind(
-                      this
-                    )}
-                    selectedOptionsStyles={selectedOptionsStyles}
-                    optionsListStyles={optionsListStyles}
+                    placeholder="בחר איזור"
+                    onChange={this.handleActivityAreaChanged}
+                    fluid
+                    multiple
+                    selection
+                    defaultValue={this.state.selectedAreas}
                   />
                 </Form.Group>
               ) : null}
@@ -693,14 +717,14 @@ export default class AdminsAndCoordinators extends Component {
                 <Form.Group controlId="formGroupaAcType">
                   <Form.Label>איזור פעילות</Form.Label>
                   <Form.Control
-                    as={MultiSelectReact}
+                    as={Dropdown}
                     options={this.state.activityAreasNames}
-                    optionClicked={this.handleActivityAreaChanged.bind(this)}
-                    selectedBadgeClicked={this.handleActivityAreaChanged.bind(
-                      this
-                    )}
-                    selectedOptionsStyles={selectedOptionsStyles}
-                    optionsListStyles={optionsListStyles}
+                    placeholder="בחר איזור"
+                    onChange={this.handleActivityAreaChanged}
+                    fluid
+                    multiple
+                    selection
+                    defaultValue={this.state.selectedAreas}
                   />
                 </Form.Group>
               ) : null}
