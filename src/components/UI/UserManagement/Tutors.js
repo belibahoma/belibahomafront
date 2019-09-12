@@ -19,19 +19,11 @@ export default class Tutors extends Component {
     this.state = {
       TableColumns: [
         {
-          dataField: "activeStatus",
+          dataField: "isActive",
           text: "סטטוס חונך",
           sort: true,
           formatter: (value, row, index) => {
-            return value === "active"
-              ? "פעיל"
-              : value === "not active"
-              ? "לא פעיל"
-              : value === "graduate"
-              ? "בוגר "
-              : value === "candidate"
-              ? "מועמד"
-              : "";
+            return value ? "פעיל" : "לא פעיל";
           }
         },
         {
