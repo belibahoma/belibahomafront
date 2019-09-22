@@ -17,12 +17,12 @@ export default class AdminToolbar extends Component {
         </NavDropdown>
         <NavDropdown
           alignRight
-          title="ניהול קשרי חונכות"
+          title="ניהול קשרי למידה משותפת"
           id="basic-nav-dropdown"
           className="mr-3"
         >
           <NavDropdown.Item as={Link} to="/relations" className="text-right">
-            רשימת קשרי חונכות
+            רשימת קשרי למידה משותפת
           </NavDropdown.Item>
           <NavDropdown.Item as={Link} to="/addRelation" className="text-right">
             ציוות ידני

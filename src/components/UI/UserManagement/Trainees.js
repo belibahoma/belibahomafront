@@ -19,7 +19,7 @@ export default class Trainee extends Component {
       TableColumns: [
         {
           dataField: "isActive",
-          text: "סטטוס חונך",
+          text: "סטטוס פעילות",
           sort: true,
           formatter: (value, row, index) => {
             return value ? "פעיל" : "לא פעיל";

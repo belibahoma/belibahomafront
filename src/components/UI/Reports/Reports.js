@@ -248,7 +248,7 @@ export default class Reports extends Component {
                 >
                   שעות חברותא
                 </th>
-                <th>שעות חונכות</th>
+                <th>שעות למידה משותפת</th>
                 <th
                   onClick={() => {
                     this.handleSortBy("trainee_id");

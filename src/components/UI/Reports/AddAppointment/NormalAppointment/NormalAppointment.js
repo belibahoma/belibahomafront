@@ -181,7 +181,7 @@ export default class NormalAppointment extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
-            <Form.Label dir="rtl">מספר שעות לימוד</Form.Label>
+            <Form.Label dir="rtl">מספר שעות סיוע אקדמי</Form.Label>
             <Form.Control
               disabled={this.props.readOnly}
               dir="rtl"
