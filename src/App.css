@@ -23,6 +23,15 @@
   color: #61dafb;
 }
 
+div.terms{
+  margin:5px; 
+  padding:5px; 
+  width: 100%; 
+  height: 300px; 
+  overflow: auto; 
+  /* text-align:justify;  */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
