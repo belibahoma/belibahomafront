@@ -1,4 +1,5 @@
 import  '../../../../App.css';
+import Section from "../section.tsx"
 import React, { Component } from "react";
 import {
   Form,
@@ -21,6 +22,8 @@ import _ from "lodash";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { Document, Page } from "react-pdf";
+
+const SIMPLE_AGREE = " אני מאשר/ת "
 
 class TraineeRegisterForm extends Component {
   state = {
@@ -105,7 +108,9 @@ class TraineeRegisterForm extends Component {
     isDropped: false,
     numPages: null,
     pageNumber: 1,
-    ok: false
+    ok: false,
+    checkedArray: [],
+    disabledAck: true
   };
 
   componentDidMount() {
@@ -467,6 +472,11 @@ class TraineeRegisterForm extends Component {
   handleIsDroppedChanged = event => {
     this.setState({ isDropped: event.target.value });
   };
+  handleCheckedOnPolicy = event => {
+    const name = event.target.name;
+    this.state.checkedArray.includes(name) ? this.state.checkedArray.splice(this.state.checkedArray.indexOf(name), 1) : this.state.checkedArray.push(name);
+    this.state.checkedArray.length > 5 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+  }
 
   unavailableTimesForm = () => {
     return this.state.unavailableTimes.map((obj, index) => {
@@ -1327,31 +1337,28 @@ class TraineeRegisterForm extends Component {
                 <p>
                 להלן הנהלים לפעילות: <br></br>
                 <ul>
-                  <li>-	יש להקפיד על פעילות שבועית של 3-4 שעות (לפי מה שסוכם איתך) ולא לבטל לסטודנט המתגבר</li>
-                  <li>-	יש להקדיש שליש מכל מפגש עבור לימוד מתוך ארון הספרים היהודי</li>
-                  <li>-	יש להגיע לשני אירועים קבוצתיים המוגדרים כאירועי חובה לאורך שנת הפעילות</li>
-                  <li>-	יש למלא משוב בסוף שנת הלימודים</li>
-                  <li>-	יש להיות זמין לצוות הפרויקט, להגיע לפגישה איתם במידת הצורך לעדכן את צוות התוכנית בבעיות או שינויים לאורך השנה במידה ויהיו.</li>
-                  <li>-	יש לשלוח במהלך השנה תמונה משותפת עם הסטודנט עימו הינך לומד, כולל טקסט המתאר את החוויה בלימוד עם סטודנט ממגזר שונה, ואת התרומה האקדמית שהלימוד המשותף תרם לך, (הפרטים הנ"ל יימסרו לתורמים בלבד אלא אם כן תאשר אחרת).</li>
+                  <li><Section name="agree0" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להקפיד על פעילות שבועית של 3-4 שעות (לפי מה שסוכם איתך) ולא לבטל לסטודנט המתגבר"></Section></li>
+                  <li><Section name="agree1" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להקדיש שליש מכל מפגש עבור לימוד מתוך ארון הספרים היהודי"></Section></li>
+                  <li><Section name="agree2" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להגיע לשני אירועים קבוצתיים המוגדרים כאירועי חובה לאורך שנת הפעילות"></Section></li>
+                  <li><Section name="agree3" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש למלא משוב בסוף שנת הלימודים"></Section></li>
+                  <li><Section name="agree4" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להיות זמין לצוות הפרויקט, להגיע לפגישה איתם במידת הצורך לעדכן את צוות התוכנית בבעיות או שינויים לאורך השנה במידה ויהיו"></Section></li>
+                  <li><Section name="agree5" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש לשלוח במהלך השנה תמונה משותפת עם הסטודנט עימו הינך לומד, כולל טקסט המתאר את החוויה בלימוד עם סטודנט ממגזר שונה, ואת התרומה האקדמית שהלימוד המשותף תרם לך, (הפרטים הנ''ל יימסרו לתורמים בלבד אלא אם כן תאשר אחרת)"></Section></li>
                 </ul>
                 
                 </p>
                 <p>
-                הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולהפסקת שיעורי העזר.
+                .
                 </p>
 
               </div>
-             
-              <FormCheck>
-                <Form.Check
-                  label="?אני מאשר שקראתי ואני מסכים לנהלים"
-                  onChange={() => {
+
+              <Section name="agreeFinal" agree="הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולהפסקת שיעורי העזר" 
+              onChange={() => {
                     this.setState({ ok: !this.state.ok });
                   }}
-                  checked={this.state.ok}
-                />
-              </FormCheck>
+              disabled={this.state.disabledAck}></Section>
             </Form.Group>
+            
             <Button
               className="m-2 btn btn-danger"
               type="button"
