@@ -1,6 +1,5 @@
 import  '../../../section.css';
-
-import React from 'react';
+import React , {Component} from "react";
 
 interface Props {
 	text: String;
@@ -8,24 +7,17 @@ interface Props {
 	name: String;
 	disabled: boolean;
 }
+interface State{
 
-interface State {
-	
 }
 
-export default class Section extends React.Component<Props, State>{
 
-	public constructor(props: Props) {
+export default class Section extends React.Component<State, Props>{
+	constructor(props: Props){
 		super(props);
-		this.state = {
-		
-		};
-
-
 	}
 
-
-	public render(): JSX.Element {
+	render()  {
 		return (
 			<div>
 				<span>{this.props.text}</span><br></br>
