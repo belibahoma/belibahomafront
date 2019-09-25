@@ -363,7 +363,7 @@ class TutorRegisterForm extends Component {
   handleCheckedOnPolicy = event => {
     const name = event.target.name;
     this.state.checkedArray.includes(name) ? this.state.checkedArray.splice(this.state.checkedArray.indexOf(name), 1) : this.state.checkedArray.push(name);
-    this.state.checkedArray.length > 15 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+    this.state.checkedArray.length > 22 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
   }
 
   unavailableTimesForm = () => {

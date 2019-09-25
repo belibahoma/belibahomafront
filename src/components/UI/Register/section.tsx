@@ -6,7 +6,7 @@ interface Props {
 	agree: String;
 	name: String;
 	disabled: boolean;
-	onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 interface State{
 
