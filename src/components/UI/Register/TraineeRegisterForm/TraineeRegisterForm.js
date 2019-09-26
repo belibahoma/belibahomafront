@@ -1334,7 +1334,7 @@ class TraineeRegisterForm extends Component {
                 <p>
                 עוד לא ידוע אם בשנת הלימודים הקרובה, תתאפשר מלגה/מענק עבור ההשתתפות בפעילות. בשלב זה, כל עוד לא יצאה הודעה אחרת, אין מלגה/מענק.
                 </p>
-                <p>
+                
                 להלן הנהלים לפעילות: <br></br>
                 <ul>
                   <li><Section name="agree0" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להקפיד על פעילות שבועית של 3-4 שעות (לפי מה שסוכם איתך) ולא לבטל לסטודנט המתגבר"></Section></li>
@@ -1345,11 +1345,6 @@ class TraineeRegisterForm extends Component {
                   <li><Section name="agree5" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש לשלוח במהלך השנה תמונה משותפת עם הסטודנט עימו הינך לומד, כולל טקסט המתאר את החוויה בלימוד עם סטודנט ממגזר שונה, ואת התרומה האקדמית שהלימוד המשותף תרם לך, (הפרטים הנ''ל יימסרו לתורמים בלבד אלא אם כן תאשר אחרת)"></Section></li>
                 </ul>
                 
-                </p>
-                <p>
-                .
-                </p>
-
               </div>
 
               <Section name="agreeFinal" agree="הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולהפסקת שיעורי העזר" 
