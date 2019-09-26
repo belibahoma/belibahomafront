@@ -2,9 +2,9 @@ import  '../../../section.css';
 import React , {Component} from "react";
 
 interface Props {
-	text?: String;
-	agree?: String;
-	name?: String;
+	text?: string;
+	agree?: string;
+	name?: string;
 	disabled?: boolean;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
