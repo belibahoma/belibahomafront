@@ -13,7 +13,7 @@ interface State{
 }
 
 
-export default class Section extends React.Component<State, Props>{
+export default class Section extends React.Component<Props, State>{
 	constructor(props: Props){
 		super(props);
 	}
