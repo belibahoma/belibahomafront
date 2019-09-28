@@ -84,7 +84,8 @@ class TutorRegisterForm extends Component {
     additionalTopics: "",
     isActive: false,
     checkedArray: [],
-    disabledAck: true
+    disabledAck: true,
+    scholar: "impact"
     
   };
 
@@ -363,7 +364,12 @@ class TutorRegisterForm extends Component {
   handleCheckedOnPolicy = event => {
     const name = event.target.name;
     this.state.checkedArray.includes(name) ? this.state.checkedArray.splice(this.state.checkedArray.indexOf(name), 1) : this.state.checkedArray.push(name);
-    this.state.checkedArray.length > 22 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+    this.state.checkedArray.length >= 16 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+  }
+
+  handleScholarChanged = event => {
+    this.setState({ scholar: event.target.value })
+    console.log(event.target.value);
   }
 
   unavailableTimesForm = () => {
@@ -494,6 +500,21 @@ class TutorRegisterForm extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
+            <Form.Label>סוג מלגה</Form.Label>
+            <Form.Control
+              as="select"
+              className="mb-2"
+              dir="rtl"
+              onChange={this.handleScholarChanged}
+              name="scolarType"
+              value={this.state.scholar}
+            >
+              <option value="impact">מלגאי אימפקט</option>
+              <option value="shahak">מלגאי שח"ק</option>
+              <option value="points">מלגאי נקודות זכות</option>
+              <option value="direct">מלגאי בליבה חומה</option>
+              <option value="other">מלגאי אחר</option>
+            </Form.Control>
             <Form.Label>סיסמא</Form.Label>
             <Form.Control
               dir="rtl"
@@ -1037,39 +1058,42 @@ class TutorRegisterForm extends Component {
                   <li><Section name="agree13" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="פרטי הזיהוי שלך לרבות שם ומספר תעודת זהות, ועובדת פעילותך במסגרת 'בליבה חומה' ו/או מספר השעות שבצעת כסטודנט, עשויים להיות מועברים למוסד הלימודים שלך ו/או לכל גורם ציבורי ו/או אחר שמעורב במימון מלגתך. כמו כן, הינך מסכים לכך שהגורם המממן יעביר נתוני מידע אודותיך למינהלת 'בליבה חומה', לפי קריטריונים של הגורם המממן, לצורך מתן המלגה/ההטבה. מובהר כי פרטיך האישיים ונתוני המידע כאמור לעיל, יועברו בין מינהלת 'בליבה חומה', לבין הגורם המממן אך ורק לצורך המוזכר לעיל"></Section></li>
                   <li><Section name="agree14" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="בתום שנת הפעילות, תתבקש למלא סקר משוב קצר, שמשכו כ-10 דקות. מילוי הסקר קריטי לצוות התוכנית כדי ללמוד מההצלחות והטעויות. מילוי הסקר הינו חובה והכרחי עבור קבלת המלגה.יודגש כי גם סטודנטים שמכל סיבה עזבו את הפעילות במהלך השנה, מחוייבים במילוי הסקר"></Section></li>
                 </ul>
-                <div className="clause"> 
-                  <b>עבור מלגאי אימפקט:</b>
-                  <Section name="agree15" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט 'בליבה חומה', ועמידה בתנאים המפורטים לעיל, תדווח 'בליבה חומה' על עמידתך במחוייבויות שלך ל'אימפקט'. בהתאם לכך, 'אימפקט' תעניק לך מלגה.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, יועבר ל'אימפקט' דיווח מלא בהתאם. מובהר כי המלגה שלך תשולם ישירות על ידי 'אימפקט', בכפוף לקריטריונים של 'אימפקט' ולעמידתך בכל המחויבויות שלך כלפיהם."></Section>
-                </div><br></br>
-                <div className="clause">
-                <b>עבור מלגאי שח"ק:</b>
-                <Section name="agree16" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט 'בליבה חומה', ועמידה בתנאים המפורטים לעיל, תדווח 'בליבה חומה' על עמידתך במחוייבויות שלך לשח''ק. בהתאם לכך, שח''ק תעניק לך מלגה.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, יועבר לשח''ק  דיווח מלא בהתאם. מובהר כי המלגה שלך תשולם ישירות על ידי שח''ק, בכפוף לקריטריונים של שח''ק ולעמידתך בכל המחויבויות שלך כלפיהם."></Section>
-
-                </div><br></br>
-                <div className="clause">
-                   <b>פעילים בתמורה לנקודות זכות אקדמיות:</b> 
-                 </div>
-                 <ul>
-                   <li><Section name="agree17" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	עבור שעות ההתנדבות עבורן אני מעוניין לקבל נקודות זכות אקדמיות, יש לדווח לא רק במערכת הדיווחים של 'בליבה חומה' מידי שבועיים, אלא גם במערכת דיווחים שמוסד הלימודים שלי יבקש, בתדירות שתיקבע על ידו. ללא דיווח כפול, אין לנו יכולת להתחייב שנקודות הזכות יינתנו"></Section></li>
-                  <li><Section name="agree18" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	הגעה ל-2 אירועי החובה של בליבה חומה, איננה נכללת במניין השעות עבור הדיווח למוסד האקדמי"></Section></li>
-                  <li><Section name="agree19" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="בעבור 40 השעות (שעה = 60 דקות) הראשונות של פעילותך בפרוייקט, ובכפוף לעמידתך בנהלי התוכנית המפורטים במסמך זה, נודיע למוסד האקדמי שלך כי עמדת במכסת השעות הנדרשות, במסגרת פרוייקט קבלת נ''ז בגין מעורבות חברתית. יש להדגיש כי נושא הרישום לקורס במוסד האקדמי, בירור הנושאים האקדמיים כגון השתלבות הנ''ז במסלול התואר שלך וכו - הינם באחריותך."></Section></li>
-                  <li><Section name="agree20" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	אם תבצע במסגרת התוכנית שעות נוספות מעבר ל40 השעות המוגדרות לצרכי נ''ז, תוכל לקבל על שעות אלה מלגה. מלגה זו תחושב בתעריף של 42 ש''ח לשעה. כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, תהיה זכאי לקבל את מלוא המלגה האמורה בכפוף להוראות מסמך זה. המלגה תועבר אליך ע''י מינהלת 'בליבה חומה' או ע''י גופים אחרים עימם 'בליבה חומה' קשורה, במועד סיום תקופת המלגה ובשיעור יחסי התואם את מספר המפגשים שבוצעו בפועל עד מועד זה"></Section></li>
-                </ul>
-                
-                <p>
-                  <b>עבור מתגברים שאינם מאף אחד מהמסגרות הקודמות, ומקבלים מלגה ישירות מבליבה חומה:</b><br></br>
-                  </p>
+                <div className={this.state.scholar==='impact' ? 'clause-displayed' : 'clause-undisplayed'}> 
+                  <b>עבור מלגאי אימפקט:</b><br></br>
+                  <Section name="agree15" display={this.state.scholar==="impact"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט 'בליבה חומה', ועמידה בתנאים המפורטים לעיל, תדווח 'בליבה חומה' על עמידתך במחוייבויות שלך ל'אימפקט'. בהתאם לכך, 'אימפקט' תעניק לך מלגה.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, יועבר ל'אימפקט' דיווח מלא בהתאם. מובהר כי המלגה שלך תשולם ישירות על ידי 'אימפקט', בכפוף לקריטריונים של 'אימפקט' ולעמידתך בכל המחויבויות שלך כלפיהם."></Section>
+                  <br></br></div>
+                <div className={this.state.scholar==='shahak' ? 'clause-displayed' : 'clause-undisplayed'}>
+                <b>עבור מלגאי שח"ק:</b><br></br>
+                <Section name="agree16" display={this.state.scholar==="shahak"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט 'בליבה חומה', ועמידה בתנאים המפורטים לעיל, תדווח 'בליבה חומה' על עמידתך במחוייבויות שלך לשח''ק. בהתאם לכך, שח''ק תעניק לך מלגה.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, יועבר לשח''ק  דיווח מלא בהתאם. מובהר כי המלגה שלך תשולם ישירות על ידי שח''ק, בכפוף לקריטריונים של שח''ק ולעמידתך בכל המחויבויות שלך כלפיהם."></Section>
+                <br></br></div>
+                <div className={this.state.scholar==='points' ? 'clause-displayed' : 'clause-undisplayed'}>
+                    <b>פעילים בתמורה לנקודות זכות אקדמיות:</b> <br></br>
+                  
                   <ul>
-                    <li><Section name="agree21" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט בליבה חומה, ועמידה בתנאים המפורטים לעיל, תוענק מלגת עידוד בסך עד 5,000 ₪ בכפוף להחלטה של מנהל הפרוייקט והגופים התורמים לפרוייקט, ולזמני העברת הכספים ל'בליבה חומה' על ידם. המלגה תוענק עבור 120 שעות פעילות.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, תהיה זכאי לקבל את מלוא המלגה האמורה בכפוף להוראות מסמך זה. המלגה תועבר אליך ע''י מינהלת 'בליבה חומה' או ע''י גופים אחרים עימם 'בליבה חומה' קשורה, במועד סיום תקופת המלגה ובשיעור יחסי התואם את מספר המפגשים שבוצעו בפועל עד מועד זה."></Section></li>
-                    <li><Section name="agree22" agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="סכום המלגה עלול להתחייב בתשלום מס הכנסה, אולם מינהלת 'בליבה חומה', לא  תנכה מס זה במקור. הסכום המתקבל כמלגה נכלל בקטגורית הסכומים העלולים להתחייב במס, וסטודנט המשתכר ממקור נוסף חייב לדווח לשלטונות המס גם על סכום זה."></Section></li>
+                    <li><Section name="agree17" display={this.state.scholar==="points"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	עבור שעות ההתנדבות עבורן אני מעוניין לקבל נקודות זכות אקדמיות, יש לדווח לא רק במערכת הדיווחים של 'בליבה חומה' מידי שבועיים, אלא גם במערכת דיווחים שמוסד הלימודים שלי יבקש, בתדירות שתיקבע על ידו. ללא דיווח כפול, אין לנו יכולת להתחייב שנקודות הזכות יינתנו"></Section></li>
+                    <li><Section name="agree18" display={this.state.scholar==="points"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	הגעה ל-2 אירועי החובה של בליבה חומה, איננה נכללת במניין השעות עבור הדיווח למוסד האקדמי"></Section></li>
+                    <li><Section name="agree19" display={this.state.scholar==="points"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="בעבור 40 השעות (שעה = 60 דקות) הראשונות של פעילותך בפרוייקט, ובכפוף לעמידתך בנהלי התוכנית המפורטים במסמך זה, נודיע למוסד האקדמי שלך כי עמדת במכסת השעות הנדרשות, במסגרת פרוייקט קבלת נ''ז בגין מעורבות חברתית. יש להדגיש כי נושא הרישום לקורס במוסד האקדמי, בירור הנושאים האקדמיים כגון השתלבות הנ''ז במסלול התואר שלך וכו - הינם באחריותך."></Section></li>
+                    <li><Section name="agree20" display={this.state.scholar==="points"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="	אם תבצע במסגרת התוכנית שעות נוספות מעבר ל40 השעות המוגדרות לצרכי נ''ז, תוכל לקבל על שעות אלה מלגה. מלגה זו תחושב בתעריף של 42 ש''ח לשעה. כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, תהיה זכאי לקבל את מלוא המלגה האמורה בכפוף להוראות מסמך זה. המלגה תועבר אליך ע''י מינהלת 'בליבה חומה' או ע''י גופים אחרים עימם 'בליבה חומה' קשורה, במועד סיום תקופת המלגה ובשיעור יחסי התואם את מספר המפגשים שבוצעו בפועל עד מועד זה"></Section></li>
                   </ul>
-              </div>
+                </div>
+
+                <div className={this.state.scholar==='direct' ? 'clause-displayed' : 'clause-undisplayed'}>
+                
+                  <p>
+                    <b>עבור מתגברים המקבלים מלגה ישירות מבליבה חומה:</b><br></br>
+                    </p>
+                    <ul>
+                      <li><Section name="agree21" display={this.state.scholar==="direct"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="כחלק מהשתתפותך בפרוייקט בליבה חומה, ועמידה בתנאים המפורטים לעיל, תוענק מלגת עידוד בסך עד 5,000 ₪ בכפוף להחלטה של מנהל הפרוייקט והגופים התורמים לפרוייקט, ולזמני העברת הכספים ל'בליבה חומה' על ידם. המלגה תוענק עבור 120 שעות פעילות.  כל עוד עמדת במלוא המטלות המוטלות עליך, בהתאם להוראות מינהלת 'בליבה חומה' ובהתאם לשיקול דעתה, תהיה זכאי לקבל את מלוא המלגה האמורה בכפוף להוראות מסמך זה. המלגה תועבר אליך ע''י מינהלת 'בליבה חומה' או ע''י גופים אחרים עימם 'בליבה חומה' קשורה, במועד סיום תקופת המלגה ובשיעור יחסי התואם את מספר המפגשים שבוצעו בפועל עד מועד זה."></Section></li>
+                      <li><Section name="agree22" display={this.state.scholar==="direct"? true : false } agree={CUSTOM_AGREE} onChange={this.handleCheckedOnPolicy} text="סכום המלגה עלול להתחייב בתשלום מס הכנסה, אולם מינהלת 'בליבה חומה', לא  תנכה מס זה במקור. הסכום המתקבל כמלגה נכלל בקטגורית הסכומים העלולים להתחייב במס, וסטודנט המשתכר ממקור נוסף חייב לדווח לשלטונות המס גם על סכום זה."></Section></li>
+                    </ul>
+                </div>
+              
               
               <Section name="agreeFinal" disabled={this.state.disabledAck} onChange={() => {
                   this.setState({ ok: !this.state.ok });
                 }} 
-                agree="הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולאי קבלת המלגה/התמורה"></Section>
-
+                agree="  הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולאי קבלת המלגה/התמורה"></Section>
+            </div>
             </Form.Group>
             <Button
               className="m-2 btn btn-danger"
@@ -1082,7 +1106,7 @@ class TutorRegisterForm extends Component {
               className="m-2 "
               type="submit"
               disabled={
-                this.state.isLoading || !this.state.ok ? "disabled" : null
+                this.state.isLoading || !this.state.ok || this.state.disabledAck ? "disabled" : null
               }
             >
               הרשם
