@@ -1,0 +1,7 @@
+.clause-displayed{
+    display: inline;
+  }
+  
+  .clause-undisplayed{
+    display: none;
+  }

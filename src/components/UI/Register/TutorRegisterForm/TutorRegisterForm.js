@@ -1,5 +1,5 @@
-import  '../../../../App.css';
-import Section from "../section.tsx"
+import  '../register.css';
+import Section from "../section.tsx";
 import React, { Component } from "react";
 import {
   Form,
@@ -364,12 +364,12 @@ class TutorRegisterForm extends Component {
   handleCheckedOnPolicy = event => {
     const name = event.target.name;
     this.state.checkedArray.includes(name) ? this.state.checkedArray.splice(this.state.checkedArray.indexOf(name), 1) : this.state.checkedArray.push(name);
-    this.state.checkedArray.length >= 16 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+    this.state.checkedArray.length >= 2 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
   }
 
   handleScholarChanged = event => {
     this.setState({ scholar: event.target.value })
-    console.log(event.target.value);
+    console.log(this.state.scholar);
   }
 
   unavailableTimesForm = () => {
@@ -721,8 +721,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="bankName"
                   value={this.state.bankAccount.bankName}
-                  validators={["required"]}
-                  errorMessages={["שדה זה הינו חובה"]}
+                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required"]: []}
+                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה"]: []}
                 />
               </Form.Group>
               <Form.Group className="m-2">
@@ -736,8 +736,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="branchNumber"
                   value={this.state.bankAccount.branchNumber}
-                  validators={["required", "isNumber"]}
-                  errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
+                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
+                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
               <Form.Group className="m-2">
@@ -751,8 +751,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="accountNumber"
                   value={this.state.bankAccount.accountNumber}
-                  validators={["required", "isNumber"]}
-                  errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
+                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
+                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
             </Form.Row>
@@ -1021,7 +1021,6 @@ class TutorRegisterForm extends Component {
 
               <div className="terms" dir="rtl">
               <h2>נהלי התוכנית</h2>
-              <h5>נא לאשר כל סעיף,  גם אם אינו רלוונטי עבורך</h5>
                 <p>
                 שוברים את הסטיגמות ויוצרים גשר בין אוכלוסיות סטודנטים במדינת ישראל! פרויקט בליבה חומה יוצר גשר בין סטודנטים מהחברה החרדית לסטודנטים מכלל החברה הישראלית, ומסייע לחרדים שבחרו לפנות ללימודים אקדמיים להצליח בלימודים.
                 </p>
