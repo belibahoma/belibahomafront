@@ -1,5 +1,5 @@
 import  '../../../section.css';
-import React , {Component} from "react";
+import {Component} from "react";
 import { visible } from 'ansi-colors';
 // import { FontIcon } from 'material-ui';
 
@@ -17,7 +17,7 @@ interface State{
 }
 
 
-export default class Section extends React.Component<Props, State>{
+export default class Section extends Component<Props, State>{
 	constructor(props: Props){
 		super(props);
 		console.log(props.display);
