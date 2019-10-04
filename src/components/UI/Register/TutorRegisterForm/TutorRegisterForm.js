@@ -721,8 +721,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="bankName"
                   value={this.state.bankAccount.bankName}
-                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required"]: []}
-                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה"]: []}
+                  validators={this.state.scholar === 'direct' || 'points'|| 'other' ? ["required"]: []}
+                  errorMessages={this.state.scholar === 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה"]: []}
                 />
               </Form.Group>
               <Form.Group className="m-2">
@@ -736,8 +736,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="branchNumber"
                   value={this.state.bankAccount.branchNumber}
-                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
-                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
+                  validators={this.state.scholar === 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
+                  errorMessages={this.state.scholar === 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
               <Form.Group className="m-2">
@@ -751,8 +751,8 @@ class TutorRegisterForm extends Component {
                   }}
                   name="accountNumber"
                   value={this.state.bankAccount.accountNumber}
-                  validators={this.state.scholar == 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
-                  errorMessages={this.state.scholar == 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
+                  validators={this.state.scholar === 'direct' || 'points'|| 'other' ? ["required", "isNumber"]: ["isNumber"]}
+                  errorMessages={this.state.scholar === 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
             </Form.Row>
