@@ -1,5 +1,5 @@
 import  '../../../../App.css';
-import Section from "../section.tsx"
+// import Section from "../section.tsx"
 import React, { Component } from "react";
 import {
   Form,
@@ -1310,7 +1310,7 @@ class TraineeRegisterForm extends Component {
                   height="500px"
                 ></iframe>
               </div> */}
-              <div className="terms" dir="rtl">
+              {/* <div className="terms" dir="rtl">
                 <h2>נהלי התוכנית</h2>
                 <p>תודה על התעניינותך בהצטרפות לפרוייקט "בליבה חומה" <br></br>
                 מפורט להלן עיקרי הפרוייקט, המחויביות, ומילוי פרטים אודותיך,
@@ -1345,13 +1345,14 @@ class TraineeRegisterForm extends Component {
                   <li><Section name="agree5" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש לשלוח במהלך השנה תמונה משותפת עם הסטודנט עימו הינך לומד, כולל טקסט המתאר את החוויה בלימוד עם סטודנט ממגזר שונה, ואת התרומה האקדמית שהלימוד המשותף תרם לך, (הפרטים הנ''ל יימסרו לתורמים בלבד אלא אם כן תאשר אחרת)"></Section></li>
                 </ul>
                 
-              </div>
+              
 
               <Section name="agreeFinal" agree="הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולהפסקת שיעורי העזר" 
               onChange={() => {
                     this.setState({ ok: !this.state.ok });
                   }}
               disabled={this.state.disabledAck}></Section>
+              </div> */}
             </Form.Group>
             
             <Button

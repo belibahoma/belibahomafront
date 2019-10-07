@@ -1,5 +1,5 @@
 import  '../register.css';
-import Section from "../section.tsx";
+// import Section from "../section.tsx";
 import React, { Component } from "react";
 import {
   Form,
@@ -1018,7 +1018,7 @@ class TutorRegisterForm extends Component {
                   height="500px"
                 ></iframe>
               </div> */}
-
+{/* 
               <div className="terms" dir="rtl">
               <h2>נהלי התוכנית</h2>
                 <p>
@@ -1092,7 +1092,7 @@ class TutorRegisterForm extends Component {
                   this.setState({ ok: !this.state.ok });
                 }} 
                 agree="  הנני מצהיר כי קראתי את הנהלים, והם מקובלים עלי. ידוע לי כי אי עמידה בנהלים עלולה לגרום להדחה מהתוכנית ולאי קבלת המלגה/התמורה"></Section>
-            </div>
+            </div> */}
             </Form.Group>
             <Button
               className="m-2 btn btn-danger"
