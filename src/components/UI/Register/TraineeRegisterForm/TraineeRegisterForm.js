@@ -1,5 +1,5 @@
 import  '../../../../App.css';
-// import Section from "../section.tsx"
+// import Section from "../section.js"
 import React, { Component } from "react";
 import {
   Form,
