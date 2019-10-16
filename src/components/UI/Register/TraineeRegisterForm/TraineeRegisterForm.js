@@ -1,5 +1,5 @@
 import  '../../../../App.css';
-// import Section from "../section.js"
+import Section from "../section.js"
 import React, { Component } from "react";
 import {
   Form,
@@ -1310,7 +1310,7 @@ class TraineeRegisterForm extends Component {
                   height="500px"
                 ></iframe>
               </div> */}
-              {/* <div className="terms" dir="rtl">
+              <div className="terms" dir="rtl">
                 <h2>נהלי התוכנית</h2>
                 <p>תודה על התעניינותך בהצטרפות לפרוייקט "בליבה חומה" <br></br>
                 מפורט להלן עיקרי הפרוייקט, המחויביות, ומילוי פרטים אודותיך,
@@ -1352,7 +1352,7 @@ class TraineeRegisterForm extends Component {
                     this.setState({ ok: !this.state.ok });
                   }}
               disabled={this.state.disabledAck}></Section>
-              </div> */}
+              </div>
             </Form.Group>
             
             <Button
