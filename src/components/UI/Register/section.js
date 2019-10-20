@@ -3,7 +3,7 @@ import React from 'react'
 
 // import { FontIcon } from 'material-ui';
 
-export class Section extends React.Component {
+export default class Section extends React.Component {
 	render(){
 		return (
 			<div style={{ display: this.props.display === undefined || this.props.display? 'inline' : 'none' }}>
