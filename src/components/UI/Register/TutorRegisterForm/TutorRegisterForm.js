@@ -1,5 +1,5 @@
 import  '../register.css';
-import { Section } from "../section.js";
+import Section from "../section.js";
 import React, { Component } from "react";
 import {
   Form,
