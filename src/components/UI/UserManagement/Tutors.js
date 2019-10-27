@@ -240,7 +240,8 @@ export default class Tutors extends Component {
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
           data={this.state.tutorList.filter(tutor => {
-            return tutor.isActive || this.state.showAll;
+            return true;
+            // tutor.isActive || this.state.showAll;
           })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}

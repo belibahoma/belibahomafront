@@ -178,21 +178,24 @@ class Relation extends Component {
               this.state.selectedTutor.unavailableTimes,
               trainee.unavailableTimes
             );
-            return (
-              (isTimeOk &&
-                trainee.activityArea._id ===
-                  this.state.selectedTutor.activityArea._id) ||
-              (this.state.showAllStudents &&
-                (this.traineeNeedRelation(trainee._id) ||
-                  trainee.isNeedAdditionalRelation))
-            );
+            return ( 
+              (trainee.activityArea._id === this.state.selectedTutor.activityArea._id) || this.state.showAllStudents );
+            // (
+            //   (isTimeOk &&
+            //     trainee.activityArea._id ===
+            //       this.state.selectedTutor.activityArea._id) ||
+            //   (this.state.showAllStudents &&
+            //     (this.traineeNeedRelation(trainee._id) ||
+            //       trainee.isNeedAdditionalRelation))
+            // );
           })
         : this.state.showAllStudents
         ? this.state.traineesList.filter(trainee => {
-            return (
-              this.traineeNeedRelation(trainee._id) ||
-              trainee.isNeedAdditionalRelation
-            );
+            return true;
+            //  (
+            //   this.traineeNeedRelation(trainee._id) ||
+            //   trainee.isNeedAdditionalRelation
+            // );
           })
         : [];
     return this.showTraineesList(trainees);
@@ -213,12 +216,16 @@ class Relation extends Component {
   showTutors = () => {
     let tutorsRowList = this.state.tutorsList.filter(tutor => {
       return (
-        (tutor.isActive &&
-          (tutor.activityArea._id === this.state.area ||
-            this.state.area === "N/A") &&
-          this.tutorNeedRelation(tutor._id)) ||
-        tutor.isNeedAdditionalRelation
-      );
+      (tutor.activityArea._id === this.state.area) || this.state.area === "N/A" );
+
+    
+      //  (
+      //   (tutor.isActive &&
+      //     (tutor.activityArea._id === this.state.area ||
+      //       this.state.area === "N/A") &&
+      //     this.tutorNeedRelation(tutor._id)) ||
+      //   tutor.isNeedAdditionalRelation
+      // );
     });
     tutorsRowList = tutorsRowList.map(tutor => {
       return (
