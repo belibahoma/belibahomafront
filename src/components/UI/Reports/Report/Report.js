@@ -16,6 +16,11 @@ const Report = props => {
   return (
     <tr>
       <td colSpan="2">
+      {!props.isTrainee ? (
+          <Button className="text-center m-1 btn-danger" onClick={props.deleteReport}>
+            מחיקה
+          </Button>
+        ) : null}
         <Button className="text-center m-1 btn-info" onClick={props.details}>
           פרטים
         </Button>

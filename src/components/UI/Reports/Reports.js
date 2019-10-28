@@ -26,7 +26,8 @@ export default class Reports extends Component {
     sortBy: "type",
     asc: true,
     isView: false,
-    updateValue: null
+    updateValue: null,
+    deleteValue: null
   };
 
   componentDidMount() {
@@ -78,6 +79,26 @@ export default class Reports extends Component {
 
   addAppointment = null;
 
+  deleteReport = id => {
+   
+    var indexDeletion = this.state.reportList.findIndex(report => {
+      return report._id === id;
+    })
+    const userToken = localStorage.getItem("beliba-homa-auth-token");
+    axios
+      .delete(`${config.get("serverAddress")}/api/reports/${id}`, {headers: { "x-auth-token": userToken }}
+      )
+      .then(res => {
+        let tempReportArr = this.state.reportList.slice(indexDeletion + 1).concat(this.state.reportList.slice(0, indexDeletion));
+        this.setState({deleteValue: null, reportList: tempReportArr});
+
+      })
+      .catch(err => {
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+
+      });
+  };
+
   handleSubmit = details => {
     let tempReportArr = _.cloneDeep(this.state.reportList);
     const reportIndex = tempReportArr.findIndex(report => {
@@ -100,7 +121,7 @@ export default class Reports extends Component {
         });
       })
       .catch(err => {
-        console.lod(`${err.message}${err.response ? ": " + err.response.data : ""}`);
+        console.log(`${err.message}${err.response ? ": " + err.response.data : ""}`);
       });
   };
 
@@ -115,6 +136,16 @@ export default class Reports extends Component {
   handleAddAppointment = () => {
     this.setState({ openModal: true });
   };
+  handleDeleteReport = id => {
+    this.setState({
+      deleteValue: this.state.reportList.find(report => {
+        return report._id === id;
+      })
+    });
+    window.confirm("האם ברצונך למחוק את הדיווח?") && this.deleteReport(id);
+   
+  };
+
   handleEditReport = id => {
     this.setState({
       updateValue: this.state.reportList.find(report => {
@@ -158,6 +189,9 @@ export default class Reports extends Component {
             }}
             details={() => {
               this.handleDetails(item._id);
+            }}
+            deleteReport={() => {
+              this.handleDeleteReport(item._id);
             }}
           />
         );
@@ -295,6 +329,7 @@ export default class Reports extends Component {
               readOnly={this.state.isView}
             />
           ) : null}
+           
         </Container>
       </React.Fragment>
     );
