@@ -1,18 +1,21 @@
 import  '../../../section.css';
+import React from 'react'
 
 // import { FontIcon } from 'material-ui';
 
-export function Section(props) {
-
+export default class Section extends React.Component {
+	render(){
 		return (
-			<div style={{ display: props.display === undefined || props.display? 'inline' : 'none' }}>
-				<span>{props.text}</span><br></br>
+			<div style={{ display: this.props.display === undefined || this.props.display? 'inline' : 'none' }}>
+				<span>{this.props.text}</span><br></br>
 				<div className="section">
-					<input className="policy-checkbox" name={props.name} disabled={props.disabled} onChange={props.onChange} type="checkbox"></input>
-					<span><i>{props.agree}</i></span>
+					<input className="policy-checkbox" name={this.props.name} disabled={this.props.disabled} onChange={this.props.onChange} type="checkbox"></input>
+					<span><i>{this.props.agree}</i></span>
 				</div>
               
             </div>
 		);
+
+	}
 	
 }

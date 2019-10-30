@@ -265,7 +265,8 @@ export default class Trainee extends Component {
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
           data={this.state.traineeList.filter(trainee => {
-            return trainee.isActive || this.state.showAll;
+            return true;
+            // trainee.isActive || this.state.showAll;
           })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}

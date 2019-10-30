@@ -369,7 +369,8 @@ class TutorRegisterForm extends Component {
 
   handleScholarChanged = event => {
     this.setState({ scholar: event.target.value })
-    console.log(this.state.scholar);
+    
+    
   }
 
   unavailableTimesForm = () => {
@@ -1017,7 +1018,7 @@ class TutorRegisterForm extends Component {
                   width="750px"
                   height="500px"
                 ></iframe>
-              </div> } */}
+              </div> }  */}
 
               <div className="terms" dir="rtl">
               <h2>נהלי התוכנית</h2>
