@@ -37,10 +37,10 @@ const Report = props => {
       <td>{props.type === "ordinary" ? props.studyTime : props.totalTime}</td>
       <td>
         {props.type === "ordinary"
-          ? `${props.trainee.fname} ${props.trainee.lname}`
+          ? props.trainee ? `${props.trainee.fname} ${props.trainee.lname}` : "------"
           : "------"}
       </td>
-      <td>{`${props.tutor.fname} ${props.tutor.lname}`}</td>
+      <td>{ props.tutor ? `${props.tutor.fname} ${props.tutor.lname}` : "------"}</td>
       <td>{chooseType(props.type)}</td>
     </tr>
   );

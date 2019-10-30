@@ -64,6 +64,7 @@ export default class Reports extends Component {
           const total = _.sumBy(res.data, val => {
             return val.totalTime;
           });
+          console.log(res.data);
           this.setState({ reportList: res.data, totalHours: total });
         })
         .catch(err => {
