@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 
 import Home from "./components/HomePage/Home";
 import Layout from "./hoc/Layout/Layout";
-import ReportsId from "./components/UI/Reports/ReportsId";
-import Reports from "./components/UI/Reports/Reports";
+import Reports from "./components/UI/Reports/ReportsId";
+import ReportsId from "./components/UI/Reports/Reports";
 import AddAppointment from "./components/UI/Reports/AddAppointment/AddAppointment";
 import Auth from "./containers/Auth/Auth";
 import UserProvider from "./contexts/UserProvider";

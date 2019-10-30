@@ -29,7 +29,8 @@ export default class ReportsId extends Component {
     sortBy: "type",
     asc: true,
     isView: false,
-    updateValue: null
+    updateValue: null,
+    deleteValue: null
   };
 
   componentDidMount() {
@@ -157,7 +158,7 @@ export default class ReportsId extends Component {
         });
       })
       .catch(err => {
-        console.lod(
+        console.log(
           `${err.message}${err.response ? ": " + err.response.data : ""}`
         );
       });
@@ -173,6 +174,14 @@ export default class ReportsId extends Component {
 
   handleAddAppointment = () => {
     this.setState({ openModal: true });
+  };
+
+  handleDeleteReport = id => {
+    this.setState({
+      deleteValue: this.state.reportList.find(report => {
+        return report._id === id;
+      })
+    });
   };
   handleEditReport = id => {
     this.setState({
@@ -217,6 +226,9 @@ export default class ReportsId extends Component {
             }}
             details={() => {
               this.handleDetails(item._id);
+            }}
+            deleteReport={() => {
+              this.handleDeleteReport(item._id);
             }}
           />
         );

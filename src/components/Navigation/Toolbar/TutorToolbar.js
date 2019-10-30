@@ -22,7 +22,7 @@ class TutorToolbar extends Component {
         <Nav.Link
           as={Link}
           to={
-            this.state.user.userType === "tutor" ? "/reports" : "/ReportTrainee"
+            this.state.user.userType === "tutor" ? "/singleReport" : "/ReportTrainee"
           }
         >
           קשרי למידה משותפת

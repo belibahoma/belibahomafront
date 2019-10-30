@@ -28,13 +28,16 @@ export default class UpdateAppointment extends Component {
   };
 
   handleOtherSubmitted = values => {
-    // console.log("other ", values);
+    const userToken = localStorage.getItem("beliba-homa-auth-token");
     axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "other",
         tutor_id: this.state.tutor_id,
         ...values
-      })
+      }, {
+        headers: { "x-auth-token": userToken }
+      }
+      )
       .then(res => {
         this.setState({ isModalShow: false });
         this.props.onSubmit(res.data);
@@ -48,12 +51,14 @@ export default class UpdateAppointment extends Component {
   };
 
   handleGroupSubmitted = values => {
-    // console.log("group ", values);
+    const userToken = localStorage.getItem("beliba-homa-auth-token");
     axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "group",
         tutor_id: this.state.tutor_id,
         ...values
+      }, {
+        headers: { "x-auth-token": userToken }
       })
       .then(res => {
         this.setState({ isModalShow: false });
@@ -68,13 +73,14 @@ export default class UpdateAppointment extends Component {
   };
 
   handleNormalSubmitted = values => {
-    // console.log("normal ", values);
-    axios
+    const userToken = localStorage.getItem("beliba-homa-auth-token");    axios
       .put(`${config.get("serverAddress")}/api/reports/${this.state._id}`, {
         type: "ordinary",
         tutor_id: this.state.tutor_id,
         trainee_id: this.props.appointment.trainee_id._id || null,
         ...values
+      }, {
+        headers: { "x-auth-token": userToken }
       })
       .then(res => {
         this.setState({ isModalShow: false });
