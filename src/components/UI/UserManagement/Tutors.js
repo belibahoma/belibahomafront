@@ -138,7 +138,6 @@ export default class Tutors extends Component {
             headers: { "x-auth-token": userToken }
           })
           .then(res => {
-            // console.log(res.data);
             this.setState({
               user: userData,
               isLoggedIn: true,
@@ -240,8 +239,7 @@ export default class Tutors extends Component {
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
           data={this.state.tutorList.filter(tutor => {
-            return true;
-            // tutor.isActive || this.state.showAll;
+            return tutor.isActive || this.state.showAll;
           })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}
