@@ -13,11 +13,11 @@ const Input = styled.input`
   margin-left: 5px;
 `;
 
-export const FilterTutorsOrTraineesByActiveYears = ({
+export default function FilterTutorsOrTraineesByActiveYears ({
   location,
   history,
   type
-}) => {
+})  {
   const params = getParamsFromQueryString(location.search);
 
   const [startYear, setStartYear] = useState(params.startYear);

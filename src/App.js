@@ -41,6 +41,7 @@ class App extends Component {
             <Route path="/ReportTrainee" component={ReportsTrainee} />
             <Route path="/reports" component={Reports} />
             <Route path="/addRelation" component={Relation} />
+            <Route path="/filters/active-years/trainees" component={FilterTutorsOrTraineesByActiveYears}/>
             {/* <Route path="/relations" component={Relations} /> */}
             <Route
               path="/AcademicInstitutions"
