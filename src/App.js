@@ -23,6 +23,9 @@ import Approve from "./components/UI/Approve/Approve";
 import Relations from "./components/UI/Relations/Relations";
 import ReportsTrainee from "./components/UI/Reports/ReportsTrainee";
 
+import { ActiveYearsPage } from './components/UI/Filters/ActiveYears/ActiveYearsPage';
+import { GeneralFiltersPage } from './components/UI/Filters/General/GeneralFiltersPage';
+
 class App extends Component {
   render() {
     return (
@@ -55,6 +58,41 @@ class App extends Component {
 
             <Route path="/alerts" component={Approve} />
             <Route path="/relations" component={Relations} />
+
+            <Route
+              path="/filters/general/trainees"
+              component={({ history, location }) => (
+                <GeneralFiltersPage history={history} location={location} type='trainees' />
+              )}
+            />
+            <Route
+              path="/filters/general/tutors"
+              component={({ history, location }) => (
+                <GeneralFiltersPage history={history} location={location} type='tutors' />
+              )}
+            />
+            <Route
+              path="/filters/active-years/trainees"
+              component={({ history, location }) => (
+                <ActiveYearsPage
+                  history={history}
+                  location={location}
+                  type="trainees"
+                />
+              )}
+            />
+            <Route
+              path="/filters/active-years/tutors"
+              component={({ history, location }) => (
+                <ActiveYearsPage
+                  history={history}
+                  location={location}
+                  type="tutors"
+                />
+              )}
+            />
+
+
           </Switch>
         </Layout>
       </UserProvider>

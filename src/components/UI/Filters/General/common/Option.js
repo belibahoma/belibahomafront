@@ -9,4 +9,4 @@ export const Option = ({ value, isSelected, description, onChange }) => (
       />
       <div style={{ marginRight: '5px' }}>{description}</div>
     </div>
-  );
+  ); 

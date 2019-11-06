@@ -15,6 +15,20 @@ export default class AdminToolbar extends Component {
             ארכיון התראות
           </NavDropdown.Item>
         </NavDropdown>
+        <NavDropdown alignRight title="חיתוכים/גזירת מידע" id="basic-nav-dropdown">
+          <NavDropdown.Item as={Link} to="/filters/general/trainees" className="text-right">
+            חיתוך של חניכים
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/filters/general/tutors" className="text-right">
+            חיתוך של חונכים
+          </NavDropdown.Item>
+          <NavDropdown.Item as={Link} to="/filters/active-years/trainees" className="text-right">
+            חיתוך חניכים לפי שנות פעילות
+            </NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/filters/active-years/tutors" className="text-right">
+            חיתוך חונכים לפי שנות פעילות
+            </NavDropdown.Item>
+        </NavDropdown>
         <NavDropdown
           alignRight
           title="ניהול קשרי למידה משותפת"
