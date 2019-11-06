@@ -23,6 +23,8 @@ import Approve from "./components/UI/Approve/Approve";
 import Relations from "./components/UI/Relations/Relations";
 import ReportsTrainee from "./components/UI/Reports/ReportsTrainee";
 
+import FilterTutorsOrTraineesByActiveYears from "./components/UI/Filters/ActiveYears/FilterTutorsOrTraineesByActiveYears";
+
 class App extends Component {
   render() {
     return (
@@ -38,6 +40,7 @@ class App extends Component {
             <Route path="/ReportTrainee" component={ReportsTrainee} />
             <Route path="/reports" component={Reports} />
             <Route path="/addRelation" component={Relation} />
+            <Route path="/filters/active-years/trainees" component={FilterTutorsOrTraineesByActiveYears}/>
             {/* <Route path="/relations" component={Relations} /> */}
             <Route
               path="/AcademicInstitutions"
