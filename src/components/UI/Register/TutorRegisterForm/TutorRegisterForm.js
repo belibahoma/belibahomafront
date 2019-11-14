@@ -45,11 +45,11 @@ class TutorRegisterForm extends Component {
     secondaryStudy: "",
     academicPlan: "N/A",
     studyYear: "1",
-    bankAccount: {
-      bankName: "",
-      branchNumber: "",
-      accountNumber: ""
-    },
+    // bankAccount: {
+    //   bankName: "",
+    //   branchNumber: "",
+    //   accountNumber: ""
+    // },
     realAddress: {
       street: "",
       city: "",
@@ -230,20 +230,20 @@ class TutorRegisterForm extends Component {
   handleStudyYearChanged = event => {
     this.setState({ studyYear: event.target.value });
   };
-  handleBankAccountChanged = (event, str) => {
-    let tmpAccount = _.cloneDeep(this.state.bankAccount);
-    tmpAccount[str] = event.target.value;
-    this.setState({ bankAccount: tmpAccount });
-  };
-  handleBankNameChanged = event => {
-    this.setState({ bankName: event.target.value });
-  };
-  handleBranchNumberChanged = event => {
-    this.setState({ branchNumber: event.target.value });
-  };
-  handleAccountNumberChanged = event => {
-    this.setState({ accountNumber: event.target.value });
-  };
+  // handleBankAccountChanged = (event, str) => {
+  //   let tmpAccount = _.cloneDeep(this.state.bankAccount);
+  //   tmpAccount[str] = event.target.value;
+  //   this.setState({ bankAccount: tmpAccount });
+  // };
+  // handleBankNameChanged = event => {
+  //   this.setState({ bankName: event.target.value });
+  // };
+  // handleBranchNumberChanged = event => {
+  //   this.setState({ branchNumber: event.target.value });
+  // };
+  // handleAccountNumberChanged = event => {
+  //   this.setState({ accountNumber: event.target.value });
+  // };
   handleRealAddressChanged = (event, str) => {
     let tmpAddress = _.cloneDeep(this.state.realAddress);
     tmpAddress[str] = event.target.value;
@@ -706,7 +706,7 @@ class TutorRegisterForm extends Component {
                 </Form.Control>
               </React.Fragment>
             ) : null}
-            <Form.Label>
+            {/* <Form.Label>
               <b>:פרטי בנק</b>
             </Form.Label>
             <br />
@@ -756,7 +756,7 @@ class TutorRegisterForm extends Component {
                   errorMessages={this.state.scholar === 'direct' || 'points'|| 'other' ? ["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]: ["שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
-            </Form.Row>
+            </Form.Row> */}
             <Form.Label dir="rtl">
               <b>כתובת כפי שמצוין בת.ז.</b>
             </Form.Label>
