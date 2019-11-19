@@ -23,8 +23,9 @@ import Approve from "./components/UI/Approve/Approve";
 import Relations from "./components/UI/Relations/Relations";
 import ReportsTrainee from "./components/UI/Reports/ReportsTrainee";
 
-import { ActiveYearsPage } from './components/UI/Filters/ActiveYears/ActiveYearsPage';
-import { GeneralFiltersPage } from './components/UI/Filters/General/GeneralFiltersPage';
+// import { ActiveYearsPage } from './components/UI/Filters/ActiveYears/ActiveYearsPage';
+// import { GeneralFiltersPage } from './components/UI/Filters/General/GeneralFiltersPage';
+import DbQuerying from './components/UI/DBQuerying/DBQueryingPage';
 
 class App extends Component {
   render() {
@@ -41,7 +42,7 @@ class App extends Component {
             <Route path="/ReportTrainee" component={ReportsTrainee} />
             <Route path="/reports" component={Reports} />
             <Route path="/addRelation" component={Relation} />
-            <Route path="/filters/active-years/trainees" component={FilterTutorsOrTraineesByActiveYears}/>
+            {/* <Route path="/filters/active-years/trainees" component={FilterTutorsOrTraineesByActiveYears}/> */}
             {/* <Route path="/relations" component={Relations} /> */}
             <Route
               path="/AcademicInstitutions"
@@ -60,7 +61,9 @@ class App extends Component {
             <Route path="/alerts" component={Approve} />
             <Route path="/relations" component={Relations} />
 
-            <Route
+            <Route path="/dbQuerying" component={DbQuerying} />
+
+            {/* <Route
               path="/filters/general/trainees"
               component={({ history, location }) => (
                 <GeneralFiltersPage history={history} location={location} type='trainees' />
@@ -89,7 +92,7 @@ class App extends Component {
                   history={history}
                   location={location}
                   type="tutors"
-                />
+                /> */}
               )}
             />
 
