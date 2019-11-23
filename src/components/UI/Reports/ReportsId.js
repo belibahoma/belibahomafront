@@ -57,14 +57,14 @@ export default class ReportsId extends Component {
             lname: userData.lname,
             userType: userData.userType,
             relationsList: res.data.filter(relation => {
-              console.log(
-                relation.tutor_id._id,
-                tutor,
-                relation.trainee_id._id,
-                trainee,
-                relation.tutor_id._id === tutor &&
-                  (trainee ? relation.trainee_id._id === trainee : true)
-              );
+              // console.log(
+              //   relation.tutor_id._id,
+              //   tutor,
+              //   relation.trainee_id._id,
+              //   trainee,
+              //   relation.tutor_id._id === tutor &&
+              //     (trainee ? relation.trainee_id._id === trainee : true)
+              // );
               return (
                 relation.tutor_id._id === tutor &&
                 (trainee ? relation.trainee_id._id === trainee : true)
@@ -74,8 +74,8 @@ export default class ReportsId extends Component {
             traineesList: _.uniqBy(
               res.data.filter(relation => {
                 return (
-                  relation.tutor_id._id === tutor &&
-                  (trainee ? relation.trainee_id._id === trainee : true)
+                  relation.tutor_id && relation.tutor_id._id === tutor &&
+                  (trainee ? relation.trainee_id && relation.trainee_id._id === trainee : true)
                 );
               }),
               "trainee_id"
@@ -97,11 +97,11 @@ export default class ReportsId extends Component {
               if (trainee) {
                 return (
                   report.type === "ordinary" &&
-                  report.tutor_id._id === tutor &&
+                  report.tutor_id && report.tutor_id._id === tutor &&
                   (report.trainee_id && report.trainee_id._id === trainee)
                 );
               } else {
-                return report.tutor_id._id === tutor;
+                return report.tutor_id && report.tutor_id._id === tutor;
               }
             }),
             val => {
@@ -113,11 +113,11 @@ export default class ReportsId extends Component {
               if (trainee) {
                 return (
                   report.type === "ordinary" &&
-                  report.tutor_id._id === tutor &&
+                  report.tutor_id && report.tutor_id._id === tutor &&
                   (report.trainee_id && report.trainee_id._id === trainee)
                 );
               } else {
-                return report.tutor_id._id === tutor;
+                return report.tutor_id && report.tutor_id._id === tutor;
               }
             }),
             totalHours: total
