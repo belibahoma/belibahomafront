@@ -30,7 +30,8 @@ export default class ReportsId extends Component {
     asc: true,
     isView: false,
     updateValue: null,
-    deleteValue: null
+    deleteValue: null,
+    showAll: false
   };
 
   componentDidMount() {
@@ -94,15 +95,19 @@ export default class ReportsId extends Component {
         .then(res => {
           const total = _.sumBy(
             res.data.filter(report => {
-              if (trainee) {
-                return (
-                  report.type === "ordinary" &&
-                  report.tutor_id && report.tutor_id._id === tutor &&
-                  (report.trainee_id && report.trainee_id._id === trainee)
-                );
-              } else {
-                return report.tutor_id && report.tutor_id._id === tutor;
-              }
+              // if (report) {
+              //   if(this.state.showAll){
+                  return (report.tutor_id && report.tutor_id._id === tutor);
+                // }
+              //   else{
+              //     return (
+              //       report.type === "ordinary" &&
+              //       report.tutor_id && report.tutor_id._id === tutor &&
+              //       (report.trainee_id && report.trainee_id._id === trainee));
+              //   }  
+              // } else {
+              //   return report.tutor_id && report.tutor_id._id === tutor;
+              // }
             }),
             val => {
               return val.totalTime;
@@ -110,15 +115,20 @@ export default class ReportsId extends Component {
           );
           this.setState({
             reportList: res.data.filter(report => {
-              if (trainee) {
-                return (
-                  report.type === "ordinary" &&
-                  report.tutor_id && report.tutor_id._id === tutor &&
-                  (report.trainee_id && report.trainee_id._id === trainee)
-                );
-              } else {
-                return report.tutor_id && report.tutor_id._id === tutor;
-              }
+              if (report) {
+                // if(this.state.showAll){
+                  return (report.tutor_id && report.tutor_id._id === tutor);
+                // }
+                // else{
+                //   return (
+                //     report.type === "ordinary" &&
+                //     report.tutor_id && report.tutor_id._id === tutor &&
+                //     (report.trainee_id && report.trainee_id._id === trainee));
+                // }  
+              } 
+              // else {
+              //   return report.tutor_id && report.tutor_id._id === tutor;
+              // }
             }),
             totalHours: total
           });
@@ -199,8 +209,8 @@ export default class ReportsId extends Component {
       isView: true
     });
   };
-  reportItems = () => {
-    const studArr = _.orderBy(this.state.reportList, val => {
+  reportItems = (arr) => {
+    const studArr = _.orderBy(arr, val => {
       return this.state.sortBy === "date"
         ? Date.parse(val[this.state.sortBy])
         : val[this.state.sortBy] || "";
@@ -312,6 +322,19 @@ export default class ReportsId extends Component {
               חזור לקשרי למידה משותפת
             </Button>
           </ButtonToolbar>
+          
+          <Form className="text-right">
+          <Form.Label dir="rtl" className="h6 text-danger">
+            להציג את כל הרשומות?
+          </Form.Label>
+          <Form.Check
+            checked={this.state.showAll}
+            onChange={() => {
+              this.setState({ showAll: !this.state.showAll });
+            }}
+          ></Form.Check>
+        </Form>
+          
           <Table
             striped
             bordered
@@ -353,7 +376,13 @@ export default class ReportsId extends Component {
                 </th>
               </tr>
             </thead>
-            <tbody>{this.reportItems()}</tbody>
+            <tbody>{this.state.showAll ? this.reportItems(this.state.reportList) : this.reportItems(this.state.reportList.filter(report=>{  
+              return (report.type === "ordinary" &&
+                      report.tutor_id && report.tutor_id._id === this.state.tutor &&
+                      (report.trainee_id && report.trainee_id._id === this.state.trainee));
+              }))}
+ 
+          </tbody>
           </Table>
           {this.state.openModal ? (
             <AddAppointment
