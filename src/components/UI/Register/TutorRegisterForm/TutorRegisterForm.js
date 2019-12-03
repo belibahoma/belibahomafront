@@ -706,6 +706,7 @@ class TutorRegisterForm extends Component {
                 </Form.Control>
               </React.Fragment>
             ) : null}
+            {/* We have changed all this block into a comment */}
             {/* <Form.Label>
               <b>:פרטי בנק</b>
             </Form.Label>
