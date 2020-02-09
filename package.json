@@ -31,7 +31,7 @@
     "react-pdf": "^4.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "react-time-picker": "^3.7.1",
+    "react-time-picker": "^3.9.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1",
     "socket.io-client": "^2.2.0",
