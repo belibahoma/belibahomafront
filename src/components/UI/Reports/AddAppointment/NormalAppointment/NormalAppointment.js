@@ -7,6 +7,14 @@ import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import _ from "lodash";
 
+function toSeconds(time_str) {
+  // Extract hours, minutes and seconds
+  var parts = time_str.split(':');
+  // compute  and return total seconds
+  return parts[0] * 60 +
+         parts[1] * 1
+}
+
 export default class NormalAppointment extends Component {
   state = {
     isUpdate: this.props.isUpdate,
@@ -96,22 +104,30 @@ export default class NormalAppointment extends Component {
             onError={this.props.onError}
             ref="form"
             onSubmit={() => {
-              this.props.onSubmit(
-                _.pick(this.state, [
-                  "date",
-                  "from",
-                  "to",
-                  "location",
-                  "studyTime",
-                  "chavrutaTime",
-                  "casingTime",
-                  "description",
-                  "knowledgeRank",
-                  "connectionRank",
-                  "isNeedAdmin",
-                  "isHappened"
-                ])
-              );
+              const difference = (toSeconds(this.state.to) - toSeconds(this.state.from)) / 60;
+              console.log(difference);
+              if (difference != this.state.studyTime) {
+                alert("מספר שעות סיוע אקדמי לא תואם לשעות בפועל");
+              } else {
+                this.props.onSubmit(
+                  _.pick(this.state, [
+                    "date",
+                    "from",
+                    "to",
+                    "location",
+                    "studyTime",
+                    "chavrutaTime",
+                    "casingTime",
+                    "description",
+                    "knowledgeRank",
+                    "connectionRank",
+                    "isNeedAdmin",
+                    "isHappened"
+                  ])
+                );
+
+              }
+              
             }}
           >
             <Form.Label dir="rtl">איך היה בקשר הלמידה?</Form.Label>
