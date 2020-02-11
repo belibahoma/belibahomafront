@@ -220,11 +220,11 @@ export default class NormalAppointment extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
-            <Row  dir="rtl">משעה:<Form.Label></Form.Label></Row>
+            <Row  dir="rtl">משעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
             <br />
             <TimePicker onChange={this.handleFromTime} value={this.state.from} maxDetail="minute" locale="he" required/>
             <br />
-            <Row  dir="rtl">עד שעה:<Form.Label></Form.Label></Row>
+            <Row  dir="rtl">עד שעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
             <br />
             <TimePicker onChange={this.handleToTime} value={this.state.to} maxDetail="minute" locale="he"required/>
             <br />
