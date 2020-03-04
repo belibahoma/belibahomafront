@@ -46,11 +46,11 @@ class TraineeRegisterForm extends Component {
     secondaryStudy: "",
     academicPlan: "N/A",
     studyYear: "1",
-    bankAccount: {
-      bankName: "",
-      branchNumber: "",
-      accountNumber: ""
-    },
+    // bankAccount: {
+    //   bankName: "",
+    //   branchNumber: "",
+    //   accountNumber: ""
+    // },
     realAddress: {
       street: "",
       city: "",
@@ -251,14 +251,14 @@ class TraineeRegisterForm extends Component {
   handleStudyYearChanged = event => {
     this.setState({ studyYear: event.target.value });
   };
-  handleBankAccountChanged = (event, str) => {
-    let tmpAccount = _.cloneDeep(this.state.bankAccount);
-    tmpAccount[str] = event.target.value;
-    this.setState({ bankAccount: tmpAccount });
-  };
-  handleBankNameChanged = event => {
-    this.setState({ bankName: event.target.value });
-  };
+  // handleBankAccountChanged = (event, str) => {
+  //   let tmpAccount = _.cloneDeep(this.state.bankAccount);
+  //   tmpAccount[str] = event.target.value;
+  //   this.setState({ bankAccount: tmpAccount });
+  // };
+  // handleBankNameChanged = event => {
+  //   this.setState({ bankName: event.target.value });
+  // };
   handleBranchNumberChanged = event => {
     this.setState({ branchNumber: event.target.value });
   };
@@ -475,7 +475,7 @@ class TraineeRegisterForm extends Component {
   handleCheckedOnPolicy = event => {
     const name = event.target.name;
     this.state.checkedArray.includes(name) ? this.state.checkedArray.splice(this.state.checkedArray.indexOf(name), 1) : this.state.checkedArray.push(name);
-    this.state.checkedArray.length > 5 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
+    this.state.checkedArray.length > 6 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
   }
 
   unavailableTimesForm = () => {
@@ -801,7 +801,7 @@ class TraineeRegisterForm extends Component {
                 </Form.Control>
               </React.Fragment>
             ) : null}
-            <Form.Label>
+            {/* <Form.Label>
               <b>:פרטי בנק</b>
             </Form.Label>
             <br />
@@ -851,7 +851,7 @@ class TraineeRegisterForm extends Component {
                   errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
-            </Form.Row>
+            </Form.Row> */}
             <Form.Label dir="rtl">
               <b>כתובת כפי שמצוין בת.ז.</b>
             </Form.Label>
@@ -1343,6 +1343,7 @@ class TraineeRegisterForm extends Component {
                   <li><Section name="agree3" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש למלא משוב בסוף שנת הלימודים"></Section></li>
                   <li><Section name="agree4" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש להיות זמין לצוות הפרויקט, להגיע לפגישה איתם במידת הצורך לעדכן את צוות התוכנית בבעיות או שינויים לאורך השנה במידה ויהיו"></Section></li>
                   <li><Section name="agree5" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="יש לשלוח במהלך השנה תמונה משותפת עם הסטודנט עימו הינך לומד, כולל טקסט המתאר את החוויה בלימוד עם סטודנט ממגזר שונה, ואת התרומה האקדמית שהלימוד המשותף תרם לך, (הפרטים הנ''ל יימסרו לתורמים בלבד אלא אם כן תאשר אחרת)"></Section></li>
+                  <li><Section name="agree6" agree={SIMPLE_AGREE} onChange={this.handleCheckedOnPolicy} text="אני מאשר לבליבה חומה להעביר את פרטיי למרכז הכוון תעסוקתי באזור מגוריי ו/או לגורמים מממנים נוספים של התוכנית, על מנת לאפשר להם לתמוך בתוכנית ולקיימה. כמו כן אני מסכים למלא ולחתום על טפסי ויתור סודיות עם מידע שלי עבור גורמים מסוג זה"></Section></li>
                 </ul>
                 
               

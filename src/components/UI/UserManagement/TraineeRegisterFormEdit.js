@@ -48,7 +48,7 @@ class TraineeRegisterFormEdit extends Component {
       secondaryStudy: this.props.traineeInfo.secondaryStudy,
       academicPlan: this.props.traineeInfo.academicPlan,
       studyYear: this.props.traineeInfo.studyYear,
-      bankAccount: this.props.traineeInfo.bankAccount,
+      // bankAccount: this.props.traineeInfo.bankAccount,
       realAddress: this.props.traineeInfo.realAddress,
       currentAddress: this.props.traineeInfo.currentAddress,
       religiousStatus: this.props.traineeInfo.religiousStatus,
@@ -237,14 +237,14 @@ class TraineeRegisterFormEdit extends Component {
   handleStudyYearChanged = event => {
     this.setState({ studyYear: event.target.value });
   };
-  handleBankAccountChanged = (event, str) => {
-    let tmpAccount = _.cloneDeep(this.state.bankAccount);
-    tmpAccount[str] = event.target.value;
-    this.setState({ bankAccount: tmpAccount });
-  };
-  handleBankNameChanged = event => {
-    this.setState({ bankName: event.target.value });
-  };
+  // handleBankAccountChanged = (event, str) => {
+  //   let tmpAccount = _.cloneDeep(this.state.bankAccount);
+  //   tmpAccount[str] = event.target.value;
+  //   this.setState({ bankAccount: tmpAccount });
+  // };
+  // handleBankNameChanged = event => {
+  //   this.setState({ bankName: event.target.value });
+  // };
   handleBranchNumberChanged = event => {
     this.setState({ branchNumber: event.target.value });
   };
@@ -772,7 +772,7 @@ class TraineeRegisterFormEdit extends Component {
                 </Form.Control>
               </React.Fragment>
             ) : null}
-            <Form.Label>
+            {/* <Form.Label>
               <b>:פרטי בנק</b>
             </Form.Label>
             <br />
@@ -822,7 +822,7 @@ class TraineeRegisterFormEdit extends Component {
                   errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
                 />
               </Form.Group>
-            </Form.Row>
+            </Form.Row> */}
             <Form.Label dir="rtl">
               <b>כתובת כפי שמצוין בת.ז.</b>
             </Form.Label>

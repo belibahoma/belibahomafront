@@ -50,7 +50,7 @@ class TutorRegisterForm extends Component {
             secondaryStudy: this.props.tutorInfo.secondaryStudy,
             academicPlan: this.props.tutorInfo.academicPlan,
             studyYear: this.props.tutorInfo.studyYear,
-            bankAccount: this.props.tutorInfo.bankAccount,
+            // bankAccount: this.props.tutorInfo.bankAccount,
             realAddress: this.props.tutorInfo.realAddress,
             currentAddress: this.props.tutorInfo.currentAddress,
             religiousStatus: this.props.tutorInfo.religiousStatus,
@@ -220,14 +220,14 @@ class TutorRegisterForm extends Component {
     handleStudyYearChanged = event => {
         this.setState({ studyYear: event.target.value });
     };
-    handleBankAccountChanged = (event, str) => {
-        let tmpAccount = _.cloneDeep(this.state.bankAccount);
-        tmpAccount[str] = event.target.value;
-        this.setState({ bankAccount: tmpAccount });
-    };
-    handleBankNameChanged = event => {
-        this.setState({ bankName: event.target.value });
-    };
+    // handleBankAccountChanged = (event, str) => {
+    //     let tmpAccount = _.cloneDeep(this.state.bankAccount);
+    //     tmpAccount[str] = event.target.value;
+    //     this.setState({ bankAccount: tmpAccount });
+    // };
+    // handleBankNameChanged = event => {
+    //     this.setState({ bankName: event.target.value });
+    // };
     handleBranchNumberChanged = event => {
         this.setState({ branchNumber: event.target.value });
     };
@@ -679,43 +679,43 @@ class TutorRegisterForm extends Component {
                                     type="text"
                                     as={TextValidator}
                                     className="mb-2"
-                                    onChange={event => {
-                                        this.handleBankAccountChanged(event, "bankName");
-                                    }}
-                                    name="bankName"
-                                    value={this.state.bankAccount.bankName}
-                                    validators={["required"]}
-                                    errorMessages={["שדה זה הינו חובה"]}
-                                />
-                            </Form.Group>
-                            <Form.Group className="m-2">
-                                <Form.Label>מספר סניף</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    as={TextValidator}
-                                    className="mb-2"
-                                    onChange={event => {
-                                        this.handleBankAccountChanged(event, "branchNumber");
-                                    }}
-                                    name="branchNumber"
-                                    value={this.state.bankAccount.branchNumber}
-                                    validators={["required", "isNumber"]}
-                                    errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
-                                />
-                            </Form.Group>
-                            <Form.Group className="m-2">
-                                <Form.Label>מספר חשבון</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    as={TextValidator}
-                                    className="mb-2"
-                                    onChange={event => {
-                                        this.handleBankAccountChanged(event, "accountNumber");
-                                    }}
-                                    name="accountNumber"
-                                    value={this.state.bankAccount.accountNumber}
-                                    validators={["required", "isNumber"]}
-                                    errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
+                                    // onChange={event => {
+                                    //     this.handleBankAccountChanged(event, "bankName");
+                                    // }}
+                                    // name="bankName"
+                                    // value={this.state.bankAccount.bankName}
+                                    // validators={["required"]}
+                                    // errorMessages={["שדה זה הינו חובה"]}
+                            //     />
+                            // </Form.Group>
+                            // <Form.Group className="m-2">
+                            //     <Form.Label>מספר סניף</Form.Label>
+                            //     <Form.Control
+                            //         type="text"
+                            //         as={TextValidator}
+                            //         className="mb-2"
+                            //         onChange={event => {
+                            //             this.handleBankAccountChanged(event, "branchNumber");
+                            //         }}
+                            //         name="branchNumber"
+                            //         value={this.state.bankAccount.branchNumber}
+                            //         validators={["required", "isNumber"]}
+                            //         errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
+                            //     />
+                            // </Form.Group>
+                            // <Form.Group className="m-2">
+                            //     <Form.Label>מספר חשבון</Form.Label>
+                            //     <Form.Control
+                            //         type="text"
+                            //         as={TextValidator}
+                            //         className="mb-2"
+                            //         onChange={event => {
+                            //             this.handleBankAccountChanged(event, "accountNumber");
+                            //         }}
+                            //         name="accountNumber"
+                            //         value={this.state.bankAccount.accountNumber}
+                            //         validators={["required", "isNumber"]}
+                            //         errorMessages={["שדה זה הינו חובה", "שדה זה מכיל ספרות בלבד"]}
                                 />
                             </Form.Group>
                         </Form.Row>
