@@ -1,15 +1,26 @@
 import React, { Component } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Row } from "react-bootstrap";
 import { ValidatorForm } from "react-form-validator-core";
 import DatePicker from "react-date-picker";
 import TextValidator from "./../../../../Validators/TextValidator/TextValidator";
+import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import _ from "lodash";
+
+function toSeconds(time_str) {
+  // Extract hours, minutes and seconds
+  var parts = time_str.split(':');
+  // compute  and return total seconds
+  return parts[0] * 60 +
+         parts[1] * 1
+}
 
 export default class NormalAppointment extends Component {
   state = {
     isUpdate: this.props.isUpdate,
     date: this.props.date,
+    from: '',
+    to: '',
     location: "",
     studyTime: 0,
     chavrutaTime: 0,
@@ -55,6 +66,12 @@ export default class NormalAppointment extends Component {
   handleCasingTimeChanged = event => {
     this.setState({ casingTime: event.target.value });
   };
+  handleFromTime = from => {
+    this.setState({ from })
+  };
+  handleToTime = to => {
+    this.setState({ to })
+  };
   handleSubmit = val => {
     // console.log("Submitted", val);
   };
@@ -87,20 +104,30 @@ export default class NormalAppointment extends Component {
             onError={this.props.onError}
             ref="form"
             onSubmit={() => {
-              this.props.onSubmit(
-                _.pick(this.state, [
-                  "date",
-                  "location",
-                  "studyTime",
-                  "chavrutaTime",
-                  "casingTime",
-                  "description",
-                  "knowledgeRank",
-                  "connectionRank",
-                  "isNeedAdmin",
-                  "isHappened"
-                ])
-              );
+              const difference = (toSeconds(this.state.to) - toSeconds(this.state.from)) / 60;
+              console.log(difference);
+              if (difference != this.state.studyTime) {
+                alert("מספר שעות סיוע אקדמי לא תואם לשעות בפועל");
+              } else {
+                this.props.onSubmit(
+                  _.pick(this.state, [
+                    "date",
+                    "from",
+                    "to",
+                    "location",
+                    "studyTime",
+                    "chavrutaTime",
+                    "casingTime",
+                    "description",
+                    "knowledgeRank",
+                    "connectionRank",
+                    "isNeedAdmin",
+                    "isHappened"
+                  ])
+                );
+
+              }
+              
             }}
           >
             <Form.Label dir="rtl">איך היה בקשר הלמידה?</Form.Label>
@@ -193,6 +220,15 @@ export default class NormalAppointment extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
+            <Row  dir="rtl">משעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
+            <br />
+            <TimePicker onChange={this.handleFromTime} value={this.state.from} maxDetail="minute" locale="he" required/>
+            <br />
+            <Row  dir="rtl">עד שעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
+            <br />
+            <TimePicker onChange={this.handleToTime} value={this.state.to} maxDetail="minute" locale="he"required/>
+            <br />
+
             <Form.Label dir="rtl">מספר שעות חברותא</Form.Label>
             <Form.Control
               disabled={this.props.readOnly}
