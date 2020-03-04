@@ -83,11 +83,6 @@ export default class Tutors extends Component {
         secondaryStudy: "",
         academicPlan: "",
         studyYear: "",
-        bankAccount: {
-          bankName: "",
-          branchNumber: "",
-          accountNumber: ""
-        },
         realAddress: {
           street: "",
           city: "",

@@ -85,11 +85,6 @@ export default class Trainee extends Component {
         secondaryStudy: "",
         academicPlan: "",
         studyYear: "",
-        // bankAccount: {
-        //   bankName: "",
-        //   branchNumber: "",
-        //   accountNumber: ""
-        // },
         realAddress: {
           street: "",
           city: "",
