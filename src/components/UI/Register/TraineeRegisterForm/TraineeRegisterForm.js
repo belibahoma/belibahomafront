@@ -59,9 +59,9 @@ class TraineeRegisterForm extends Component {
     },
     religiousStatus: "N/A",
     religiousText: "",
-    unavailableTimes: [
-      { day: 1, Time: { start: Date.now(), end: Date.now() } }
-    ],
+    // unavailableTimes: [
+    //   { day: 1, Time: { start: Date.now(), end: Date.now() } }
+    // ],
     notes: "",
     stuffNotes: "",
     isNeedAdditionalRelation: false,
@@ -279,54 +279,54 @@ class TraineeRegisterForm extends Component {
     this.setState({ religiousText: event.target.value });
   };
 
-  addUnavailableTime = () => {
-    let tmpArr = _.cloneDeep(this.state.unavailableTimes);
-    tmpArr.push({ day: 1, Time: { start: Date.now(), end: Date.now() } });
-    this.setState({ unavailableTimes: tmpArr });
-  };
+  // addUnavailableTime = () => {
+  //   let tmpArr = _.cloneDeep(this.state.unavailableTimes);
+  //   tmpArr.push({ day: 1, Time: { start: Date.now(), end: Date.now() } });
+  //   this.setState({ unavailableTimes: tmpArr });
+  // };
 
-  handleUnavailableTimesChanged = (event, index, type) => {
-    let tmpUnavailableTimes = _.cloneDeep(this.state.unavailableTimes);
-    let valueToChange = tmpUnavailableTimes[index];
-    const newVal = event;
-    switch (type) {
-      case "day":
-        valueToChange = {
-          day: newVal.target.value,
-          Time: valueToChange.Time
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "start":
-        valueToChange = {
-          Time: {
-            start: new Date("01/01/2007 " + newVal),
-            end: valueToChange.Time.end
-          },
-          day: valueToChange.day
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "end":
-        valueToChange = {
-          Time: {
-            start: valueToChange.Time.start,
-            end: new Date("01/01/2007 " + newVal)
-          },
-          day: valueToChange.day
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "remove":
-        tmpUnavailableTimes = tmpUnavailableTimes.filter((val, i) => {
-          return i !== index;
-        });
-        break;
-      default:
-        break;
-    }
-    this.setState({ unavailableTimes: tmpUnavailableTimes });
-  };
+  // handleUnavailableTimesChanged = (event, index, type) => {
+  //   let tmpUnavailableTimes = _.cloneDeep(this.state.unavailableTimes);
+  //   let valueToChange = tmpUnavailableTimes[index];
+  //   const newVal = event;
+  //   switch (type) {
+  //     case "day":
+  //       valueToChange = {
+  //         day: newVal.target.value,
+  //         Time: valueToChange.Time
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "start":
+  //       valueToChange = {
+  //         Time: {
+  //           start: new Date("01/01/2007 " + newVal),
+  //           end: valueToChange.Time.end
+  //         },
+  //         day: valueToChange.day
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "end":
+  //       valueToChange = {
+  //         Time: {
+  //           start: valueToChange.Time.start,
+  //           end: new Date("01/01/2007 " + newVal)
+  //         },
+  //         day: valueToChange.day
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "remove":
+  //       tmpUnavailableTimes = tmpUnavailableTimes.filter((val, i) => {
+  //         return i !== index;
+  //       });
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.setState({ unavailableTimes: tmpUnavailableTimes });
+  // };
   handleNotesChanged = event => {
     this.setState({ notes: event.target.value });
   };
@@ -467,74 +467,74 @@ class TraineeRegisterForm extends Component {
     this.state.checkedArray.length > 6 ? this.setState({disabledAck: false}) : this.setState({disabledAck: true})
   }
 
-  unavailableTimesForm = () => {
-    return this.state.unavailableTimes.map((obj, index) => {
-      return (
-        <React.Fragment key={index}>
-          <Form.Row dir="rtl">
-            <Form.Group as={Col}>
-              <Form.Label>אנא בחר יום</Form.Label>
-              <Form.Control
-                as="select"
-                className="mb-2"
-                dir="rtl"
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "day");
-                }}
-                name={"unavailableTimes" + index}
-                value={this.state.unavailableTimes[index].day}
-              >
-                <option value="1">ראשון</option>
-                <option value="2">שני</option>
-                <option value="3">שלישי</option>
-                <option value="4">רביעי</option>
-                <option value="5">חמישי</option>
-                <option value="6">שישי</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group as={Col} className="mx-2  text-center" dir="ltr">
-              <Form.Label>אנא בחר שעת התחלה</Form.Label>
-              <br />
-              <TimePicker
-                className="mt-1"
-                name={`start${index}`}
-                selected={this.state.unavailableTimes[index].Time.start}
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "start");
-                }}
-                disableClock={true}
-              />
-              <br />
-            </Form.Group>
-            <Form.Group as={Col} className="mx-2 text-center" dir="ltr">
-              <Form.Label>אנא בחר שעת סיום</Form.Label>
-              <br />
-              <TimePicker
-                name={`end${index}`}
-                className="mt-1"
-                selected={this.state.unavailableTimes[index].Time.end}
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "end");
-                }}
-                disableClock={true}
-              />
-              <br />
-            </Form.Group>
-          </Form.Row>
-          <Form.Group as={Col} className="text-right align-content-center">
-            <Button
-              className="btn btn-danger"
-              onClick={() =>
-                this.handleUnavailableTimesChanged(null, index, "remove")
-              }
-            >
-              מחק זמן
-            </Button>
-          </Form.Group>
-        </React.Fragment>
-      );
-    });
-  };
+  // unavailableTimesForm = () => {
+  //   return this.state.unavailableTimes.map((obj, index) => {
+  //     return (
+  //       <React.Fragment key={index}>
+  //         <Form.Row dir="rtl">
+  //           <Form.Group as={Col}>
+  //             <Form.Label>אנא בחר יום</Form.Label>
+  //             <Form.Control
+  //               as="select"
+  //               className="mb-2"
+  //               dir="rtl"
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "day");
+  //               }}
+  //               name={"unavailableTimes" + index}
+  //               value={this.state.unavailableTimes[index].day}
+  //             >
+  //               <option value="1">ראשון</option>
+  //               <option value="2">שני</option>
+  //               <option value="3">שלישי</option>
+  //               <option value="4">רביעי</option>
+  //               <option value="5">חמישי</option>
+  //               <option value="6">שישי</option>
+  //             </Form.Control>
+  //           </Form.Group>
+  //           <Form.Group as={Col} className="mx-2  text-center" dir="ltr">
+  //             <Form.Label>אנא בחר שעת התחלה</Form.Label>
+  //             <br />
+  //             <TimePicker
+  //               className="mt-1"
+  //               name={`start${index}`}
+  //               selected={this.state.unavailableTimes[index].Time.start}
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "start");
+  //               }}
+  //               disableClock={true}
+  //             />
+  //             <br />
+  //           </Form.Group>
+  //           <Form.Group as={Col} className="mx-2 text-center" dir="ltr">
+  //             <Form.Label>אנא בחר שעת סיום</Form.Label>
+  //             <br />
+  //             <TimePicker
+  //               name={`end${index}`}
+  //               className="mt-1"
+  //               selected={this.state.unavailableTimes[index].Time.end}
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "end");
+  //               }}
+  //               disableClock={true}
+  //             />
+  //             <br />
+  //           </Form.Group>
+  //         </Form.Row>
+  //         <Form.Group as={Col} className="text-right align-content-center">
+  //           <Button
+  //             className="btn btn-danger"
+  //             onClick={() =>
+  //               this.handleUnavailableTimesChanged(null, index, "remove")
+  //             }
+            // >
+              // מחק זמן
+            // </Button>
+          // </Form.Group>
+        // </React.Fragment>
+      // );
+    // });
+  // };
 
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
@@ -925,14 +925,14 @@ class TraineeRegisterForm extends Component {
               </React.Fragment>
             ) : null}
             {/* until here is the common part */}
-            <Button
+            {/* <Button
               className="btn btn-success my-2"
               onClick={this.addUnavailableTime}
-            >
-              הוסף זמן בלתי אפשרי לפעילות
+            > */}
+              {/* הוסף זמן בלתי אפשרי לפעילות
             </Button>
             <br />
-            {this.unavailableTimesForm()}
+            {this.unavailableTimesForm()} */}
             <Form.Label dir="rtl">הערות/בקשות נוספות</Form.Label>
             <Form.Control
               type="text"
