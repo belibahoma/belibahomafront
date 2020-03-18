@@ -99,7 +99,7 @@ export default class Trainee extends Component {
         religiousStatus: "",
         religiousText: "",
         scholarshipTimes: "",
-        unavailableTimes: "",
+        // unavailableTimes: "",
         notes: "",
         stuffNotes: "",
         isNeedAdditionalRelation: "",

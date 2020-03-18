@@ -151,16 +151,16 @@ class Relation extends Component {
     );
   };
 
-  calculateTime = (tutorUnavailableTimes, traineeUnavailableTimes) => {
-    return !tutorUnavailableTimes.some(tutorTime => {
-      return traineeUnavailableTimes.some(traineeTime => {
-        return (
-          tutorTime.day === traineeTime.day &&
-          this.isTimeOverlap(tutorTime.Time, traineeTime.Time)
-        );
-      });
-    });
-  };
+  // calculateTime = (tutorUnavailableTimes, traineeUnavailableTimes) => {
+  //   return !tutorUnavailableTimes.some(tutorTime => {
+  //     return traineeUnavailableTimes.some(traineeTime => {
+  //       return (
+  //         tutorTime.day === traineeTime.day &&
+  //         this.isTimeOverlap(tutorTime.Time, traineeTime.Time)
+  //       );
+  //     });
+  //   });
+  // };
 
   isTimeOverlap = (timeA, timeB) => {
     return timeB.start - timeA.start <= 0 || timeB.end - timeA.end >= 0;

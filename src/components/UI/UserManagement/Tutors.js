@@ -73,7 +73,7 @@ export default class Tutors extends Component {
         email: "",
         password: "",
         phoneA: "",
-        phoneB: "",
+        // phoneB: "",
         birthDate: "",
         gender: "",
         maritalStatus: "",
@@ -83,11 +83,11 @@ export default class Tutors extends Component {
         secondaryStudy: "",
         academicPlan: "",
         studyYear: "",
-        realAddress: {
-          street: "",
-          city: "",
-          neighborhood: ""
-        },
+        // realAddress: {
+        //   street: "",
+        //   city: "",
+        //   neighborhood: ""
+        // },
         currentAddress: {
           street: "",
           city: "",
@@ -97,7 +97,7 @@ export default class Tutors extends Component {
         religiousStatus: "",
         religiousText: "",
         scholarshipTimes: "",
-        unavailableTimes: "",
+        // unavailableTimes: "",
         notes: "",
         stuffNotes: "",
         isNeedAdditionalRelation: "",

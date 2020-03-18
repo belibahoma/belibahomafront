@@ -35,7 +35,7 @@ class TutorRegisterForm extends Component {
     email: "",
     password: "",
     phoneA: "",
-    phoneB: "",
+    // phoneB: "",
     birthDate: Date.now(),
     gender: "N/A",
     maritalStatus: "N/A",
@@ -46,11 +46,11 @@ class TutorRegisterForm extends Component {
     academicPlan: "N/A",
     studyYear: "1",
 
-    realAddress: {
-      street: "",
-      city: "",
-      neighborhood: ""
-    },
+    // realAddress: {
+    //   street: "",
+    //   city: "",
+    //   neighborhood: ""
+    // },
     currentAddress: {
       street: "",
       city: "",
@@ -58,9 +58,9 @@ class TutorRegisterForm extends Component {
     },
     religiousStatus: "N/A",
     religiousText: "",
-    unavailableTimes: [
-      { day: 1, Time: { start: Date.now(), end: Date.now() } }
-    ],
+    // unavailableTimes: [
+    //   { day: 1, Time: { start: Date.now(), end: Date.now() } }
+    // ],
     notes: "",
     stuffNotes: "",
     isNeedAdditionalRelation: false,
@@ -195,9 +195,9 @@ class TutorRegisterForm extends Component {
   handlePhoneAChanged = event => {
     this.setState({ phoneA: event.target.value });
   };
-  handlePhoneBChanged = event => {
-    this.setState({ phoneB: event.target.value });
-  };
+  // handlePhoneBChanged = event => {
+  //   this.setState({ phoneB: event.target.value });
+  // };
   handleBirthDateChanged = value => {
     this.setState({ birthDate: value });
   };
@@ -227,11 +227,11 @@ class TutorRegisterForm extends Component {
     this.setState({ studyYear: event.target.value });
   };
 
-  handleRealAddressChanged = (event, str) => {
-    let tmpAddress = _.cloneDeep(this.state.realAddress);
-    tmpAddress[str] = event.target.value;
-    this.setState({ realAddress: tmpAddress });
-  };
+  // handleRealAddressChanged = (event, str) => {
+  //   let tmpAddress = _.cloneDeep(this.state.realAddress);
+  //   tmpAddress[str] = event.target.value;
+  //   this.setState({ realAddress: tmpAddress });
+  // };
 
   handleCurrentAddressChanged = (event, str) => {
     let tmpAddress = _.cloneDeep(this.state.currentAddress);
@@ -245,54 +245,54 @@ class TutorRegisterForm extends Component {
     this.setState({ religiousText: event.target.value });
   };
 
-  addUnavailableTime = () => {
-    let tmpArr = _.cloneDeep(this.state.unavailableTimes);
-    tmpArr.push({ day: 1, Time: { start: Date.now(), end: Date.now() } });
-    this.setState({ unavailableTimes: tmpArr });
-  };
+  // addUnavailableTime = () => {
+  //   let tmpArr = _.cloneDeep(this.state.unavailableTimes);
+  //   tmpArr.push({ day: 1, Time: { start: Date.now(), end: Date.now() } });
+  //   this.setState({ unavailableTimes: tmpArr });
+  // };
 
-  handleUnavailableTimesChanged = (event, index, type) => {
-    let tmpUnavailableTimes = _.cloneDeep(this.state.unavailableTimes);
-    let valueToChange = tmpUnavailableTimes[index];
-    const newVal = event;
-    switch (type) {
-      case "day":
-        valueToChange = {
-          day: newVal.target.value,
-          Time: valueToChange.Time
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "start":
-        valueToChange = {
-          Time: {
-            start: new Date("01/01/2007 " + newVal),
-            end: valueToChange.Time.end
-          },
-          day: valueToChange.day
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "end":
-        valueToChange = {
-          Time: {
-            start: valueToChange.Time.start,
-            end: new Date("01/01/2007 " + newVal)
-          },
-          day: valueToChange.day
-        };
-        tmpUnavailableTimes[index] = valueToChange;
-        break;
-      case "remove":
-        tmpUnavailableTimes = tmpUnavailableTimes.filter((val, i) => {
-          return i !== index;
-        });
-        break;
-      default:
-        break;
-    }
-    this.setState({ unavailableTimes: tmpUnavailableTimes });
-  };
+  // handleUnavailableTimesChanged = (event, index, type) => {
+  //   let tmpUnavailableTimes = _.cloneDeep(this.state.unavailableTimes);
+  //   let valueToChange = tmpUnavailableTimes[index];
+  //   const newVal = event;
+  //   switch (type) {
+  //     case "day":
+  //       valueToChange = {
+  //         day: newVal.target.value,
+  //         Time: valueToChange.Time
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "start":
+  //       valueToChange = {
+  //         Time: {
+  //           start: new Date("01/01/2007 " + newVal),
+  //           end: valueToChange.Time.end
+  //         },
+  //         day: valueToChange.day
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "end":
+  //       valueToChange = {
+  //         Time: {
+  //           start: valueToChange.Time.start,
+  //           end: new Date("01/01/2007 " + newVal)
+  //         },
+  //         day: valueToChange.day
+  //       };
+  //       tmpUnavailableTimes[index] = valueToChange;
+  //       break;
+  //     case "remove":
+  //       tmpUnavailableTimes = tmpUnavailableTimes.filter((val, i) => {
+  //         return i !== index;
+  //       });
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   this.setState({ unavailableTimes: tmpUnavailableTimes });
+  // };
   handleNotesChanged = event => {
     this.setState({ notes: event.target.value });
   };
@@ -356,78 +356,77 @@ class TutorRegisterForm extends Component {
     
   }
 
-  unavailableTimesForm = () => {
-    return this.state.unavailableTimes.map((obj, index) => {
-      return (
-        <React.Fragment key={index}>
-          <Form.Row dir="rtl">
-            <Form.Group as={Col}>
-              <Form.Label>אנא בחר יום</Form.Label>
-              <Form.Control
-                as="select"
-                className="mb-2"
-                dir="rtl"
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "day");
-                }}
-                name={"unavailableTimes" + index}
-                value={this.state.unavailableTimes[index].day}
-              >
-                <option value="1">ראשון</option>
-                <option value="2">שני</option>
-                <option value="3">שלישי</option>
-                <option value="4">רביעי</option>
-                <option value="5">חמישי</option>
-                <option value="6">שישי</option>
-              </Form.Control>
-            </Form.Group>
-            <Form.Group as={Col} className="mx-2  text-center" dir="ltr">
-              <Form.Label>אנא בחר שעת התחלה</Form.Label>
-              <br />
-              <TimePicker
-                className="mt-1"
-                name={`start${index}`}
-                selected={this.state.unavailableTimes[index].Time.start}
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "start");
-                }}
-                disableClock={true}
-              />
-              <br />
-            </Form.Group>
-            <Form.Group as={Col} className="mx-2 text-center" dir="ltr">
-              <Form.Label>אנא בחר שעת סיום</Form.Label>
-              <br />
-              <TimePicker
-                name={`end${index}`}
-                className="mt-1"
-                selected={this.state.unavailableTimes[index].Time.end}
-                onChange={event => {
-                  this.handleUnavailableTimesChanged(event, index, "end");
-                }}
-                disableClock={true}
-              />
-              <br />
-            </Form.Group>
-          </Form.Row>
-          <Form.Group as={Col} className="text-right align-content-center">
-            <Button
-              className="btn btn-danger"
-              onClick={() =>
-                this.handleUnavailableTimesChanged(null, index, "remove")
-              }
-            >
-              מחק זמן
-            </Button>
-          </Form.Group>
-        </React.Fragment>
-      );
-    });
-  };
+  // unavailableTimesForm = () => {
+  //   return this.state.unavailableTimes.map((obj, index) => {
+  //     return (
+  //       <React.Fragment key={index}>
+  //         <Form.Row dir="rtl">
+  //           <Form.Group as={Col}>
+  //             <Form.Label>אנא בחר יום</Form.Label>
+  //             <Form.Control
+  //               as="select"
+  //               className="mb-2"
+  //               dir="rtl"
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "day");
+  //               }}
+  //               name={"unavailableTimes" + index}
+  //               value={this.state.unavailableTimes[index].day}
+  //             >
+  //               <option value="1">ראשון</option>
+  //               <option value="2">שני</option>
+  //               <option value="3">שלישי</option>
+  //               <option value="4">רביעי</option>
+  //               <option value="5">חמישי</option>
+  //               <option value="6">שישי</option>
+  //             </Form.Control>
+  //           </Form.Group>
+  //           <Form.Group as={Col} className="mx-2  text-center" dir="ltr">
+  //             <Form.Label>אנא בחר שעת התחלה</Form.Label>
+  //             <br />
+  //             <TimePicker
+  //               className="mt-1"
+  //               name={`start${index}`}
+  //               selected={this.state.unavailableTimes[index].Time.start}
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "start");
+  //               }}
+  //               disableClock={true}
+  //             />
+  //             <br />
+  //           </Form.Group>
+  //           <Form.Group as={Col} className="mx-2 text-center" dir="ltr">
+  //             <Form.Label>אנא בחר שעת סיום</Form.Label>
+  //             <br />
+  //             <TimePicker
+  //               name={`end${index}`}
+  //               className="mt-1"
+  //               selected={this.state.unavailableTimes[index].Time.end}
+  //               onChange={event => {
+  //                 this.handleUnavailableTimesChanged(event, index, "end");
+  //               }}
+  //               disableClock={true}
+  //             />
+  //             <br />
+  //           </Form.Group>
+  //         </Form.Row>
+  //         <Form.Group as={Col} className="text-right align-content-center">
+  //           <Button
+  //             className="btn btn-danger"
+  //             onClick={() =>
+  //               this.handleUnavailableTimesChanged(null, index, "remove")
+  //             }
+  //           >
+  //             מחק זמן
+  //           </Button>
+  //         </Form.Group>
+  //       </React.Fragment>
+  //     );
+  //   });
+  // };
 
   render() {
-    return (
-      <React.Fragment>
+    return (<React.Fragment>
         {this.state.isLoading ? this.getModal() : null}
         <Container className="text-right m-2">
           <Form
@@ -511,7 +510,7 @@ class TutorRegisterForm extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
-            <Form.Label>מספר טלפון ראשי</Form.Label>
+            <Form.Label>מספר טלפון </Form.Label>
             <Form.Control
               dir="rtl"
               type="text"
@@ -532,16 +531,16 @@ class TutorRegisterForm extends Component {
                 "צריך להכיל לפחות 9 ספרות",
                 "צריך להכיל מקסימום 10 ספרות"
               ]}
-            />
-            <Form.Label>מספר טלפון משני</Form.Label>
-            <Form.Control
-              dir="rtl"
-              type="text"
-              as={TextValidator}
-              className="mb-2"
-              onChange={this.handlePhoneBChanged}
-              name="phoneB"
-              value={this.state.phoneB}
+            // />
+            // <Form.Label>מספר טלפון משני</Form.Label>
+            // <Form.Control
+            //   dir="rtl"
+            //   type="text"
+            //   as={TextValidator}
+            //   className="mb-2"
+            //   onChange={this.handlePhoneBChanged}
+            //   name="phoneB"
+            //   value={this.state.phoneB}
             />
             <Form.Label>כתובת אימייל</Form.Label>
             <Form.Control
@@ -689,7 +688,7 @@ class TutorRegisterForm extends Component {
                 </Form.Control>
               </React.Fragment>
             ) : null}
-            <Form.Label dir="rtl">
+            {/* <Form.Label dir="rtl">
               <b>כתובת כפי שמצוין בת.ז.</b>
             </Form.Label>
             <br />
@@ -737,9 +736,9 @@ class TutorRegisterForm extends Component {
                   value={this.state.realAddress.neighborhood}
                   validators={["required"]}
                   errorMessages={["שדה זה הינו חובה"]}
-                />
-              </Form.Group>
-            </Form.Row>
+                /> */}
+              {/* </Form.Group>
+            </Form.Row> */}
             <Form.Label dir="rtl">
               <b>כתובת מגורים בפועל</b>
             </Form.Label>
@@ -822,14 +821,14 @@ class TutorRegisterForm extends Component {
                 />
               </React.Fragment>
             ) : null}
-            <Button
+            {/* <Button
               className="btn btn-success my-2"
               onClick={this.addUnavailableTime}
             >
               הוסף זמן בלתי אפשרי לפעילות
             </Button>
             <br />
-            {this.unavailableTimesForm()}
+            {this.unavailableTimesForm()} */}
             <Form.Label dir="rtl">הערות/בקשות נוספות</Form.Label>
             <Form.Control
               type="text"
