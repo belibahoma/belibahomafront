@@ -173,11 +173,7 @@ class Relation extends Component {
   showTrainees = () => {
     const trainees =
       this.state.traineesList.length >= 1 && this.state.selectedTutor !== null
-        ? this.state.traineesList.filter(trainee => {
-            const isTimeOk = this.calculateTime(
-              this.state.selectedTutor.unavailableTimes,
-              trainee.unavailableTimes
-            );
+        ? this.state.traineesList.filter(trainee => {          
             return ( 
               ((trainee.activityArea._id === this.state.selectedTutor.activityArea._id) || this.state.showAllStudents) &&
                  (this.traineeNeedRelation(trainee._id) || trainee.isNeedAdditionalRelation));
