@@ -47,6 +47,9 @@ export default class DynamicSelectBox extends Component {
         </option>
       ];
       this.state.valuesList.map(val => {
+        if(val == undefined || this.props.value == undefined) {
+          console.log("error!");
+        }    
         return valuesArr.push(
           <option
             key={val._id}
@@ -72,6 +75,8 @@ export default class DynamicSelectBox extends Component {
         multiple={this.props.multiple}
         dir="rtl"
         className={this.props.className}
+        disabled={this.props.disabled == undefined ? false : this.props.disabled}
+        readOnly={this.props.readOnly == undefined ? false : this.props.readOnly}
         onChange={event => {
           this.props.onChange(event);
         }}
@@ -85,5 +90,5 @@ export default class DynamicSelectBox extends Component {
         {this.selectList()}
       </select>
     );
-  }
+  } 
 }
