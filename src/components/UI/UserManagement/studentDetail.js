@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import { Link } from "react-router-dom";
-import axios from "axios";
 import config from "react-global-configuration";
 import server from "../../../server/server"
 import {Jumbotron, Tabs, Tab} from "react-bootstrap";
