@@ -4,6 +4,8 @@ import config from "react-global-configuration";
 import server from "../../../server/server"
 import {Jumbotron, Tabs, Tab} from "react-bootstrap";
 import TraineeForm from "./TraineeForm";
+import ReportsTrainee from "../Reports/ReportsTrainee";
+import ReportsId from "../Reports/ReportsId";
 
 export default class studentDetail extends Component {
   constructor(props) {
@@ -34,6 +36,7 @@ export default class studentDetail extends Component {
                       {this.state && this.state.studentInfo && <TraineeForm readOnly={true} traineeInfo={this.state.studentInfo}/>}
                   </Tab>
               <Tab eventKey="relations" title="חונכות">
+                 {this.state && this.state.studentInfo && <ReportsTrainee traineeInfo={this.state.studentInfo}/>}  
               </Tab>
             </Tabs>
       </React.Fragment>;
