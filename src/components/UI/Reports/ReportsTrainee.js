@@ -33,9 +33,15 @@ export default class ReportsTrainee extends Component {
 
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
-    let userData = localStorage.getItem("beliba-homa-user");
+    let userData;
+    if (this.props.traineeInfo) {
+      userData = this.props.traineeInfo
+    } else {
+      userData = JSON.parse(localStorage.getItem("beliba-homa-user"));
+    }
+    
     if (userToken && userData) {
-      userData = JSON.parse(userData);
+      //userData = JSON.parse(userData);
       axios
         .get(`${config.get("serverAddress")}/api/relations`, {
           headers: { "x-auth-token": userToken }
@@ -217,15 +223,16 @@ export default class ReportsTrainee extends Component {
         </Card>
 
         <Container fluid="false">
+        {!this.props.traineeInfo &&
           <ButtonToolbar className="justify-content-end">
-            <Button
+           <Button
               variant="danger"
-              onClick={this.props.history.goBack}
+              onClick={!this.props.traineeInfo ? null : this.props.history.goBack}
               className="m-2"
             >
               חזור לקשרי למידה משותפת
             </Button>
-          </ButtonToolbar>
+          </ButtonToolbar>}
           <Table
             striped
             bordered
