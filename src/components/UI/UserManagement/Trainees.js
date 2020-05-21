@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MultyTableGeneric from "../../../containers/MultyTableGeneric/MultyTableGeneric";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Row } from "react-bootstrap";
 // import DynamicSelectBox from './../../../containers/DynamicSelectBox/DynamicSelectBox';
 import config from "react-global-configuration";
 // import BootstrapTable from 'react-bootstrap-table-next';
 // import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import TraineeRegisterFormEdit from "./TraineeRegisterFormEdit";
+import { FormSelect } from "semantic-ui-react";
 
 export default class Trainee extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ export default class Trainee extends Component {
     // console.log(props);
 
     this.state = {
-      showAll: false,
+      showUnActive: false,
+      showUnApproved: false,
       TableColumns: [
         {
           dataField: "isActive",
@@ -246,22 +248,34 @@ export default class Trainee extends Component {
           סטודנטים חרדים
         </h1>
         <Form dir="rtl" className="text-right">
-          <Form.Group className="align-content-center" dir="ltr">
-            <Form.Check
-              label="?להציג סטודנטים חרדים לא פעילים"
+          <Row dir="ltr">
+          <Form.Check
+              label=" הצג סטודנטים שלא אושרו"
               onChange={() => {
-                this.setState({ showAll: !this.state.showAll });
+                this.setState({ showUnApproved: !this.state.showUnApproved });
               }}
-              checked={this.state.showAll}
+              checked={this.state.showUnApproved}
             />
-          </Form.Group>
+            <Form.Check
+              label="הצג סטודנטים לא פעילים"
+              onChange={() => {
+                this.setState({ showUnActive: !this.state.showUnActive });
+              }}
+              checked={this.state.showUnActive}
+            />
+           
+          </Row>
         </Form>
         {/* <Button as={Link} to="/register" variant="outline-primary">הוסף חונך</Button> */}
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
-          data={this.state.traineeList.filter(trainee => {
-            return true;
-            // trainee.isActive || this.state.showAll;
+          data={this.state.traineeList.filter(trainee => {   
+            let ans = true;
+            if (!this.state.showUnApproved && !trainee.isApproved)
+                ans = false;
+            if (!this.state.showUnActive && !trainee.isActive)
+                ans = false;
+            return ans;
           })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}

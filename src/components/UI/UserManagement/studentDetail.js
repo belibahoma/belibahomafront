@@ -5,6 +5,7 @@ import server from "../../../server/server"
 import {Jumbotron, Tabs, Tab} from "react-bootstrap";
 import TraineeForm from "./TraineeForm";
 import ReportsTrainee from "../Reports/ReportsTrainee";
+import ReportsTutor from "../Reports/ReportsTutor";
 import ReportsId from "../Reports/ReportsId";
 
 export default class studentDetail extends Component {
@@ -17,6 +18,7 @@ export default class studentDetail extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.isTutor)
     if(this.state.isTutor)
       server.asAdmin.getTutor(this.state.student_id, this, 'studentInfo');
     else
@@ -33,10 +35,12 @@ export default class studentDetail extends Component {
               <Tabs defaultActiveKey="details" id="uncontrolled-tab-example" dir="rtl">
                   <Tab eventKey="details" title="פרטים אישיים">
                       <br />
-                      {this.state && this.state.studentInfo && <TraineeForm readOnly={true} traineeInfo={this.state.studentInfo}/>}
+                      {this.state && !this.state.isTutor && this.state.studentInfo && <TraineeForm readOnly={true} traineeInfo={this.state.studentInfo}/>}
+                      {this.state && this.state.isTutor && this.state.studentInfo && "ניתן להציג כרגע רק שעות חונכות בטאב השני ,טאב פרטי חונך עוד בבניה, ניתן לגשת אליהם דרך עריכה בטבלת החונכים"}  
                   </Tab>
               <Tab eventKey="relations" title="חונכות">
-                 {this.state && this.state.studentInfo && <ReportsTrainee traineeInfo={this.state.studentInfo}/>}  
+                 {this.state && !this.state.isTutor && this.state.studentInfo && <ReportsTrainee traineeInfo={this.state.studentInfo}/>}
+                 {this.state && this.state.isTutor && this.state.studentInfo && <ReportsTutor traineeInfo={this.state.studentInfo}/>}  
               </Tab>
             </Tabs>
       </React.Fragment>;

@@ -55,18 +55,18 @@ export default class ReportsTrainee extends Component {
             userType: userData.userType,
             relationsList: res.data.filter(relation => {
               return (
-                relation.trainee_id && relation.trainee_id._id === userData._id
+                relation.tutor_id && relation.tutor_id._id === userData._id
               );
             }),
             userToken: userToken,
             traineesList: _.uniqBy(
               res.data.filter(relation => {
                 return (
-                  relation.trainee_id &&
-                  relation.trainee_id._id === userData._id
+                  relation.tutor_id &&
+                  relation.tutor_id._id === userData._id
                 );
               }),
-              "trainee_id"
+              "tutor_id"
             )
           });
         })
@@ -83,7 +83,7 @@ export default class ReportsTrainee extends Component {
           const total = _.sumBy(
             res.data.filter(report => {
               return (
-                report.trainee_id && report.trainee_id._id === userData._id
+                report.tutor_id && report.tutor_id._id === userData._id
               );
             }),
             val => {
@@ -93,7 +93,7 @@ export default class ReportsTrainee extends Component {
           this.setState({
             reportList: res.data.filter(report => {
               return (
-                report.trainee_id && report.trainee_id._id === userData._id
+                report.tutor_id && report.tutor_id._id === userData._id
               );
             }),
             totalHours: total
