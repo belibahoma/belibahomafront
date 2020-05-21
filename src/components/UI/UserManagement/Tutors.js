@@ -2,7 +2,9 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import axios from "axios";
 import MultyTableGeneric from "../../../containers/MultyTableGeneric/MultyTableGeneric";
-import { Modal, Form } from "react-bootstrap";
+import { Modal,Button,Row, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 // import DynamicSelectBox from './../../../containers/DynamicSelectBox/DynamicSelectBox';
 import config from "react-global-configuration";
 // import BootstrapTable from 'react-bootstrap-table-next';
@@ -13,7 +15,6 @@ export default class Tutors extends Component {
   constructor(props) {
     super(props);
     // console.log(props);
-    let x;
 
     //this.handleClickAddItem = this.handleClickAddItem.bind(this);
 
@@ -55,7 +56,11 @@ export default class Tutors extends Component {
         {
           dataField: "fname",
           formatter: (value, row, index) => {
-            return row.lname + ", " + value;
+            return (
+              <Button as={Link} to={`tutor/${row._id}`} variant="link">
+                {row.lname + ", " + value}
+              </Button>
+            );
           },
           text: "שם מלא",
           sort: true
@@ -65,7 +70,8 @@ export default class Tutors extends Component {
       tutorList: [],
       isShowing: false,
       editIsShoing: false,
-      showAll: false,
+      showUnActive: false,
+      showUnApproved: false,
 
       tutorInfo: {
         id: "",
@@ -222,20 +228,33 @@ export default class Tutors extends Component {
         </h1>
         {/* <Button as={Link} to="/register" variant="outline-primary">הוסף חונך</Button> */}
         <Form dir="rtl" className="text-right">
-          <Form.Group className="align-content-center" dir="ltr">
-            <Form.Check
-              label="?להציג מתגברים לא פעילים"
+          <Row dir="ltr">
+          <Form.Check
+              label=" הצג מתגברים שלא אושרו"
               onChange={() => {
-                this.setState({ showAll: !this.state.showAll });
+                this.setState({ showUnApproved: !this.state.showUnApproved });
               }}
-              checked={this.state.showAll}
+              checked={this.state.showUnApproved}
             />
-          </Form.Group>
+            <Form.Check
+              label="הצג מתגברים לא פעילים"
+              onChange={() => {
+                this.setState({ showUnActive: !this.state.showUnActive });
+              }}
+              checked={this.state.showUnActive}
+            />
+           
+          </Row>
         </Form>
         <MultyTableGeneric
           ColumnNames={this.state.TableColumns}
           data={this.state.tutorList.filter(tutor => {
-            return tutor.isActive || this.state.showAll;
+            let ans = true;
+            if (!this.state.showUnApproved && !tutor.isApproved)
+                ans = false;
+            if (!this.state.showUnActive && !tutor.isActive)
+                ans = false;
+            return ans;
           })}
           hadleDelete={this.hadleDelete}
           hadleEdit={this.hadleEdit}
