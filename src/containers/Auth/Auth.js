@@ -106,10 +106,10 @@ export default class Auth extends Component {
               className="text-right"
             >
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>שם משתמש</Form.Label>
+                <Form.Label> תעודת זהות</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder="הכנס שם משתמש"
+                  placeholder=" הכנס מספר זהות "
                   value={this.state.username}
                   validators={["required"]}
                   errorMessages={["שדה זה הינו חובה"]}

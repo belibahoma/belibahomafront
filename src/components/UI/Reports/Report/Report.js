@@ -30,6 +30,9 @@ const Report = props => {
           </Button>
         ) : null}
       </td>
+      <td>
+        {props.reportYear}
+      </td>
       <td>{`${new Date(props.date).getDate()}/${new Date(
         props.date
       ).getMonth() + 1}/${new Date(props.date).getFullYear()}`}</td>

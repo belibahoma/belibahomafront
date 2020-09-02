@@ -87,7 +87,7 @@ class TraineeForm extends Component {
     <Container className="text-right" fluid={true}>
         <Form as={ValidatorForm} onError={this.handleError} ref="form" onSubmit={this.handleSubmit}>
             <Row  dir="rtl">
-                <Field name="id" holder={this} label="מספר תעודת זהות (שם משתמש)"
+                <Field name="id" holder={this} label=" מספר תעודת זהות "
                     validators={["required", "isNumber", "minStringLength:9", "maxStringLength:9"]}
                     errorMessages={["שדה זה הינו חובה", "מכיל מספרים בלבד", "צריך להכיל לפחות 9 ספרות", "צריך להכיל לכל היותר 9 ספרות"]}/>
                 <Field holder={this} name="fname" type="text" label="שם פרטי"
