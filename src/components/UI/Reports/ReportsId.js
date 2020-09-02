@@ -323,6 +323,13 @@ export default class ReportsId extends Component {
                 <th colSpan="2">כלים</th>
                 <th
                   onClick={() => {
+                    this.handleSortBy("reportYear");
+                  }}
+                >
+                  שנת דיווח
+                </th>
+                <th
+                  onClick={() => {
                     this.handleSortBy("creationTime");
                   }}
                 >

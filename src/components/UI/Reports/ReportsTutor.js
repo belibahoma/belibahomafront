@@ -5,7 +5,8 @@ import {
   Container,
   Button,
   ButtonToolbar,
-  Form
+  Form,
+  Row
 } from "react-bootstrap";
 import Report from "./Report/Report";
 import AddAppointment from "./AddAppointment/AddAppointment";
@@ -28,7 +29,8 @@ export default class ReportsTrainee extends Component {
     sortBy: "type",
     asc: true,
     isView: false,
-    updateValue: null
+    updateValue: null,
+    reportYear: 'תשפ"א'
   };
 
   componentDidMount() {
@@ -80,24 +82,16 @@ export default class ReportsTrainee extends Component {
           headers: { "x-auth-token": userToken }
         })
         .then(res => {
-          const total = _.sumBy(
-            res.data.filter(report => {
-              return (
-                report.tutor_id && report.tutor_id._id === userData._id
-              );
-            }),
-            val => {
-              return val.totalTime;
-            }
-          );
-          this.setState({
-            reportList: res.data.filter(report => {
-              return (
-                report.tutor_id && report.tutor_id._id === userData._id
-              );
-            }),
-            totalHours: total
+          let reports = res.data.filter(report => {
+            return (
+              report.tutor_id && report.tutor_id._id === userData._id
+            );
           });
+          let filtered = reports.filter(report => report.reportYear === this.state.reportYear);
+          const total = _.sumBy(filtered, val => {
+            return val.totalTime;
+          });
+          this.setState({reports: reports, reportList: filtered, totalHours: total, reportYear: this.state.reportYear});
         })
         .catch(err => {
           alert(
@@ -145,6 +139,16 @@ export default class ReportsTrainee extends Component {
 
   handleSortBy = val => {
     this.setState({ sortBy: val, asc: !this.state.asc });
+  };
+  handleReportYearChanged = event => {
+    if (this.state.reports) {
+      let filtered = this.state.reports.filter(report => report.reportYear === event.target.value);
+    const total = _.sumBy(filtered, val => {
+      return val.totalTime;
+    });
+    this.setState({ reportYear: event.target.value, reportList: filtered,  totalHours: total,});
+    }
+    
   };
 
   handleCurrentUserChanged = event => {
@@ -212,6 +216,20 @@ export default class ReportsTrainee extends Component {
 
     return (
       <React.Fragment>
+        <Form dir='rtl' align='right'>
+        <Form.Label dir='rtl'>שנת דיווח </Form.Label>
+              <Form.Control as="select" 
+              value={this.state.reportYear}
+              onChange={this.handleReportYearChanged}
+              >
+                <option>תשפ"א</option>
+                <option>תש"פ</option>
+          </Form.Control>
+
+        </Form>
+        
+
+        
         <Card
           className="text-center mt-4 ml-2 mr-2"
           border="danger"
@@ -242,6 +260,13 @@ export default class ReportsTrainee extends Component {
             <thead>
               <tr>
                 <th colSpan="2">כלים</th>
+                <th
+                  onClick={() => {
+                    this.handleSortBy("reportYear");
+                  }}
+                >
+                  שנת דיווח
+                </th>
                 <th
                   onClick={() => {
                     this.handleSortBy("creationTime");

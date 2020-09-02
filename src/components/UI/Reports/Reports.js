@@ -63,13 +63,17 @@ export default class Reports extends Component {
           headers: { "x-auth-token": userToken }
         })
         .then(res => {
-          const total = _.sumBy(res.data, val => {
-            return val.totalTime;
-          });
+
           console.log(res.data);
           let lastReport = res.data.reduce(function(prev, current) {
             return (Date.parse(prev.date) > Date.parse(current.date)) ? prev : current});
-          this.setState({ reportList: res.data, totalHours: total, reportYear: lastReport.reportYear });
+          let lastReportYear = lastReport ? lastReport.reportYear : 'תשפ"א';
+
+          let filtered = res.data.filter(report => report.reportYear === lastReportYear);
+          const total = _.sumBy(filtered, val => {
+            return val.totalTime;
+          });
+          this.setState({reports: res.data, reportList: filtered, totalHours: total, reportYear: lastReportYear});
         })
         .catch(err => {
           alert(
@@ -140,7 +144,11 @@ export default class Reports extends Component {
 
   
   handleReportYearChanged = event => {
-    this.setState({ reportYear: event.target.value });
+    let filtered = this.state.reports.filter(report => report.reportYear === event.target.value);
+    const total = _.sumBy(filtered, val => {
+      return val.totalTime;
+    });
+    this.setState({ reportYear: event.target.value, reportList: filtered,  totalHours: total,});
   };
 
   handleAddAppointment = () => {
