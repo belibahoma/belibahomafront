@@ -137,6 +137,7 @@ export default class NormalAppointment extends Component {
           >
             <Form.Label dir="rtl">שנת דיווח </Form.Label>
             <Form.Control as="select"
+              disabled={this.props.readOnly}
               dir="rtl"
               value={this.state.reportYear}
               onChange={this.handleReportYearChanged}

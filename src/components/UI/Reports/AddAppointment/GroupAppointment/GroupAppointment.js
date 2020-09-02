@@ -12,7 +12,8 @@ export default class NormalAppointment extends Component {
     date: this.props.date,
     location: "",
     reportTime: 0,
-    description: ""
+    description: "",
+    reportYear: this.props.reportYear,
   };
   componentDidMount() {
     if (this.state.isUpdate) {
@@ -35,6 +36,9 @@ export default class NormalAppointment extends Component {
   handleCancel = () => {
     this.props.onCancel();
   };
+  handleReportYearChanged = event => {
+    this.setState({ reportYear: event.target.value });
+  };
 
   render() {
     return (
@@ -50,11 +54,23 @@ export default class NormalAppointment extends Component {
                   "date",
                   "location",
                   "reportTime",
-                  "description"
+                  "description",
+                  "reportYear"
                 ])
               );
             }}
           >
+            <Form.Label dir="rtl">שנת דיווח </Form.Label>
+            <Form.Control as="select"
+              disabled={this.props.readOnly}
+              dir="rtl"
+              value={this.state.reportYear}
+              onChange={this.handleReportYearChanged}
+            >
+              <option>תש"פ</option>
+              <option>תשפ"א</option>
+            </Form.Control>
+
             <Form.Label dir="rtl">איך היה במפגש?</Form.Label>
             <Form.Control
               disabled={this.props.readOnly}
