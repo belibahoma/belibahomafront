@@ -20,7 +20,9 @@ export default class OtherAppointment extends Component {
     isBirth: false,
     isMarriage: false,
     isDeathOfFirstDegree: false,
-    serveTime: { start: Date.now(), end: Date.now() }
+    serveTime: { start: Date.now(), end: Date.now() },
+    reportYear: this.props.reportYear,
+
   };
   componentDidMount() {
     if (this.state.isUpdate) {
@@ -64,6 +66,11 @@ export default class OtherAppointment extends Component {
   handleCancel = () => {
     this.props.onCancel();
   };
+
+  handleReportYearChanged = event => {
+    this.setState({ reportYear: event.target.value });
+  };
+
 
   showImpactValues = () => {
     if (this.props.isImpact || true) {
@@ -163,6 +170,16 @@ export default class OtherAppointment extends Component {
             <Form.Text>
               עבור מילוי של כל אחד מהסעיפים הבאים חובה לקבל אישור מרכז
             </Form.Text>
+            <Form.Label dir="rtl">שנת דיווח </Form.Label>
+            <Form.Control as="select"
+              disabled={this.props.readOnly}
+              dir="rtl"
+              value={this.state.reportYear}
+              onChange={this.handleReportYearChanged}
+            >
+              <option>תש"פ</option>
+              <option>תשפ"א</option>
+            </Form.Control>
             <Form.Label>תאריך</Form.Label>
             <br />
             <DatePicker

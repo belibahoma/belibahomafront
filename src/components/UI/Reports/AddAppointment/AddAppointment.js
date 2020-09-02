@@ -72,7 +72,14 @@ export default class AddAppointment extends Component {
 
   handleNormalSubmitted = values => {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
-    console.log("normal ", values);
+    let data = {
+      // headers: { "x-auth-token": userToken },
+      type: "ordinary",
+      tutor_id: this.state.tutor_id,
+      trainee_id: this.state.trainee_id || null,
+      ...values
+    }
+    console.log("normal ", data);
     axios
       .post(`${config.get("serverAddress")}/api/reports`, {
         // headers: { "x-auth-token": userToken },
