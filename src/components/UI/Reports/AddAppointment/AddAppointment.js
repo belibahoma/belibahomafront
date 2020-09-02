@@ -14,7 +14,8 @@ export default class AddAppointment extends Component {
     isModalShow: false,
     modalType: "",
     tutor_id: this.props.tutor._id,
-    trainee_id: this.props.trainee
+    trainee_id: this.props.trainee,
+    reportYear: this.props.reportYear
   };
 
   appointment = null;
@@ -104,6 +105,7 @@ export default class AddAppointment extends Component {
           this.props.onCancel();
         }}
         isImpact={this.props.tutor.isImpact}
+        reportYear={this.props.reportYear}
       />
     );
   };
@@ -117,6 +119,7 @@ export default class AddAppointment extends Component {
           this.setState({ isModalShow: false });
           this.props.onCancel();
         }}
+        reportYear={this.props.reportYear}
       />
     );
   };
@@ -134,6 +137,7 @@ export default class AddAppointment extends Component {
             this.setState({ isModalShow: false });
             this.props.onCancel();
           }}
+          reportYear={this.state.reportYear}
         />
       );
     }
@@ -154,11 +158,17 @@ export default class AddAppointment extends Component {
 
   render() {
     if (this.state.formType && this.state.formType === "normal") {
-      this.appointment = <NormalAppointment date={this.props.date} />;
+      this.appointment = <NormalAppointment date={this.props.date} 
+      reportYear={this.state.reportYear}
+      />;
     } else if (this.state.formType && this.state.formType === "group") {
-      this.appointment = <GroupAppointment />;
+      this.appointment = <GroupAppointment
+      reportYear={this.props.reportYear}
+      />;
     } else if (this.state.formType && this.state.formType === "other") {
-      this.appointment = <OtherAppointment />;
+      this.appointment = <OtherAppointment 
+      reportYear={this.props.reportYear}
+      />;
     }
 
     return (

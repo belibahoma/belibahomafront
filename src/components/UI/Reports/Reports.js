@@ -5,7 +5,9 @@ import {
   Container,
   Button,
   ButtonToolbar,
-  Form
+  Form,
+  Row,
+  Col
 } from "react-bootstrap";
 import Report from "./Report/Report";
 import AddAppointment from "./AddAppointment/AddAppointment";
@@ -65,7 +67,9 @@ export default class Reports extends Component {
             return val.totalTime;
           });
           console.log(res.data);
-          this.setState({ reportList: res.data, totalHours: total });
+          let lastReport = res.data.reduce(function(prev, current) {
+            return (Date.parse(prev.date) > Date.parse(current.date)) ? prev : current});
+          this.setState({ reportList: res.data, totalHours: total, reportYear: lastReport.reportYear });
         })
         .catch(err => {
           alert(
@@ -81,17 +85,17 @@ export default class Reports extends Component {
   addAppointment = null;
 
   deleteReport = id => {
-   
+
     var indexDeletion = this.state.reportList.findIndex(report => {
       return report._id === id;
     })
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     axios
-      .delete(`${config.get("serverAddress")}/api/reports/${id}`, {headers: { "x-auth-token": userToken }}
+      .delete(`${config.get("serverAddress")}/api/reports/${id}`, { headers: { "x-auth-token": userToken } }
       )
       .then(res => {
         let tempReportArr = this.state.reportList.slice(indexDeletion + 1).concat(this.state.reportList.slice(0, indexDeletion));
-        this.setState({deleteValue: null, reportList: tempReportArr});
+        this.setState({ deleteValue: null, reportList: tempReportArr });
 
       })
       .catch(err => {
@@ -134,6 +138,11 @@ export default class Reports extends Component {
     this.setState({ currentUser: event.target.value });
   };
 
+  
+  handleReportYearChanged = event => {
+    this.setState({ reportYear: event.target.value });
+  };
+
   handleAddAppointment = () => {
     this.setState({ openModal: true });
   };
@@ -144,7 +153,7 @@ export default class Reports extends Component {
       })
     });
     window.confirm("האם ברצונך למחוק את הדיווח?") && this.deleteReport(id);
-   
+
   };
 
   handleEditReport = id => {
@@ -185,6 +194,7 @@ export default class Reports extends Component {
             isTrainee={this.state.userType === "trainee"}
             tutor={item.tutor_id}
             trainee={item.trainee_id}
+            reportYear={item.reportYear}
             editReport={() => {
               this.handleEditReport(item._id);
             }}
@@ -218,28 +228,44 @@ export default class Reports extends Component {
           </Card.Header>
         </Card>
         <Form dir="rtl" className="m-2 text-right">
-          <Form.Label dir="rtl">אנא בחר סטודנט</Form.Label>
-          <Form.Control
-            as={DynamicSelectBox}
-            className="mb-2"
-            dir="rtl"
-            value={this.state.currentUser}
-            onChange={this.handleCurrentUserChanged}
-            headers={{
-              "x-auth-token": localStorage.getItem("beliba-homa-auth-token")
-            }}
-            name="activityArea"
-            fetchLink={`${config.get("serverAddress")}/api/relations`}
-            filterMethod={relations => {
-              const list = _.uniqBy(relations, "trainee_id");
-              return list.map(relation => {
-                return {
-                  _id: relation.trainee_id._id,
-                  name: `${relation.trainee_id.fname} ${relation.trainee_id.lname}`
-                };
-              });
-            }}
-          />
+          <Row>
+            <Col>
+              <Form.Label dir="rtl">אנא בחר סטודנט</Form.Label>
+              <Form.Control
+                as={DynamicSelectBox}
+                className="mb-2"
+                dir="rtl"
+                value={this.state.currentUser}
+                onChange={this.handleCurrentUserChanged}
+                headers={{
+                  "x-auth-token": localStorage.getItem("beliba-homa-auth-token")
+                }}
+                name="activityArea"
+                fetchLink={`${config.get("serverAddress")}/api/relations`}
+                filterMethod={relations => {
+                  const list = _.uniqBy(relations, "trainee_id");
+                  return list.map(relation => {
+                    return {
+                      _id: relation.trainee_id._id,
+                      name: `${relation.trainee_id.fname} ${relation.trainee_id.lname}`
+                    };
+                  });
+                }}
+              />
+            </Col>
+            <Col>
+              <Form.Label dir="rtl">שנת דיווח </Form.Label>
+              <Form.Control as="select" 
+              value={this.state.reportYear}
+              onChange={this.handleReportYearChanged}
+              >
+                <option>תש"פ</option>
+                <option>תשפ"א</option>
+              </Form.Control>
+            </Col>
+
+          </Row>
+
         </Form>
 
         <Container fluid="false">
@@ -269,6 +295,13 @@ export default class Reports extends Component {
             <thead>
               <tr>
                 <th colSpan="2">כלים</th>
+                <th
+                  onClick={() => {
+                    this.handleSortBy("reportYear");
+                  }}
+                >
+                  שנת דיווח
+                </th>
                 <th
                   onClick={() => {
                     this.handleSortBy("creationTime");
@@ -313,10 +346,11 @@ export default class Reports extends Component {
               tutor={this.state.user}
               trainee={this.state.currentUser} //TODO change to trainee
               date={Date.now()}
+              reportYear={this.state.reportYear}
             />
           ) : (
-            ""
-          )}
+              ""
+            )}
           {this.state.updateValue ? (
             <UpdateAppointment
               className="m-2"
@@ -330,7 +364,7 @@ export default class Reports extends Component {
               readOnly={this.state.isView}
             />
           ) : null}
-           
+
         </Container>
       </React.Fragment>
     );

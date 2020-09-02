@@ -12,7 +12,7 @@ function toSeconds(time_str) {
   var parts = time_str.split(':');
   // compute  and return total seconds
   return parts[0] * 60 +
-         parts[1] * 1
+    parts[1] * 1
 }
 
 export default class NormalAppointment extends Component {
@@ -29,7 +29,8 @@ export default class NormalAppointment extends Component {
     knowledgeRank: 1,
     connectionRank: 1,
     isNeedAdmin: false,
-    isHappened: false
+    isHappened: false,
+    reportYear: this.props.reportYear,
   };
   componentDidMount() {
     if (this.state.isUpdate) {
@@ -81,6 +82,9 @@ export default class NormalAppointment extends Component {
   handleCancel = () => {
     this.props.onCancel();
   };
+  handleReportYearChanged = event => {
+    this.setState({ reportYear: event.target.value });
+  };
 
   addOptions = () => {
     let options = [];
@@ -122,14 +126,24 @@ export default class NormalAppointment extends Component {
                     "knowledgeRank",
                     "connectionRank",
                     "isNeedAdmin",
-                    "isHappened"
+                    "isHappened",
+                    "reportYear",
                   ])
                 );
 
               }
-              
+
             }}
           >
+            <Form.Label dir="rtl">שנת דיווח </Form.Label>
+            <Form.Control as="select"
+              dir="rtl"
+              value={this.state.reportYear}
+              onChange={this.handleReportYearChanged}
+            >
+              <option>תש"פ</option>
+              <option>תשפ"א</option>
+            </Form.Control>
             <Form.Label dir="rtl">איך היה בקשר הלמידה?</Form.Label>
             <Form.Control
               disabled={this.props.readOnly}
@@ -220,13 +234,13 @@ export default class NormalAppointment extends Component {
               validators={["required"]}
               errorMessages={["שדה זה הינו חובה"]}
             />
-            <Row  dir="rtl">משעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
+            <Row dir="rtl">משעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
             <br />
-            <TimePicker onChange={this.handleFromTime} value={this.state.from} maxDetail="minute" locale="he" required/>
+            <TimePicker onChange={this.handleFromTime} value={this.state.from} maxDetail="minute" locale="he" required />
             <br />
-            <Row  dir="rtl">עד שעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
+            <Row dir="rtl">עד שעה (סעיף זה מתייחס לשעות הסיוע האקדמי בלבד):<Form.Label></Form.Label></Row>
             <br />
-            <TimePicker onChange={this.handleToTime} value={this.state.to} maxDetail="minute" locale="he"required/>
+            <TimePicker onChange={this.handleToTime} value={this.state.to} maxDetail="minute" locale="he" required />
             <br />
 
             <Form.Label dir="rtl">מספר שעות חברותא</Form.Label>
