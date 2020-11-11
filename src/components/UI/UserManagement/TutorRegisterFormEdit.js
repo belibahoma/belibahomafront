@@ -453,8 +453,8 @@ class TutorRegisterForm extends Component {
                             type="text"
                             as={TextValidator}
                             className="mb-2"
-                            onChange={this.handleLnameChanged}
-                            name="lname"
+                            onChange={this.handleFnameChanged}
+                            name="fname"
                             value={this.state.fname}
                             validators={["required"]}
                             errorMessages={["שדה זה הינו חובה"]}
@@ -465,8 +465,8 @@ class TutorRegisterForm extends Component {
                             type="text"
                             as={TextValidator}
                             className="mb-2"
-                            onChange={this.handleFnameChanged}
-                            name="fname"
+                            onChange={this.handleLnameChanged}
+                            name="lname"
                             value={this.state.lname}
                             validators={["required"]}
                             errorMessages={["שדה זה הינו חובה"]}
