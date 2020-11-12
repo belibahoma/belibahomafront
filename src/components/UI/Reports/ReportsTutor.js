@@ -36,8 +36,8 @@ export default class ReportsTrainee extends Component {
   componentDidMount() {
     const userToken = localStorage.getItem("beliba-homa-auth-token");
     let userData;
-    if (this.props.traineeInfo) {
-      userData = this.props.traineeInfo
+    if (this.props.tutorInfo) {
+      userData = this.props.tutorInfo
     } else {
       userData = JSON.parse(localStorage.getItem("beliba-homa-user"));
     }
@@ -241,11 +241,11 @@ export default class ReportsTrainee extends Component {
         </Card>
 
         <Container fluid="false">
-        {!this.props.traineeInfo &&
+        {!this.props.tutorInfo &&
           <ButtonToolbar className="justify-content-end">
            <Button
               variant="danger"
-              onClick={!this.props.traineeInfo ? null : this.props.history.goBack}
+              onClick={!this.props.tutorInfo ? null : this.props.history.goBack}
               className="m-2"
             >
               חזור לקשרי למידה משותפת
