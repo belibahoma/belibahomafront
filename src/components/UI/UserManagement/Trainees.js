@@ -53,15 +53,25 @@ export default class Trainee extends Component {
           sort: true
         },
         {
+          dataField: "lname",
+          formatter: (value, row, index) => {
+            return (
+                row.lname
+            );
+          },
+          text: "שם משפחה",
+          sort: true
+        },
+        {
           dataField: "fname",
           formatter: (value, row, index) => {
             return (
               <Button as={Link} to={`trainee/${row._id}`} variant="link">
-                {row.lname + ", " + value}
+                {row.fname}
               </Button>
             );
           },
-          text: "שם מלא",
+          text: "שם פרטי",
           sort: true
         }
       ],
