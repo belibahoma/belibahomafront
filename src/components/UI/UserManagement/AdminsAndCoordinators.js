@@ -50,11 +50,24 @@ export default class AdminsAndCoordinators extends Component {
           }
         },
         {
+
+          dataField: "lname",
+          formatter: (value, row, index) => {
+            return (
+                row.lname
+            );
+          },
+          text: "שם משפחה",
+          sort: true
+        },
+        {
           dataField: "fname",
           formatter: (value, row, index) => {
-            return row.lname + ", " + value;
+            return (
+                row.fname
+            );
           },
-          text: "שם מלא",
+          text: "שם פרטי",
           sort: true
         }
       ],
