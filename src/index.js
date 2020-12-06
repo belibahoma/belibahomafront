@@ -8,7 +8,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 config.set({ serverAddress:  "https://belibahomanode.herokuapp.com" });
-// config.set({ serverAddress: "http://localhost:8080" });
+//config.set({ serverAddress: "http://localhost:8080" });
 
 const app = (
   <BrowserRouter>
