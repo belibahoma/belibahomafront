@@ -72,6 +72,7 @@ class TutorRegisterForm extends Component {
     // until here is the common part
     isImpact: false,
     isShachak: false,
+    isFromUniformToStudies: false,
     isForAcademicPoints: false,
     isCityScholarship: false,
     mathLevel: "N/A",
@@ -87,6 +88,7 @@ class TutorRegisterForm extends Component {
 
   componentDidMount() {
     let colors = [
+      "primary",
       "primary",
       "secondary",
       "success",
@@ -322,6 +324,9 @@ class TutorRegisterForm extends Component {
   };
   handleIsShachakChanged = event => {
     this.setState({ isShachak: !this.state.isShachak });
+  };
+  handleIsFromUniformToStudiesChanged = event => {
+    this.setState({ isFromUniformToStudies: !this.state.isFromUniformToStudies});
   };
   handleIsForAcademicPointsChanged = event => {
     this.setState({ isForAcademicPoints: !this.state.isForAcademicPoints });
@@ -856,6 +861,15 @@ class TutorRegisterForm extends Component {
                   this.setState({ isShachak: !this.state.isShachak });
                 }}
                 checked={this.state.isShachak}
+              />
+            </Form.Group>
+            <Form.Group className="align-content-center" dir="ltr">
+              <Form.Check
+                  label="?האם אתה ממלגת ממדים ללימודים"
+                  onChange={() => {
+                    this.setState({isFromUniformToStudies: !this.state.isFromUniformToStudies});
+                  }}
+                  checked={this.state.isFromUniformToStudies}
               />
             </Form.Group>
 
