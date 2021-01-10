@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import config from "react-global-configuration";
 import DynamicSelectBox from "../../../containers/DynamicSelectBox/DynamicSelectBox";
 import {
@@ -122,7 +123,11 @@ class Relation extends Component {
               }}
             />
           </td>
-          <td>{trainee.fname}</td>
+          <td>
+            <Button as={Link} to={`trainee/${trainee._id}`} variant="link">
+              {trainee.fname}
+            </Button>
+          </td>
           <td>{trainee.lname}</td>
           <td>{trainee.institute.name}</td>
           <td>{trainee.mainStudy.name}</td>
@@ -173,19 +178,19 @@ class Relation extends Component {
   showTrainees = () => {
     const trainees =
       this.state.traineesList.length >= 1 && this.state.selectedTutor !== null
-        ? this.state.traineesList.filter(trainee => {          
-            return ( 
-              ((trainee.activityArea._id === this.state.selectedTutor.activityArea._id) || this.state.showAllStudents) &&
-                 (this.traineeNeedRelation(trainee._id) || trainee.isNeedAdditionalRelation));
-          })
-        : this.state.showAllStudents
         ? this.state.traineesList.filter(trainee => {
+          return (
+            ((trainee.activityArea._id === this.state.selectedTutor.activityArea._id) || this.state.showAllStudents) &&
+            (this.traineeNeedRelation(trainee._id) || trainee.isNeedAdditionalRelation));
+        })
+        : this.state.showAllStudents
+          ? this.state.traineesList.filter(trainee => {
             return (
               this.traineeNeedRelation(trainee._id) ||
               trainee.isNeedAdditionalRelation
             );
           })
-        : [];
+          : [];
     return this.showTraineesList(trainees);
   };
 
@@ -204,7 +209,7 @@ class Relation extends Component {
   showTutors = () => {
     let tutorsRowList = this.state.tutorsList.filter(tutor => {
       return (
-        tutor.isActive &&  (tutor.activityArea._id === this.state.area || this.state.area === "N/A") && (this.tutorNeedRelation(tutor._id) || tutor.isNeedAdditionalRelation) );
+        tutor.isActive && (tutor.activityArea._id === this.state.area || this.state.area === "N/A") && (this.tutorNeedRelation(tutor._id) || tutor.isNeedAdditionalRelation));
     });
 
     tutorsRowList = tutorsRowList.map(tutor => {
@@ -219,7 +224,11 @@ class Relation extends Component {
               }}
             />
           </td>
-          <td>{tutor.fname}</td>
+          <td>
+            <Button as={Link} to={`tutor/${tutor._id}`} variant="link">
+              {tutor.fname}
+            </Button>
+          </td>
           <td>{tutor.lname}</td>
           <td>{tutor.institute.name}</td>
           <td>{tutor.mainStudy.name}</td>
@@ -288,14 +297,14 @@ class Relation extends Component {
               <Modal.Title dir="rtl">
                 {this.state.selectedTrainee && this.state.selectedTutor
                   ? "האם אתה בטוח שאתה רוצה להוסיף קשר בין " +
-                    this.state.selectedTrainee.fname +
-                    " " +
-                    this.state.selectedTrainee.lname +
-                    " לבין " +
-                    this.state.selectedTutor.fname +
-                    " " +
-                    this.state.selectedTutor.lname +
-                    "?"
+                  this.state.selectedTrainee.fname +
+                  " " +
+                  this.state.selectedTrainee.lname +
+                  " לבין " +
+                  this.state.selectedTutor.fname +
+                  " " +
+                  this.state.selectedTutor.lname +
+                  "?"
                   : null}
               </Modal.Title>
             </Modal.Header>
@@ -307,8 +316,8 @@ class Relation extends Component {
                   <Spinner animation="border" variant="primary" />
                 </React.Fragment>
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </Modal.Body>
 
             <Modal.Footer>
