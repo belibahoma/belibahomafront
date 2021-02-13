@@ -68,6 +68,7 @@ class TutorRegisterForm extends Component {
             isShachak: this.props.tutorInfo.isShachak,
             isForAcademicPoints: this.props.tutorInfo.isForAcademicPoints,
             isCityScholarship: this.props.tutorInfo.isCityScholarship,
+            isFromUniformToStudies: this.props.tutorInfo.isFromUniformToStudies,
             mathLevel: this.props.tutorInfo.mathLevel,
             englishLevel: this.props.tutorInfo.englishLevel,
             physicsLevel: this.props.tutorInfo.physicsLevel,
@@ -317,6 +318,9 @@ class TutorRegisterForm extends Component {
     };
     handleIsImpactChanged = event => {
         this.setState({ isImpact: !this.state.isImpact });
+    };
+    handleIsFromUniformToStudiesChanged = event => {
+        this.setState({ isFromUniformToStudiesChanged: !this.state.isFromUniformToStudiesChanged });
     };
     handleIsShachakChanged = event => {
         this.setState({ isShachak: !this.state.isShachak });
@@ -825,6 +829,14 @@ class TutorRegisterForm extends Component {
                                 checked={this.state.isShachak}
                             />
                         </Form.Group>
+                        <Form.Group className="align-content-center" dir="ltr">
+                            <Form.Check
+                                label="?האם אתה סטודנט בשחק"
+                                onChange={this.handleIsFromUniformToStudiesChanged}
+                                checked={this.state.isFromUniformToStudies}
+                            />
+                        </Form.Group>
+
 
                         <Form.Group className="align-content-center" dir="ltr">
                             <Form.Check

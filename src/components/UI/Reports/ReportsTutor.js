@@ -30,7 +30,8 @@ export default class ReportsTrainee extends Component {
     asc: true,
     isView: false,
     updateValue: null,
-    reportYear: 'תשפ"א'
+    reportYear: 'תשפ"א',
+    reportType: false
   };
 
   componentDidMount() {
@@ -174,17 +175,24 @@ export default class ReportsTrainee extends Component {
       isView: true
     });
   };
+  handleReportTypeChanged = event => {
+      this.setState({ reportType: !this.state.reportType});
+    }
+
+
   reportItems = () => {
     const studArr = _.orderBy(this.state.reportList, val => {
       return this.state.sortBy === "date"
         ? Date.parse(val[this.state.sortBy])
         : val[this.state.sortBy] || "";
     })
+
       .filter(item => {
         return (
           this.state.currentUser === "error" ||
           this.state.currentUser === "N/A" ||
-          item.trainee_id
+          item.trainee_id||
+          this.state.reportType
         );
       })
       .map(item => {
@@ -207,6 +215,7 @@ export default class ReportsTrainee extends Component {
       });
     return this.state.asc ? studArr : studArr.reverse();
   };
+
   render() {
     if (this.state.addAppointmentTo) {
       this.addAppointment = (
@@ -227,9 +236,19 @@ export default class ReportsTrainee extends Component {
           </Form.Control>
 
         </Form>
-        
+        <Form dir='rtl' align='right'>
+          <Form.Label dir='rtl'>סוג דיווח </Form.Label>
+          <Form.Control as="select"
+                        onChange={this.handleReportTypeChanged}
+          >
+            <option>שעות חניכה</option>
+            <option>כל סוגי השעות</option>
+          </Form.Control>
 
-        
+        </Form>
+
+
+
         <Card
           className="text-center mt-4 ml-2 mr-2"
           border="danger"

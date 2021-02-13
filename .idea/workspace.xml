@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89a17615-4a28-4462-a142-51085276ec17" name="Default Changelist" comment="added the field isFromUniformToStudies that reprents if the toter is in the scholarship">
-      <change beforePath="$PROJECT_DIR$/src/components/UI/Register/TutorRegisterForm/TutorRegisterForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Register/TutorRegisterForm/TutorRegisterForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+    <list default="true" id="89a17615-4a28-4462-a142-51085276ec17" name="Default Changelist" comment="Added report types tutors">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Reports/ReportsTutor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Reports/ReportsTutor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/UserManagement/TutorRegisterFormEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/UserManagement/TutorRegisterFormEdit.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +29,11 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="89a17615-4a28-4462-a142-51085276ec17" name="Default Changelist" comment="" />
@@ -38,11 +41,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1607256147008</updated>
-      <workItem from="1607256149146" duration="318000" />
+      <workItem from="1607256149146" duration="1241000" />
+      <workItem from="1608131869048" duration="6373000" />
+      <workItem from="1612441510057" duration="1200000" />
     </task>
+    <task id="LOCAL-00001" summary="Added the field isFromUniformToStudies.">
+      <created>1607256488326</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607256488326</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added the field isFromUniformToStudies." />
+    <MESSAGE value="Added report types tutors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added report types tutors" />
   </component>
 </project>
