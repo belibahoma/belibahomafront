@@ -206,6 +206,10 @@ class TutorForm extends Component {
                 {this.state.isImpact}
             </Row>
             <Row dir="rtl">
+                <CheckBox holder={this} br={true} label="?האם אתה ממלגת ממדים ללימודים" name="isFromUniformToStudies"/>
+                {this.state.isFromUniformToStudies}
+            </Row>
+            <Row dir="rtl">
                 <CheckBox holder={this} br={true} label="?האם אתה סטודנט בשחק" name="isShachak"/>
                 {this.state.isShachak}
             </Row>

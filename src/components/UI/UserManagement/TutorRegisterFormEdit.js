@@ -831,7 +831,7 @@ class TutorRegisterForm extends Component {
                         </Form.Group>
                         <Form.Group className="align-content-center" dir="ltr">
                             <Form.Check
-                                label="?האם אתה סטודנט בשחק"
+                                label="?האם אתה ממלגת ממדים ללימודים"
                                 onChange={this.handleIsFromUniformToStudiesChanged}
                                 checked={this.state.isFromUniformToStudies}
                             />
